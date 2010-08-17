@@ -3,16 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintNCI", "PrintNCI\PrintNCI.csproj", "{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintNCITestSuite", "PrintNCITestSuite\PrintNCITestSuite.csproj", "{2DA9DF72-3148-4BF6-8F84-624FCBB09EA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandLine", "CommandLine\CommandLine.csproj", "{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DebugTests|Any CPU = DebugTests|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}.DebugTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}.DebugTests|Any CPU.Build.0 = Debug|Any CPU
 		{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DA9DF72-3148-4BF6-8F84-624FCBB09EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DA9DF72-3148-4BF6-8F84-624FCBB09EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DA9DF72-3148-4BF6-8F84-624FCBB09EA3}.DebugTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DA9DF72-3148-4BF6-8F84-624FCBB09EA3}.DebugTests|Any CPU.Build.0 = Debug|Any CPU
+		{2DA9DF72-3148-4BF6-8F84-624FCBB09EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DA9DF72-3148-4BF6-8F84-624FCBB09EA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}.DebugTests|Any CPU.ActiveCfg = DebugTests|Any CPU
+		{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}.DebugTests|Any CPU.Build.0 = DebugTests|Any CPU
+		{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
