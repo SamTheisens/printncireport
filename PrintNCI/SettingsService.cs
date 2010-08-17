@@ -23,9 +23,9 @@ namespace PrintNCI
             return connectionString;
         }
 
-        public static string GetExecutableUgd(string kelompokPasien)
+        public static string GetExecutableUgd(bool printStatus, string kelompokPasien)
         {
-            if (Program.printStatus)
+            if (printStatus)
                 return Settings.Default.ExecutablePrintStatus;
 
             switch (kelompokPasien)
@@ -43,9 +43,9 @@ namespace PrintNCI
             }
         }
 
-        public static string GetExecutableTpp(string kelompokPasien, int bagian)
+        public static string GetExecutableTpp(bool printStatus, string kelompokPasien, int bagian)
         {
-            if (Program.printStatus)
+            if (printStatus)
                 return Settings.Default.ExecutablePrintStatus;
 
             if (bagian == 3)
