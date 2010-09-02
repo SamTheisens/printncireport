@@ -55,7 +55,7 @@ namespace PrintNCITestSuite.MockObjects
 
         public DataTable GetSchemaTable()
         {
-            throw new NotImplementedException();
+            return new StubDataTable(CurrentResultSet);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: PairT.cs
 //
@@ -25,11 +26,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
 
 namespace CommandLine
 {
-    sealed class Pair<TLeft, TRight>
+    internal sealed class Pair<TLeft, TRight>
     {
         private readonly TLeft _left;
         private readonly TRight _right;

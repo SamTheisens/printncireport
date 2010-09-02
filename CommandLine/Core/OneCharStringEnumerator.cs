@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: OneCharStringEnumerator.cs
 //
@@ -25,19 +26,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
-using System.Collections;
+using CommandLine.Utility;
+
 #endregion
 
 namespace CommandLine
 {
     internal sealed class OneCharStringEnumerator : IArgumentEnumerator
     {
+        private readonly string _data;
         private string _currentElement;
         private int _index;
-        private readonly string _data;
 
         public OneCharStringEnumerator(string value)
         {
@@ -46,6 +51,8 @@ namespace CommandLine
             _data = value;
             _index = -1;
         }
+
+        #region IArgumentEnumerator Members
 
         public string Current
         {
@@ -85,11 +92,6 @@ namespace CommandLine
             get { return _index == _data.Length - 1; }
         }
 
-        public void Reset()
-        {
-            _index = -1;
-        }
-
         public bool MoveNext()
         {
             if (_index < (_data.Length - 1))
@@ -121,6 +123,13 @@ namespace CommandLine
 
         void IDisposable.Dispose()
         {
+        }
+
+        #endregion
+
+        public void Reset()
+        {
+            _index = -1;
         }
 
         //public object Clone()

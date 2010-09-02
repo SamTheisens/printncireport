@@ -1,4 +1,5 @@
 ﻿#region License
+
 //
 // Command Line Library: AssemblyInfo.cs
 //
@@ -25,12 +26,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+
 #endregion
 
 [assembly: AssemblyTitle(ThisAssembly.Title)]
@@ -42,10 +47,12 @@ using System.Runtime.InteropServices;
 [assembly: NeutralResourcesLanguage("en-US")]
 [assembly: AssemblyCulture("")]
 #if DEBUG
+
 [assembly: AssemblyConfiguration("Debug")]
 #else
 [assembly: AssemblyConfiguration("Release")]
 #endif
+
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 //[assembly: AssemblyCompany("")]

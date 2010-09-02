@@ -50,16 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataClasses.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataClasses.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="Logger.cs" />
-    <Compile Include="NCIPrinter.cs" />
-    <Compile Include="Options.cs" />
-    <Compile Include="PatientVisitInfo.cs" />
-    <Compile Include="PrintCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -67,59 +57,39 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseService.cs" />
-    <Compile Include="SettingsService.cs" />
-    <Compile Include="SettingsWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SettingsWindow.Designer.cs">
-      <DependentUpon>SettingsWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TempFileHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SettingsWindow.resx">
-      <DependentUpon>SettingsWindow.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DataClasses.dbml.layout">
-      <DependentUpon>DataClasses.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DataClasses.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DataClasses.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Resources\Usage.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CommandLine\CommandLine.csproj">
       <Project>{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}</Project>
       <Name>CommandLine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{7B03CFEE-425E-4E8D-803A-6C6FBA72661B}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Printer\Printer.csproj">
+      <Project>{64F0902D-55FF-453A-9BF6-A8CC9609445F}</Project>
+      <Name>Printer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: CommandLineParserException.cs
 //
@@ -25,10 +26,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Runtime.Serialization;
+
 #endregion
 
 namespace CommandLine
@@ -40,7 +45,6 @@ namespace CommandLine
     public sealed class CommandLineParserException : Exception, ISerializable
     {
         internal CommandLineParserException()
-            : base()
         {
         }
 

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PrintNCI")]
+[assembly: AssemblyTitle("Logger")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Prof. Dr. W. Z. Johannes")]
-[assembly: AssemblyProduct("PrintNCI")]
-[assembly: AssemblyCopyright("Copyright © Prof. Dr. W. Z. Johannes 2009")]
+[assembly: AssemblyProduct("Logger")]
+[assembly: AssemblyCopyright("Copyright © Prof. Dr. W. Z. Johannes 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1b82f92f-ec98-45d5-abbc-e352cb79b056")]
+[assembly: Guid("57a431e3-1e31-4d37-93a3-566a61f8a6b9")]
 
 // Version information for an assembly consists of the following four values:
 //

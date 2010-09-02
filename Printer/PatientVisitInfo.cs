@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PrintNCI
+namespace Printer
 {
     public struct PatientVisitInfo
     {
@@ -10,6 +10,6 @@ namespace PrintNCI
         public string KdUnit;
         public string KelompokPasien;
         public bool? Baru;
-        public byte? Bagian;
+        public byte? KdBagian;
     }
 }

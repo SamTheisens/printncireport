@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: ReflectionUtil.cs
 //
@@ -25,31 +26,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+
 #endregion
 
-namespace CommandLine
+namespace CommandLine.Utility
 {
-    static class ReflectionUtil
+    internal static class ReflectionUtil
     {
         public static IList<Pair<FieldInfo, TAttribute>> RetrieveFieldList<TAttribute>(object target)
-                where TAttribute : Attribute
+            where TAttribute : Attribute
         {
             IList<Pair<FieldInfo, TAttribute>> list = new List<Pair<FieldInfo, TAttribute>>();
-            var info = target.GetType().GetFields();
+            FieldInfo[] info = target.GetType().GetFields();
 
             foreach (FieldInfo field in info)
             {
                 if (!field.IsStatic && !field.IsInitOnly && !field.IsLiteral)
                 {
                     Attribute attribute =
-                        Attribute.GetCustomAttribute(field, typeof(TAttribute), false);
+                        Attribute.GetCustomAttribute(field, typeof (TAttribute), false);
                     if (attribute != null)
-                        list.Add(new Pair<FieldInfo, TAttribute>(field, (TAttribute)attribute));
+                        list.Add(new Pair<FieldInfo, TAttribute>(field, (TAttribute) attribute));
                 }
             }
 
@@ -57,18 +62,18 @@ namespace CommandLine
         }
 
         public static Pair<MethodInfo, TAttribute> RetrieveMethod<TAttribute>(object target)
-                where TAttribute : Attribute
+            where TAttribute : Attribute
         {
-            var info = target.GetType().GetMethods();
+            MethodInfo[] info = target.GetType().GetMethods();
 
             foreach (MethodInfo method in info)
             {
                 if (!method.IsStatic)
                 {
                     Attribute attribute =
-                        Attribute.GetCustomAttribute(method, typeof(TAttribute), false);
+                        Attribute.GetCustomAttribute(method, typeof (TAttribute), false);
                     if (attribute != null)
-                        return new Pair<MethodInfo, TAttribute>(method, (TAttribute)attribute);
+                        return new Pair<MethodInfo, TAttribute>(method, (TAttribute) attribute);
                 }
             }
 
@@ -76,18 +81,18 @@ namespace CommandLine
         }
 
         public static TAttribute RetrieveMethodAttributeOnly<TAttribute>(object target)
-                where TAttribute : Attribute
+            where TAttribute : Attribute
         {
-            var info = target.GetType().GetMethods();
+            MethodInfo[] info = target.GetType().GetMethods();
 
             foreach (MethodInfo method in info)
             {
                 if (!method.IsStatic)
                 {
                     Attribute attribute =
-                        Attribute.GetCustomAttribute(method, typeof(TAttribute), false);
+                        Attribute.GetCustomAttribute(method, typeof (TAttribute), false);
                     if (attribute != null)
-                        return (TAttribute)attribute;
+                        return (TAttribute) attribute;
                 }
             }
 
@@ -95,19 +100,19 @@ namespace CommandLine
         }
 
         public static IList<TAttribute> RetrieveFieldAttributeList<TAttribute>(object target)
-                where TAttribute : Attribute
+            where TAttribute : Attribute
         {
             IList<TAttribute> list = new List<TAttribute>();
-            var info = target.GetType().GetFields();
+            FieldInfo[] info = target.GetType().GetFields();
 
             foreach (FieldInfo field in info)
             {
                 if (!field.IsStatic && !field.IsInitOnly && !field.IsLiteral)
                 {
                     Attribute attribute =
-                        Attribute.GetCustomAttribute(field, typeof(TAttribute), false);
+                        Attribute.GetCustomAttribute(field, typeof (TAttribute), false);
                     if (attribute != null)
-                        list.Add((TAttribute)attribute);
+                        list.Add((TAttribute) attribute);
                 }
             }
 
@@ -116,7 +121,7 @@ namespace CommandLine
 
         public static bool IsNullableType(Type type)
         {
-            return type.IsGenericType && type.GetGenericTypeDefinition().Equals(typeof(Nullable<>));
+            return type.IsGenericType && type.GetGenericTypeDefinition().Equals(typeof (Nullable<>));
         }
     }
 }

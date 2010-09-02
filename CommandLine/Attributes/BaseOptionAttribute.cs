@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: BaseOptionAttribute.cs
 //
@@ -25,13 +26,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-#endregion
-#region Using Directives
-using System;
-//using System.Diagnostics;
+
 #endregion
 
-namespace CommandLine
+#region Using Directives
+
+using System;
+
+//using System.Diagnostics;
+
+#endregion
+
+namespace CommandLine.Attributes
 {
     /// <summary>
     /// Provides base properties for creating an attribute, used to define rules for command line parsing.

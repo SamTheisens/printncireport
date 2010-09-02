@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: LongOptionParser.cs
 //
@@ -25,52 +26,55 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
+using System.Collections.Generic;
 
 namespace CommandLine
 {
-    sealed class LongOptionParser : ArgumentParser
+    internal sealed class LongOptionParser : ArgumentParser
     {
-        public sealed override ParserState Parse(IArgumentEnumerator argumentEnumerator, OptionMap map, object options)
+        public override sealed ParserState Parse(IArgumentEnumerator argumentEnumerator, OptionMap map, object options)
         {
-            var parts = argumentEnumerator.Current.Substring(2).Split(new char[] { '=' }, 2);
-            var option = map[parts[0]];
+            string[] parts = argumentEnumerator.Current.Substring(2).Split(new[] {'='}, 2);
+            OptionInfo option = map[parts[0]];
 
             if (option == null)
                 return ParserState.Failure;
 
             option.IsDefined = true;
 
-            ArgumentParser.EnsureOptionArrayAttributeIsNotBoundToScalar(option);
+            EnsureOptionArrayAttributeIsNotBoundToScalar(option);
 
             if (!option.IsBoolean)
             {
-                if (parts.Length == 1 && (argumentEnumerator.IsLast || !ArgumentParser.IsInputValue(argumentEnumerator.Next)))
+                if (parts.Length == 1 && (argumentEnumerator.IsLast || !IsInputValue(argumentEnumerator.Next)))
                     return ParserState.Failure;
 
                 if (parts.Length == 2)
                 {
                     if (!option.IsArray)
-                        return ArgumentParser.BooleanToParserState(option.SetValue(parts[1], options));
+                        return BooleanToParserState(option.SetValue(parts[1], options));
                     else
                     {
-                        ArgumentParser.EnsureOptionAttributeIsArrayCompatible(option);
+                        EnsureOptionAttributeIsArrayCompatible(option);
 
-                        var items = ArgumentParser.GetNextInputValues(argumentEnumerator);
+                        IList<string> items = GetNextInputValues(argumentEnumerator);
                         items.Insert(0, parts[1]);
-                        return ArgumentParser.BooleanToParserState(option.SetValue(items, options));
+                        return BooleanToParserState(option.SetValue(items, options));
                     }
                 }
                 else
                 {
                     if (!option.IsArray)
-                        return ArgumentParser.BooleanToParserState(option.SetValue(argumentEnumerator.Next, options), true);
+                        return BooleanToParserState(option.SetValue(argumentEnumerator.Next, options), true);
                     else
                     {
-                        ArgumentParser.EnsureOptionAttributeIsArrayCompatible(option);
+                        EnsureOptionAttributeIsArrayCompatible(option);
 
-                        var items = ArgumentParser.GetNextInputValues(argumentEnumerator);
-                        return ArgumentParser.BooleanToParserState(option.SetValue(items, options), true);
+                        IList<string> items = GetNextInputValues(argumentEnumerator);
+                        return BooleanToParserState(option.SetValue(items, options), true);
                     }
                 }
             }
@@ -79,7 +83,7 @@ namespace CommandLine
                 if (parts.Length == 2)
                     return ParserState.Failure;
 
-                return ArgumentParser.BooleanToParserState(option.SetValue(true, options));
+                return BooleanToParserState(option.SetValue(true, options));
             }
         }
     }

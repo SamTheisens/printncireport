@@ -1,4 +1,5 @@
 ﻿#region License
+
 //
 // Command Line Library: ICommandLineParser.cs
 //
@@ -25,9 +26,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System.IO;
+using CommandLine.Attributes;
+
 #endregion
 
 namespace CommandLine
@@ -43,7 +49,7 @@ namespace CommandLine
         /// </summary>
         /// <param name="args">A <see cref="System.String"/> array of command line arguments.</param>
         /// <param name="options">An object's instance used to receive values.
-        /// Parsing rules are defined using <see cref="CommandLine.BaseOptionAttribute"/> derived types.</param>
+        /// Parsing rules are defined using <see cref="BaseOptionAttribute"/> derived types.</param>
         /// <returns>True if parsing process succeed.</returns>
         /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="args"/> is null.</exception>
         /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="options"/> is null.</exception>
@@ -56,7 +62,7 @@ namespace CommandLine
         /// </summary>
         /// <param name="args">A <see cref="System.String"/> array of command line arguments.</param>
         /// <param name="options">An object's instance used to receive values.
-        /// Parsing rules are defined using <see cref="CommandLine.BaseOptionAttribute"/> derived types.</param>
+        /// Parsing rules are defined using <see cref="BaseOptionAttribute"/> derived types.</param>
         /// <param name="helpWriter">Any instance derived from <see cref="System.IO.TextWriter"/>,
         /// usually <see cref="System.Console.Error"/>. Setting this argument to null, will disable help screen.</param>
         /// <returns>True if parsing process succeed.</returns>

@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: OptionGroupParser.cs
 //
@@ -25,24 +26,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
+using System.Collections.Generic;
 
 namespace CommandLine
 {
-    sealed class OptionGroupParser : ArgumentParser
+    internal sealed class OptionGroupParser : ArgumentParser
     {
-        public sealed override ParserState Parse(IArgumentEnumerator argumentEnumerator, OptionMap map, object options)
+        public override sealed ParserState Parse(IArgumentEnumerator argumentEnumerator, OptionMap map, object options)
         {
             IArgumentEnumerator group = new OneCharStringEnumerator(argumentEnumerator.Current.Substring(1));
             while (group.MoveNext())
             {
-                var option = map[group.Current];
+                OptionInfo option = map[group.Current];
                 if (option == null)
                     return ParserState.Failure;
 
                 option.IsDefined = true;
 
-                ArgumentParser.EnsureOptionArrayAttributeIsNotBoundToScalar(option);
+                EnsureOptionArrayAttributeIsNotBoundToScalar(option);
 
                 if (!option.IsBoolean)
                 {
@@ -52,29 +56,29 @@ namespace CommandLine
                     if (!group.IsLast)
                     {
                         if (!option.IsArray)
-                            return ArgumentParser.BooleanToParserState(option.SetValue(group.GetRemainingFromNext(), options));
+                            return BooleanToParserState(option.SetValue(group.GetRemainingFromNext(), options));
                         else
                         {
-                            ArgumentParser.EnsureOptionAttributeIsArrayCompatible(option);
+                            EnsureOptionAttributeIsArrayCompatible(option);
 
-                            var items = ArgumentParser.GetNextInputValues(argumentEnumerator);
+                            IList<string> items = GetNextInputValues(argumentEnumerator);
                             items.Insert(0, group.GetRemainingFromNext());
-                            return ArgumentParser.BooleanToParserState(option.SetValue(items, options), true);
+                            return BooleanToParserState(option.SetValue(items, options), true);
                         }
                     }
 
-                    if (!argumentEnumerator.IsLast && !ArgumentParser.IsInputValue(argumentEnumerator.Next))
+                    if (!argumentEnumerator.IsLast && !IsInputValue(argumentEnumerator.Next))
                         return ParserState.Failure;
                     else
                     {
                         if (!option.IsArray)
-                            return ArgumentParser.BooleanToParserState(option.SetValue(argumentEnumerator.Next, options), true);
+                            return BooleanToParserState(option.SetValue(argumentEnumerator.Next, options), true);
                         else
                         {
-                            ArgumentParser.EnsureOptionAttributeIsArrayCompatible(option);
+                            EnsureOptionAttributeIsArrayCompatible(option);
 
-                            var items = ArgumentParser.GetNextInputValues(argumentEnumerator);
-                            return ArgumentParser.BooleanToParserState(option.SetValue(items, options));
+                            IList<string> items = GetNextInputValues(argumentEnumerator);
+                            return BooleanToParserState(option.SetValue(items, options));
                         }
                     }
                 }

@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: ValueListAttribute.cs
 //
@@ -25,11 +26,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using CommandLine.Utility;
+
 #endregion
 
 namespace CommandLine
@@ -40,11 +46,11 @@ namespace CommandLine
     /// of <see cref="System.String"/> instances.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field,
-            AllowMultiple=false,
-            Inherited=true)]
+        AllowMultiple = false,
+        Inherited = true)]
     public sealed class ValueListAttribute : Attribute
     {
-        private Type _concreteType;
+        private readonly Type _concreteType;
 
         private ValueListAttribute()
         {
@@ -62,7 +68,7 @@ namespace CommandLine
             if (concreteType == null)
                 throw new ArgumentNullException("concreteType");
 
-            if (!typeof(IList<string>).IsAssignableFrom(concreteType))
+            if (!typeof (IList<string>).IsAssignableFrom(concreteType))
                 throw new CommandLineParserException("The types are incompatible.");
 
             _concreteType = concreteType;
@@ -83,26 +89,27 @@ namespace CommandLine
         internal static IList<string> GetReference(object target)
         {
             Type concreteType;
-            var field = GetField(target, out concreteType);
+            FieldInfo field = GetField(target, out concreteType);
 
             if (field == null)
                 return null;
 
             field.SetValue(target, Activator.CreateInstance(concreteType));
-            
-            return (IList<string>)field.GetValue(target);
+
+            return (IList<string>) field.GetValue(target);
         }
 
         internal static ValueListAttribute GetAttribute(object target)
         {
-            var list = ReflectionUtil.RetrieveFieldList<ValueListAttribute>(target);
+            IList<Pair<FieldInfo, ValueListAttribute>> list =
+                ReflectionUtil.RetrieveFieldList<ValueListAttribute>(target);
             if (list.Count == 0)
                 return null;
 
             if (list.Count > 1)
                 throw new InvalidOperationException();
 
-            var pairZero = list[0];
+            Pair<FieldInfo, ValueListAttribute> pairZero = list[0];
 
             return pairZero.Right;
         }
@@ -111,14 +118,15 @@ namespace CommandLine
         {
             concreteType = null;
 
-            var list = ReflectionUtil.RetrieveFieldList<ValueListAttribute>(target);
+            IList<Pair<FieldInfo, ValueListAttribute>> list =
+                ReflectionUtil.RetrieveFieldList<ValueListAttribute>(target);
             if (list.Count == 0)
                 return null;
 
             if (list.Count > 1)
                 throw new InvalidOperationException();
 
-            var pairZero = list[0];
+            Pair<FieldInfo, ValueListAttribute> pairZero = list[0];
             concreteType = pairZero.Right.ConcreteType;
 
             return pairZero.Left;

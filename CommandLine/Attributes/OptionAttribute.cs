@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: OptionAttribute.cs
 //
@@ -25,9 +26,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
+using CommandLine.Attributes;
+
 #endregion
 
 namespace CommandLine
@@ -36,14 +42,13 @@ namespace CommandLine
     /// Models an option specification.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field,
-            AllowMultiple=false,
-            Inherited=true)]
+        AllowMultiple = false,
+        Inherited = true)]
     public class OptionAttribute : BaseOptionAttribute
     {
-        private string _uniqueName;
-        private string _mutuallyExclusiveSet;
-
         internal const string DefaultMutuallyExclusiveSet = "Default";
+        private readonly string _uniqueName;
+        private string _mutuallyExclusiveSet;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandLine.OptionAttribute"/> class.
@@ -85,7 +90,7 @@ namespace CommandLine
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    _mutuallyExclusiveSet = OptionAttribute.DefaultMutuallyExclusiveSet;
+                    _mutuallyExclusiveSet = DefaultMutuallyExclusiveSet;
                 else
                     _mutuallyExclusiveSet = value;
             }

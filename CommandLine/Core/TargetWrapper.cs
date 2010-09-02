@@ -1,4 +1,5 @@
 ﻿#region License
+
 //
 // Command Line Library: TargetWrapper.cs
 //
@@ -25,20 +26,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
-using System;
+
 using System.Collections.Generic;
-using System.Text;
+
 #endregion
 
 namespace CommandLine
 {
     internal class TargetWrapper
     {
-        private object _target;
-        private IList<string> _valueList;
-        private ValueListAttribute _vla;
+        private readonly object _target;
+        private readonly IList<string> _valueList;
+        private readonly ValueListAttribute _vla;
 
         public TargetWrapper(object target)
         {
@@ -48,7 +51,10 @@ namespace CommandLine
                 _valueList = ValueListAttribute.GetReference(_target);
         }
 
-        public bool IsValueListDefined { get { return _vla != null; } }
+        public bool IsValueListDefined
+        {
+            get { return _vla != null; }
+        }
 
         public bool AddValueItemIfAllowed(string item)
         {

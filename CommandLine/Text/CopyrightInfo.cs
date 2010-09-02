@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: CopyrightInfo.cs
 //
@@ -25,10 +26,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System.Globalization;
 using System.Text;
+using CommandLine.Utility;
+
 #endregion
 
 namespace CommandLine.Text
@@ -39,13 +45,13 @@ namespace CommandLine.Text
     /// </summary>
     public class CopyrightInfo
     {
-        private readonly bool _isSymbolUpper;
-        private readonly int[] _years;
-        private readonly string _author;
         private static readonly string _defaultCopyrightWord = "Copyright";
         private static readonly string _symbolLower = "(c)";
         private static readonly string _symbolUpper = "(C)";
-        private StringBuilder _builder;
+        private readonly string _author;
+        private readonly StringBuilder _builder;
+        private readonly bool _isSymbolUpper;
+        private readonly int[] _years;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandLine.Text.CopyrightInfo"/> class.
@@ -62,7 +68,7 @@ namespace CommandLine.Text
         /// <param name="year">The year of coverage of copyright.</param>
         /// <exception cref="System.ArgumentException">Thrown when parameter <paramref name="author"/> is null or empty string.</exception>
         public CopyrightInfo(string author, int year)
-            : this(true, author, new int[] { year })
+            : this(true, author, new[] {year})
         {
         }
 
@@ -98,7 +104,15 @@ namespace CommandLine.Text
             _author = author;
             _years = years;
             _builder = new StringBuilder
-                    (CopyrightWord.Length + author.Length + (4 * years.Length) + extraLength);
+                (CopyrightWord.Length + author.Length + (4*years.Length) + extraLength);
+        }
+
+        /// <summary>
+        /// When overridden in a derived class, allows to specify a different copyright word.
+        /// </summary>
+        protected virtual string CopyrightWord
+        {
+            get { return _defaultCopyrightWord; }
         }
 
         /// <summary>
@@ -133,14 +147,6 @@ namespace CommandLine.Text
         }
 
         /// <summary>
-        /// When overridden in a derived class, allows to specify a different copyright word.
-        /// </summary>
-        protected virtual string CopyrightWord
-        {
-            get { return _defaultCopyrightWord; }
-        }
-
-        /// <summary>
         /// When overridden in a derived class, allows to specify a new algorithm to render copyright years
         /// as a <see cref="System.String"/> instance.
         /// </summary>
@@ -151,7 +157,7 @@ namespace CommandLine.Text
             if (years.Length == 1)
                 return years[0].ToString(CultureInfo.InvariantCulture);
 
-            var yearsPart = new StringBuilder(years.Length * 6);
+            var yearsPart = new StringBuilder(years.Length*6);
             for (int i = 0; i < years.Length; i++)
             {
                 yearsPart.Append(years[i].ToString(CultureInfo.InvariantCulture));

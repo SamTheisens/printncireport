@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="MockObjects\NameIndexCollection.cs" />
     <Compile Include="MockObjects\StubDataReader.cs" />
+    <Compile Include="MockObjects\StubDataTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MockObjects\StubResultSet.cs" />
     <Compile Include="MockObjects\StubResultSetCollection.cs" />
     <Compile Include="MockObjects\StubRowCollection.cs" />
@@ -50,9 +53,9 @@
     <Compile Include="PrintNciTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PrintNCI\PrintNCI.csproj">
-      <Project>{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}</Project>
-      <Name>PrintNCI</Name>
+    <ProjectReference Include="..\Printer\Printer.csproj">
+      <Project>{64F0902D-55FF-453A-9BF6-A8CC9609445F}</Project>
+      <Name>Printer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
