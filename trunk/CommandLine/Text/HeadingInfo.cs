@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: HeadingInfo.cs
 //
@@ -25,11 +26,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.IO;
 using System.Text;
+using CommandLine.Utility;
+
 #endregion
 
 namespace CommandLine.Text
@@ -77,7 +83,7 @@ namespace CommandLine.Text
         {
             bool isVersionNull = string.IsNullOrEmpty(_version);
             var builder = new StringBuilder(_programName.Length +
-                                (!isVersionNull ? _version.Length + 1: 0));
+                                            (!isVersionNull ? _version.Length + 1 : 0));
             builder.Append(_programName);
             if (!isVersionNull)
             {

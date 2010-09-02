@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: StringArrayEnumerator.cs
 //
@@ -25,19 +26,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
-using System.Collections;
+using CommandLine.Utility;
+
 #endregion
 
 namespace CommandLine
 {
-    sealed class StringArrayEnumerator : IArgumentEnumerator
+    internal sealed class StringArrayEnumerator : IArgumentEnumerator
     {
-        private string[] _data;
+        private readonly string[] _data;
+        private readonly int _endIndex;
         private int _index;
-        private int _endIndex;
 
         public StringArrayEnumerator(string[] value)
         {
@@ -47,6 +52,8 @@ namespace CommandLine
             _index = -1;
             _endIndex = value.Length;
         }
+
+        #region IArgumentEnumerator Members
 
         public string Current
         {
@@ -91,11 +98,6 @@ namespace CommandLine
             get { return _index == _endIndex - 1; }
         }
 
-        public void Reset()
-        {
-            _index = -1;
-        }
-
         public bool MoveNext()
         {
             if (_index < _endIndex)
@@ -127,6 +129,13 @@ namespace CommandLine
 
         void IDisposable.Dispose()
         {
+        }
+
+        #endregion
+
+        public void Reset()
+        {
+            _index = -1;
         }
 
         //public object Clone()

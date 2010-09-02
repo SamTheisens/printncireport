@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: HeadingInfoFixture.cs
 //
@@ -25,7 +26,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
+
 #if UNIT_TESTS
 #region Using Directives
 using System;

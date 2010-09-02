@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: IArgumentEnumerator.cs
 //
@@ -25,25 +26,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
-using System.Collections.Generic;
+
 #endregion
 
 namespace CommandLine
 {
-    interface IArgumentEnumerator : IDisposable //: IEnumerator<string>
+    internal interface IArgumentEnumerator : IDisposable //: IEnumerator<string>
     {
-        string GetRemainingFromNext();
-
         string Next { get; }
         bool IsLast { get; }
+        string Current { get; }
+        string GetRemainingFromNext();
 
         bool MoveNext();
 
         bool MovePrevious();
-
-        string Current { get; }
     }
 }

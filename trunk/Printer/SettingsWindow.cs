@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using PrintNCI.Properties;
+using Printer.Properties;
 
-namespace PrintNCI
+namespace Printer
 {
     public partial class SettingsWindow : Form
     {

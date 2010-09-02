@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: ThisAssembly.cs
 //
@@ -24,12 +25,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
 #endregion
 
-static class ThisAssembly
+internal static class ThisAssembly
 {
-    internal const string Title = "CommandLine.dll";
     internal const string Copyright = "Copyright (C) 2005 - 2010 Giacomo Stelluti Scala";
-    internal const string Version = "1.8"; //stable
     internal const string InformationalVersion = "1.8";
+    internal const string Title = "CommandLine.dll";
+    internal const string Version = "1.8"; //stable
 }

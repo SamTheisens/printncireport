@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: HelpOptionAttribute.cs
 //
@@ -25,10 +26,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Reflection;
+using CommandLine.Attributes;
+
 #endregion
 
 namespace CommandLine
@@ -39,8 +45,8 @@ namespace CommandLine
     /// return value.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method,
-            AllowMultiple=false,
-            Inherited=true)]
+        AllowMultiple = false,
+        Inherited = true)]
     public sealed class HelpOptionAttribute : BaseOptionAttribute
     {
         /// <summary>
@@ -75,20 +81,20 @@ namespace CommandLine
         }
 
         internal static void InvokeMethod(object target,
-                Pair<MethodInfo, HelpOptionAttribute> pair, out string text)
+                                          Pair<MethodInfo, HelpOptionAttribute> pair, out string text)
         {
             text = null;
 
-            var method = pair.Left;
+            MethodInfo method = pair.Left;
             if (!CheckMethodSignature(method))
                 throw new MemberAccessException();
 
-            text = (string)method.Invoke(target, null);
+            text = (string) method.Invoke(target, null);
         }
 
         private static bool CheckMethodSignature(MethodInfo value)
         {
-            return value.ReturnType == typeof(string) && value.GetParameters().Length == 0;
+            return value.ReturnType == typeof (string) && value.GetParameters().Length == 0;
         }
     }
 }

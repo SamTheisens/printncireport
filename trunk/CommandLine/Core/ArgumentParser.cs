@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: ArgumentParser.cs
 //
@@ -25,10 +26,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Collections.Generic;
+
 #endregion
 
 namespace CommandLine
@@ -102,10 +107,9 @@ namespace CommandLine
         {
             if (value && !addMoveNextIfTrue)
                 return ParserState.Success;
-            else if (value && addMoveNextIfTrue)
+            if (value)
                 return ParserState.Success | ParserState.MoveOnNextElement;
-            else
-                return ParserState.Failure;
+            return ParserState.Failure;
         }
 
         protected static void EnsureOptionAttributeIsArrayCompatible(OptionInfo option)

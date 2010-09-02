@@ -1,4 +1,5 @@
 ﻿#region License
+
 //
 // Command Line Library: CommandLineParser.cs
 //
@@ -25,14 +26,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-#endregion
-#region Using Directives
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
+
 #endregion
 
-namespace CommandLine
+#region Using Directives
+
+using System.IO;
+using System.Reflection;
+using CommandLine.Attributes;
+using CommandLine.Utility;
+
+#endregion
+
+namespace CommandLine.Parser
 {
     /// <summary>
     /// Provides methods to parse command line arguments.
@@ -41,10 +47,10 @@ namespace CommandLine
     public class CommandLineParser : ICommandLineParser
     {
         //private object _valueListLock = new object();
-        private CommandLineParserSettings _settings;
+        private readonly CommandLineParserSettings _settings;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommandLine.CommandLineParser"/> class.
+        /// Initializes a new instance of the <see cref="CommandLineParser"/> class.
         /// </summary>
         public CommandLineParser()
         {
@@ -52,7 +58,7 @@ namespace CommandLine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CommandLine.CommandLineParser"/> class,
+        /// Initializes a new instance of the <see cref="CommandLineParser"/> class,
         /// configurable with a <see cref="CommandLine.CommandLineParserSettings"/> object.
         /// </summary>
         /// <param name="settings">The <see cref="CommandLine.CommandLineParserSettings"/> object is used to configure
@@ -64,13 +70,15 @@ namespace CommandLine
             _settings = settings;
         }
 
+        #region ICommandLineParser Members
+
         /// <summary>
         /// Parses a <see cref="System.String"/> array of command line arguments, setting values in <paramref name="options"/>
         /// parameter instance's public fields decorated with appropriate attributes.
         /// </summary>
         /// <param name="args">A <see cref="System.String"/> array of command line arguments.</param>
         /// <param name="options">An object's instance used to receive values.
-        /// Parsing rules are defined using <see cref="CommandLine.BaseOptionAttribute"/> derived types.</param>
+        /// Parsing rules are defined using <see cref="BaseOptionAttribute"/> derived types.</param>
         /// <returns>True if parsing process succeed.</returns>
         /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="args"/> is null.</exception>
         /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="options"/> is null.</exception>
@@ -86,7 +94,7 @@ namespace CommandLine
         /// </summary>
         /// <param name="args">A <see cref="System.String"/> array of command line arguments.</param>
         /// <param name="options">An object's instance used to receive values.
-        /// Parsing rules are defined using <see cref="CommandLine.BaseOptionAttribute"/> derived types.</param>
+        /// Parsing rules are defined using <see cref="BaseOptionAttribute"/> derived types.</param>
         /// <param name="helpWriter">Any instance derived from <see cref="System.IO.TextWriter"/>,
         /// usually <see cref="System.Console.Error"/>. Setting this argument to null, will disable help screen.</param>
         /// <returns>True if parsing process succeed.</returns>
@@ -97,7 +105,7 @@ namespace CommandLine
             Assumes.NotNull(args, "args");
             Assumes.NotNull(options, "options");
 
-            var pair = ReflectionUtil.RetrieveMethod<HelpOptionAttribute>(options);
+            Pair<MethodInfo, HelpOptionAttribute> pair = ReflectionUtil.RetrieveMethod<HelpOptionAttribute>(options);
 
             if (pair != null && helpWriter != null)
             {
@@ -114,10 +122,12 @@ namespace CommandLine
             return DoParseArguments(args, options);
         }
 
+        #endregion
+
         private bool DoParseArguments(string[] args, object options)
         {
             bool hadError = false;
-            var optionMap = OptionInfo.CreateMap(options, _settings);
+            OptionMap optionMap = OptionInfo.CreateMap(options, _settings);
             var target = new TargetWrapper(options);
 
             IArgumentEnumerator arguments = new StringArrayEnumerator(args);

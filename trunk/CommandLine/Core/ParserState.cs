@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: ParserState.cs
 //
@@ -25,18 +26,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
+
 #endregion
 
 namespace CommandLine
 {
     [Flags]
-    enum ParserState : ushort
+    internal enum ParserState : ushort
     {
-        Success             = 0x01,
-        Failure             = 0x02,
-        MoveOnNextElement   = 0x04
+        Success = 0x01,
+        Failure = 0x02,
+        MoveOnNextElement = 0x04
     }
 }

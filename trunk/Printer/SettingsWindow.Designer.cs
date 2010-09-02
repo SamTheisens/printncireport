@@ -1,4 +1,4 @@
-﻿namespace PrintNCI
+﻿namespace Printer
 {
     partial class SettingsWindow
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Win32;
-using PrintNCI.Properties;
+using Printer.Properties;
 
-namespace PrintNCI
+namespace Printer
 {
     public static class SettingsService
     {
@@ -23,44 +23,53 @@ namespace PrintNCI
             return connectionString;
         }
 
-        public static string GetExecutableUgd(bool printStatus, string kelompokPasien)
+        public static string GetExecutableUgd(Options options, string kelompokPasien)
         {
-            if (printStatus)
+            if (options.KartuBerobat)
+                return Settings.Default.ExecutablePrintKartuBerobat;
+
+            if (options.Status)
                 return Settings.Default.ExecutablePrintStatus;
 
             switch (kelompokPasien)
             {
-                case Program.kelompokInHealth:
+                case NCIPrinter.kelompokInHealth:
                     return Settings.Default.ExecutablePrintInHealth;
-                case Program.kelompokAskes:
+                case NCIPrinter.kelompokAskes:
                     return Settings.Default.ExecutablePrintAskes;
-                case Program.kelompokJamkesmas:
+                case NCIPrinter.kelompokJamkesmas:
                     return Settings.Default.ExecutablePrintJamkesmasRWJ;
-                case Program.kelompokJamkesda:
+                case NCIPrinter.kelompokJamkesda:
                     return Settings.Default.ExecutablePrintJamkesdaRWJ;
                 default:
                     return "";
             }
         }
 
-        public static string GetExecutableTpp(bool printStatus, string kelompokPasien, int bagian)
+        public static string GetExecutableTpp(Options options, string kelompokPasien)
         {
-            if (printStatus)
+            if (options.Status)
                 return Settings.Default.ExecutablePrintStatus;
 
-            if (bagian == 3)
+            if (options.KartuBerobat)
+                return Settings.Default.ExecutablePrintKartuBerobat;
+
+            if (options.Tracer)
+                return Settings.Default.ExecutablePrintTracer;
+
+            if (options.KdBagian == 1)
             {
                 return Settings.Default.ExecutablePrintJamkesmasRWI;
             }
             switch (kelompokPasien)
             {
-                case Program.kelompokInHealth:
+                case NCIPrinter.kelompokInHealth:
                     return "";
-                case Program.kelompokAskes:
+                case NCIPrinter.kelompokAskes:
                     return "";
-                case Program.kelompokJamkesmas:
+                case NCIPrinter.kelompokJamkesmas:
                     return Settings.Default.ExecutablePrintJamkesmasRWJ;
-                case Program.kelompokJamkesda:
+                case NCIPrinter.kelompokJamkesda:
                     return Settings.Default.ExecutablePrintJamkesdaRWJ;
                 default:
                     return "";

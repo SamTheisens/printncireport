@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: OptionMap.cs
 //
@@ -25,33 +26,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Collections.Generic;
+
 #endregion
 
 namespace CommandLine
 {
-    sealed class OptionMap
+    internal sealed class OptionMap
     {
+        private readonly Dictionary<string, OptionInfo> _map;
+        private readonly Dictionary<string, int> _mutuallyExclusiveSetMap;
+        private readonly Dictionary<string, string> _names;
         private readonly CommandLineParserSettings _settings;
-        private Dictionary<string, string> _names;
-        private Dictionary<string, OptionInfo> _map;
-        private Dictionary<string, int> _mutuallyExclusiveSetMap;
 
         public OptionMap(int capacity, CommandLineParserSettings settings)
         {
             _settings = settings;
 
-            IEqualityComparer<string> comparer;
-            if (_settings.CaseSensitive)
-                comparer = StringComparer.Ordinal;
-            else
-                comparer = StringComparer.OrdinalIgnoreCase;
+            IEqualityComparer<string> comparer = _settings.CaseSensitive
+                                                     ? StringComparer.Ordinal
+                                                     : StringComparer.OrdinalIgnoreCase;
 
             _names = new Dictionary<string, string>(capacity, comparer);
-            _map = new Dictionary<string, OptionInfo>(capacity * 2, comparer);
+            _map = new Dictionary<string, OptionInfo>(capacity*2, comparer);
 
             if (_settings.MutuallyExclusive)
                 _mutuallyExclusiveSetMap = new Dictionary<string, int>(capacity, StringComparer.OrdinalIgnoreCase);
@@ -67,10 +70,9 @@ namespace CommandLine
                     option = _map[key];
                 else
                 {
-                    string optionKey = null;
                     if (_names.ContainsKey(key))
                     {
-                        optionKey = _names[key];
+                        string optionKey = _names[key];
                         option = _map[optionKey];
                     }
                 }
@@ -123,7 +125,7 @@ namespace CommandLine
 
         private void BuildMutuallyExclusiveMap(OptionInfo option)
         {
-            var setName = option.MutuallyExclusiveSet;
+            string setName = option.MutuallyExclusiveSet;
 
             if (!_mutuallyExclusiveSetMap.ContainsKey(setName))
                 _mutuallyExclusiveSetMap.Add(setName, 0);

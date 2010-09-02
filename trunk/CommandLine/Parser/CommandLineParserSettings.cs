@@ -1,4 +1,5 @@
 ﻿#region License
+
 //
 // Command Line Library: CommandLineParserSettings.cs
 //
@@ -25,15 +26,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System.IO;
+using CommandLine.Parser;
+
 #endregion
 
 namespace CommandLine
 {
     /// <summary>
-    /// Specifies a set of features to configure a <see cref="CommandLine.CommandLineParser"/> behavior.
+    /// Specifies a set of features to configure a <see cref="CommandLineParser"/> behavior.
     /// </summary>
     public sealed class CommandLineParserSettings
     {

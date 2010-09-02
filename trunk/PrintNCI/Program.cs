@@ -1,28 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Threading;
-using System.Windows.Forms;
 using CommandLine;
-using PrintNCI.Properties;
+using CommandLine.Parser;
+using Printer;
 
 namespace PrintNCI
 {
-
     public class Program
     {
-        public const string kelompokJamkesmas = "JAMKESMAS";
-        public const string kelompokJamkesda = "JAMKESDA";
-        public const string kelompokAskes = "ASKES NEGERI";
-        public const string kelompokInHealth = "IN HEALTH";
 
         private static void Main(string[] args)
         {
+            bool freeToRun;
+            new Mutex(true, "PrintNCI", out freeToRun);
+            if (!freeToRun)
+            {
+                return;
+            }
+
             var options = new Options();
             ICommandLineParser parser = new CommandLineParser(new CommandLineParserSettings(Console.Error));
             if (!parser.ParseArguments(args, options))
                 Environment.Exit(1);
+
+            if (options.Settings)
+            {
+                var window = new SettingsWindow();
+                window.ShowDialog();
+                return;
+            }
+
+            if (!options.Status && !options.Billing && !options.Test && !options.KartuBerobat && !options.Tracer)
+            {
+                Console.WriteLine(options.GetUsage());
+                return;
+            }
+
             try
             {
                 var printer = new NCIPrinter(options);
@@ -30,13 +43,10 @@ namespace PrintNCI
             }
             catch (Exception exception)
             {
-                Logger.WriteLog("Maaf, ada masalah. Tolong panggil Instalasi SIMRS.");
-                Logger.WriteLog(exception.Message);
+                Logger.Logger.WriteLog("Maaf, ada masalah. Tolong panggil Instalasi SIMRS.");
+                Logger.Logger.WriteLog(exception.Message);
                 Console.ReadKey();
             }
-
-
         }
-
    }
 }

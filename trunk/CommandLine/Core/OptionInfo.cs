@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: OptionInfo.cs
 //
@@ -25,30 +26,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
-using System.Diagnostics;
+using CommandLine.Utility;
+
 #endregion
 
 namespace CommandLine
 {
     [DebuggerDisplay("ShortName = {ShortName}, LongName = {LongName}")]
-    sealed class OptionInfo
+    internal sealed class OptionInfo
     {
         private readonly OptionAttribute _attribute;
         private readonly FieldInfo _field;
-        private bool _required;
-        private string _helpText;
-        private string _shortName;
-        private string _longName;
-        private string _mutuallyExclusiveSet;
+        private readonly string _helpText;
+        private readonly string _longName;
+        private readonly string _mutuallyExclusiveSet;
+        private readonly bool _required;
 
-        private object _setValueLock = new object();
+        private readonly object _setValueLock = new object();
+        private readonly string _shortName;
 
         public OptionInfo(OptionAttribute attribute, FieldInfo field)
         {
@@ -68,12 +74,60 @@ namespace CommandLine
             _longName = longName;
         }
 #endif
+
+        public string ShortName
+        {
+            get { return _shortName; }
+        }
+
+        public string LongName
+        {
+            get { return _longName; }
+        }
+
+        public string MutuallyExclusiveSet
+        {
+            get { return _mutuallyExclusiveSet; }
+        }
+
+        public bool Required
+        {
+            get { return _required; }
+        }
+
+        public string HelpText
+        {
+            get { return _helpText; }
+        }
+
+        public bool IsBoolean
+        {
+            get { return _field.FieldType == typeof (bool); }
+        }
+
+        public bool IsArray
+        {
+            get { return _field.FieldType.IsArray; }
+        }
+
+        public bool IsAttributeArrayCompatible
+        {
+            get { return _attribute is OptionArrayAttribute; }
+        }
+
+        public bool IsDefined { get; set; }
+
+        public bool HasBothNames
+        {
+            get { return (_shortName != null && _longName != null); }
+        }
+
         public static OptionMap CreateMap(object target, CommandLineParserSettings settings)
         {
-            var list = ReflectionUtil.RetrieveFieldList<OptionAttribute>(target);
-            OptionMap map = new OptionMap(list.Count, settings);
+            IList<Pair<FieldInfo, OptionAttribute>> list = ReflectionUtil.RetrieveFieldList<OptionAttribute>(target);
+            var map = new OptionMap(list.Count, settings);
 
-            foreach (Pair<FieldInfo, OptionAttribute> pair in list)
+            foreach (var pair in list)
             {
                 map[pair.Right.UniqueName] = new OptionInfo(pair.Right, pair.Left);
             }
@@ -96,7 +150,7 @@ namespace CommandLine
         {
             Type elementType = _field.FieldType.GetElementType();
             Array array = Array.CreateInstance(elementType, values.Count);
-            
+
             for (int i = 0; i < array.Length; i++)
             {
                 try
@@ -131,7 +185,8 @@ namespace CommandLine
                 {
                     lock (_setValueLock)
                     {
-                        _field.SetValue(options, Convert.ChangeType(value, _field.FieldType, CultureInfo.InvariantCulture));
+                        _field.SetValue(options,
+                                        Convert.ChangeType(value, _field.FieldType, CultureInfo.InvariantCulture));
                     }
                 }
             }
@@ -162,9 +217,9 @@ namespace CommandLine
                     _field.SetValue(options, nc.ConvertFromString(null, CultureInfo.InvariantCulture, value));
                 }
             }
-            // the FormatException (thrown by ConvertFromString) is thrown as Exception.InnerException,
-            // so we've catch directly Exception
-            catch (Exception) 
+                // the FormatException (thrown by ConvertFromString) is thrown as Exception.InnerException,
+                // so we've catch directly Exception
+            catch (Exception)
             {
                 return false;
             }
@@ -188,8 +243,8 @@ namespace CommandLine
             {
                 _field.SetValue(options, new List<string>());
 
-                var fieldRef = (IList<string>)_field.GetValue(options);
-                var values = value.Split(((OptionListAttribute)_attribute).Separator);
+                var fieldRef = (IList<string>) _field.GetValue(options);
+                string[] values = value.Split(((OptionListAttribute) _attribute).Separator);
 
                 for (int i = 0; i < values.Length; i++)
                 {
@@ -198,53 +253,6 @@ namespace CommandLine
 
                 return true;
             }
-        }
-
-        public string ShortName
-        {
-            get { return _shortName; }
-        }
-
-        public string LongName
-        {
-            get { return _longName; }
-        }
-
-        public string MutuallyExclusiveSet
-        {
-            get { return _mutuallyExclusiveSet; }
-        }
-
-        public bool Required
-        {
-            get { return _required; }
-        }
-
-        public string HelpText
-        {
-            get { return _helpText; }
-        }
-
-        public bool IsBoolean
-        {
-            get { return _field.FieldType == typeof(bool); }
-        }
-
-        public bool IsArray
-        {
-            get { return _field.FieldType.IsArray; }
-        }
-
-        public bool IsAttributeArrayCompatible
-        {
-            get { return _attribute is OptionArrayAttribute; }
-        }
-
-        public bool IsDefined { get; set; }
-
-        public bool HasBothNames
-        {
-            get { return (_shortName != null && _longName != null); }
         }
     }
 }

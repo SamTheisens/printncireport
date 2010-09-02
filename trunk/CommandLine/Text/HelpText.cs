@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: HelpText.cs
 //
@@ -27,11 +28,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
+
 #endregion
+
 #region Using Directives
+
 using System;
 using System.Collections.Generic;
 using System.Text;
+using CommandLine.Attributes;
+using CommandLine.Utility;
+
 #endregion
 
 namespace CommandLine.Text
@@ -44,14 +51,14 @@ namespace CommandLine.Text
     {
         private const int _builderCapacity = 128;
         private const int _defaultMaximumLength = 80; // default console width
-        private int? _maximumDisplayWidth;
-        private readonly string _heading;
-        private string _copyright;
-        private bool _additionalNewLineAfterOption;
-        private StringBuilder _preOptionsHelp;
-        private StringBuilder _optionsHelp;
-        private StringBuilder _postOptionsHelp;
         private static readonly string _defaultRequiredWord = "Required.";
+        private readonly string _heading;
+        private readonly StringBuilder _postOptionsHelp;
+        private readonly StringBuilder _preOptionsHelp;
+        private bool _additionalNewLineAfterOption;
+        private string _copyright;
+        private int? _maximumDisplayWidth;
+        private StringBuilder _optionsHelp;
 
         private HelpText()
         {
@@ -169,7 +176,8 @@ namespace CommandLine.Text
             Assumes.NotNull(options, "options");
             Assumes.NotNullOrEmpty(requiredWord, "requiredWord");
 
-            var optionList = ReflectionUtil.RetrieveFieldAttributeList<BaseOptionAttribute>(options);
+            IList<BaseOptionAttribute> optionList =
+                ReflectionUtil.RetrieveFieldAttributeList<BaseOptionAttribute>(options);
             var optionHelp = ReflectionUtil.RetrieveMethodAttributeOnly<HelpOptionAttribute>(options);
 
             if (optionHelp != null)
@@ -194,7 +202,7 @@ namespace CommandLine.Text
         private void AddOption(string requiredWord, int maxLength, BaseOptionAttribute option, int widthOfHelpText)
         {
             _optionsHelp.Append("  ");
-            StringBuilder optionName = new StringBuilder(maxLength);
+            var optionName = new StringBuilder(maxLength);
             if (option.HasShortName)
             {
                 optionName.AppendFormat("{0}", option.ShortName);
@@ -230,7 +238,7 @@ namespace CommandLine.Text
                 do
                 {
                     int wordBuffer = 0;
-                    var words = option.HelpText.Split(new[] {' '});
+                    string[] words = option.HelpText.Split(new[] {' '});
                     for (int i = 0; i < words.Length; i++)
                     {
                         if (words[i].Length < (widthOfHelpText - wordBuffer))
@@ -276,7 +284,7 @@ namespace CommandLine.Text
         {
             const int extraLength = 10;
             var builder = new StringBuilder(_heading.Length + GetLength(_copyright) +
-                GetLength(_preOptionsHelp) + GetLength(_optionsHelp) + extraLength);
+                                            GetLength(_preOptionsHelp) + GetLength(_optionsHelp) + extraLength);
 
             builder.Append(_heading);
             if (!string.IsNullOrEmpty(_copyright))
@@ -332,7 +340,7 @@ namespace CommandLine.Text
             do
             {
                 int wordBuffer = 0;
-                string[] words = value.Split(new[] { ' ' });
+                string[] words = value.Split(new[] {' '});
                 for (int i = 0; i < words.Length; i++)
                 {
                     if (words[i].Length < (maximumLength - wordBuffer))
@@ -357,7 +365,7 @@ namespace CommandLine.Text
                     }
                 }
                 value = value.Substring(Math.Min(wordBuffer, value.Length));
-                if(value.Length > 0)
+                if (value.Length > 0)
                 {
                     builder.Append(Environment.NewLine);
                 }

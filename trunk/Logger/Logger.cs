@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
-using PrintNCI.Properties;
+using Logger.Properties;
 
-namespace PrintNCI
+namespace Logger
 {
     public static class Logger
     {
-        private static readonly StreamWriter logFile = new StreamWriter(Settings.Default.LogFileName, true);
+        private static readonly StreamWriter logFile = new StreamWriter(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                              Settings.Default.ProgramFolder + @"\"), Settings.Default.LogFileName), true);
 
         public static void WriteLog(string line)
         {
@@ -15,6 +16,5 @@ namespace PrintNCI
                 logFile.WriteLine(DateTime.Now.ToUniversalTime() + " " + line);
             logFile.Flush();
         }
-
     }
 }

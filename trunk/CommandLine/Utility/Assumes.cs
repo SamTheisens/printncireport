@@ -1,4 +1,5 @@
 #region License
+
 //
 // Command Line Library: Validator.cs
 //
@@ -25,17 +26,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 //
-#endregion
-#region Using Directives
-using System;
+
 #endregion
 
-namespace CommandLine
+#region Using Directives
+
+using System;
+
+#endregion
+
+namespace CommandLine.Utility
 {
-    static class Assumes
+    internal static class Assumes
     {
         public static void NotNull<T>(T value, string paramName)
-                where T : class
+            where T : class
         {
             if (value == null)
                 throw new ArgumentNullException(paramName);
