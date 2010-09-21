@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PrintNCIService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PollingFrequencyInMillis" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="TracerView" Type="System.String" Scope="User">
+      <Value Profile="(Default)">tracer</Value>
+    </Setting>
+    <Setting Name="ConnectionString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Provider=SQLOLEDB.1;Initial Catalog=RSKUPANG;Data Source=192.168.1.1;Locale Identifier=1033;Connect Timeout=15;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;</Value>
+    </Setting>
+    <Setting Name="ServerHostName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">server</Value>
+    </Setting>
+    <Setting Name="DatabaseName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">RSKUPANG</Value>
+    </Setting>
+    <Setting Name="CetakStatus" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CetakTracer" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

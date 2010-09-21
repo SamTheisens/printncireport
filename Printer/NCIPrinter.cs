@@ -1,8 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
 using System.IO;
+using System.Printing;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using Printer.Properties;
 
 namespace Printer
@@ -15,14 +19,21 @@ namespace Printer
         public const string kelompokInHealth = "IN HEALTH";
 
         private readonly Options options;
+        private readonly string connectionString;
         public NCIPrinter(Options options)
         {
             this.options = options;
         }
+        public NCIPrinter(Options options, string connectionString)
+            : this(options)
+        {
+            this.connectionString = connectionString;
+        }
+
         public void Print()
         {
             var visitInfo = new PatientVisitInfo();
-            const string connectionString = "";
+
 
             var service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
 
@@ -44,7 +55,7 @@ namespace Printer
                 options.KdBagian = visitInfo.KdBagian.Value;
             }
 
-            if (!GetMauPrint(visitInfo.TglMasuk, visitInfo.Baru))
+            if (!options.SkipVerify && !GetMauPrint(visitInfo.TglMasuk, visitInfo.Baru))
                 return;
 
             if (!string.IsNullOrEmpty(options.Sjp) && options.Billing)
@@ -59,6 +70,7 @@ namespace Printer
                                     ? SettingsService.GetExecutableUgd(options, visitInfo.KelompokPasien)
                                     : SettingsService.GetExecutableTpp(options, visitInfo.KelompokPasien);
 
+            CheckPrintQueue(options.Tracer ? "PrinterKartu" : "PrinterStatus");
             if (executable.Length == 0)
             {
                 Logger.Logger.WriteLog(string.Format("Maaf. Pasien {0} pasien {1}. Tidak bisa print Jaminan.",
@@ -72,12 +84,12 @@ namespace Printer
                 UpdateTracer(visitInfo);
         }
 
-        private static void UpdateSjp(PatientVisitInfo visitInfo, string noSJP)
+        private void UpdateSjp(PatientVisitInfo visitInfo, string noSJP)
         {
-            var service = new DatabaseService(SettingsService.GetConnectionString(""));
+            var service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
             bool update = service.GetSjp(visitInfo);
 
-            service = new DatabaseService(SettingsService.GetConnectionString(""));
+            service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
             service.UpdateSjp(visitInfo, noSJP, update);
         }
 
@@ -87,14 +99,14 @@ namespace Printer
             short jaminan;
             short kartu_berobat;
             short tracer;
-            var service = new DatabaseService(SettingsService.GetConnectionString(""));
+            var service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
             bool hasPrintStatus = service.GetPrintStatus(visitInfo, out status, out jaminan, out kartu_berobat, out tracer);
             status = options.Status ? (short)(status + 1) : status;
             jaminan = options.Billing ? (short)(jaminan + 1) : jaminan;
             kartu_berobat = options.KartuBerobat ? (short)(kartu_berobat + 1) : kartu_berobat;
-            tracer = options.Tracer ? (short) (tracer + 1) : tracer;
+            tracer = options.Tracer ? (short)(tracer + 1) : tracer;
 
-            service = new DatabaseService(SettingsService.GetConnectionString(""));
+            service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
             service.UpdatePrintStatus(visitInfo, status, jaminan, kartu_berobat, tracer, hasPrintStatus);
         }
 
@@ -124,25 +136,76 @@ namespace Printer
         private static void Print(string executable)
         {
             string programPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
-                                          Settings.Default.ProgramFolder + @"\");
+                                              Settings.Default.ProgramFolder + @"\");
 
             string fileName = Path.Combine(programPath, executable);
-            Logger.Logger.WriteLog("Sedang start " + fileName);
+
             try
             {
-                using (var process = new Process())
+                Logger.Logger.WriteLog(
+                    string.Format("Hasil start start proces {0}:  {1}",
+                                  ProcessUtilities.CreateUIProcessForServiceRunningAsLocalSystem(fileName, "")
+                                  , fileName));
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Logger.WriteLog(string.Format("Ada masalah dengan start proses {0}. Masalah: {1}", fileName,
+                                                     ex.Message));
+            }
+        }
+
+        private static bool CheckPrintQueue(string regkey)
+        {
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(
+                @"Software\Nuansa\NCI Medismart\3.00\Module\BillRWJ\Print", RegistryKeyPermissionCheck.ReadSubTree);
+            string printer = key.GetValue(regkey).ToString();
+
+            PrintQueueCollection printQueues;
+            using (var server = new PrintServer())
+            {
+                printQueues = server.GetPrintQueues();
+            }
+            foreach (PrintQueue pq in printQueues)
+            {
+                Thread.Sleep(200); // 2 seconds of "Application.DoEvents(), not thread sleep
+                if (pq.Name == printer)
                 {
-                    process.StartInfo.FileName = fileName;
-                    process.StartInfo.Arguments = "/e";
-                    process.Start();
-                    process.WaitForExit(20000);
-                    process.Close();
+                    try
+                    {
+                        if (pq.NumberOfJobs > 0)
+                        {
+                            DateTime Bailout = DateTime.Now.AddSeconds(10);
+                            string ErrMsg = "notyetretreived";
+                            while (Bailout > DateTime.Now && ErrMsg != string.Empty)
+                            {
+                                try
+                                {
+                                    var Jobs = pq.GetPrintJobInfoCollection();
+                                    Thread.Sleep(500);
+                                    foreach (PrintSystemJobInfo Job in Jobs)
+                                    {
+                                        ErrMsg = string.Empty;
+                                        if (Job.Name.Contains("Tracer") || Job.Name.Contains("Status"))
+                                            return false;
+                                    }
+                                }
+                                catch (Exception k)
+                                {
+                                    ErrMsg = k.Message;
+                                    Logger.Logger.WriteLog(string.Format("{0}: {1}", pq.Name, k.Message));
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Logger.WriteLog(ex.Message);
+                    }
+                    Logger.Logger.WriteLog(string.Format("\t{0}\t{1}", pq.Name, DateTime.Now.ToString("HH:mm:ss.fff")));
                 }
             }
-            catch(Exception ex)
-            {
-                Logger.Logger.WriteLog(string.Format("Ada masalah dengan start proses {0}. Masalah: {1}", fileName, ex.Message));
-            }
+            return true;
         }
     }
 }

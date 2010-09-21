@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Runtime.InteropServices;
 using System.ServiceProcess;
-using System.Text;
 
 namespace PrintNCIService
 {
@@ -13,11 +11,11 @@ namespace PrintNCIService
         /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[] 
-			{ 
-				new PrintNCIService() 
-			};
+            //if (args.Length > 0) new PrintNCIService().Test();
+            var ServicesToRun = new ServiceBase[]
+                                    {
+                                        new PrintNCIService()
+                                    };
             ServiceBase.Run(ServicesToRun);
         }
     }

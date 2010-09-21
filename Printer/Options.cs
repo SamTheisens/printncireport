@@ -41,6 +41,9 @@ namespace Printer
         [Option("r", "bagian", Required = false, HelpText = "Bagian. RWI = 1, RWJ = 2, UGD = 3")]
         public byte KdBagian;
 
+        [Option("v", "skipverify", Required = false, HelpText = "Lompat verifikasi syarat2 sebelum print")]
+        public bool SkipVerify;
+
         [HelpOption(HelpText = "Menimpalkan keterangan ini")]
         public string GetUsage()
         {
