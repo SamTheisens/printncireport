@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Permissions;
 using Microsoft.Win32;
 using Printer.Properties;
 
@@ -8,10 +9,13 @@ namespace Printer
     {
         public static string GetConnectionString(string connectionString)
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey("Software").OpenSubKey("Nuansa").OpenSubKey("NCI Medismart").OpenSubKey("3.00").OpenSubKey("Database");
+            if (!string.IsNullOrEmpty(connectionString))
+                return connectionString;
+
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Nuansa\NCI Medismart\3.00\Database", RegistryKeyPermissionCheck.ReadSubTree);
             if (key == null)
             {
-                throw new NullReferenceException("Tidak bisa baca registry.");
+                throw new NullReferenceException(@"Tidak bisa baca registry HKCU\Software\Nuansa\NCI Medismart\3.00\Database");
             }
             for (int i = 0; i < 11; i++)
             {
@@ -19,7 +23,7 @@ namespace Printer
                 if (!(value.Contains("User ID") || value.Contains("Password")))
                     connectionString = connectionString + value;
             }
-            connectionString += ";Password=pocopoco;User ID=sa";
+            connectionString += string.Format(";Password={0};User ID={1}", Settings.Default.DatabasePassword, Settings.Default.DatabaseUser);
             return connectionString;
         }
 

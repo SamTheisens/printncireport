@@ -28,20 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.serviceController = new System.ServiceProcess.ServiceController();
             this.eventLog = new System.Diagnostics.EventLog();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.eventLog)).BeginInit();
-            // 
-            // eventLog
-            // 
-            this.eventLog.EnableRaisingEvents = true;
-            this.eventLog.Log = "Application";
-            this.eventLog.Source = "PrintNCI";
             // 
             // PrintNCIService
             // 
+            this.AutoLog = false;
             this.ServiceName = "PrintNCIService";
             ((System.ComponentModel.ISupportInitialize)(this.eventLog)).EndInit();
 
@@ -49,9 +42,7 @@
 
         #endregion
 
-        private System.Diagnostics.EventLog eventLog;
-        private System.Windows.Forms.Timer timer;
         private System.ServiceProcess.ServiceController serviceController;
-
+        private System.Diagnostics.EventLog eventLog;
     }
 }
