@@ -64,12 +64,11 @@ namespace Printer
             ProcessUtilities.STARTUPINFO l_oStartupInfo;
 
             ProcessUtilities.LoadUserProfile(out l_oSecurityAttributes, out l_ptrEnvironment, out l_oStartupInfo);
-            string dir;
             if (l_ptrEnvironment == IntPtr.Zero)
             {
                 return Path.GetTempPath();
             }
-            dir = Environment.GetEnvironmentVariable("USERPROFILE");
+            string dir = Environment.GetEnvironmentVariable("USERPROFILE");
             if (dir != null) return Path.Combine(dir, Path.Combine("Local Settings", "Temp"));
             return "";
         }

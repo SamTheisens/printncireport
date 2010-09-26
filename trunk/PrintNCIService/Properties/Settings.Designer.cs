@@ -25,7 +25,7 @@ namespace PrintNCIService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public int PollingFrequencyInMillis {
             get {
                 return ((int)(this["PollingFrequencyInMillis"]));
@@ -49,9 +49,9 @@ namespace PrintNCIService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB.1;Initial Catalog=RSKUPANG;Data Source=192.168.1.1;Locale Ident" +
-            "ifier=1033;Connect Timeout=15;Use Procedure for Prepare=1;Auto Translate=True;Pa" +
-            "cket Size=4096;")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Provider=SQLOLEDB.1;Initial Catalog=RSKUPANG;Data Source=localhost;Locale Identif" +
+            "ier=1033;Connect Timeout=15;Use Procedure for Prepare=1;Auto Translate=True;Pack" +
+            "et Size=4096;")]
         public string ConnectionString {
             get {
                 return ((string)(this["ConnectionString"]));
@@ -63,7 +63,7 @@ namespace PrintNCIService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("server")]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
         public string ServerHostName {
             get {
                 return ((string)(this["ServerHostName"]));
@@ -87,7 +87,7 @@ namespace PrintNCIService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool CetakStatus {
             get {
                 return ((bool)(this["CetakStatus"]));
@@ -106,6 +106,30 @@ namespace PrintNCIService.Properties {
             }
             set {
                 this["CetakTracer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HP LaserJet P1006")]
+        public string StatusPrinter {
+            get {
+                return ((string)(this["StatusPrinter"]));
+            }
+            set {
+                this["StatusPrinter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("HP LaserJet P1006")]
+        public string TracerPrinter {
+            get {
+                return ((string)(this["TracerPrinter"]));
+            }
+            set {
+                this["TracerPrinter"] = value;
             }
         }
     }
