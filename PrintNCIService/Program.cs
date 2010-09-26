@@ -11,7 +11,7 @@ namespace PrintNCIService
         /// </summary>
         static void Main()
         {
-            //if (args.Length > 0) new PrintNCIService().Test();
+//            if (args.Length > 0) new PrintNCIService().Test();
             var ServicesToRun = new ServiceBase[]
                                     {
                                         new PrintNCIService()

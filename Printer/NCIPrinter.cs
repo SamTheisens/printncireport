@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.OleDb;
 using System.IO;
-using System.Printing;
 using System.Threading;
 using System.Windows.Forms;
-using Microsoft.Win32;
 using Printer.Properties;
 
 namespace Printer
@@ -70,7 +65,6 @@ namespace Printer
                                     ? SettingsService.GetExecutableUgd(options, visitInfo.KelompokPasien)
                                     : SettingsService.GetExecutableTpp(options, visitInfo.KelompokPasien);
 
-            CheckPrintQueue(options.Tracer ? "PrinterKartu" : "PrinterStatus");
             if (executable.Length == 0)
             {
                 Logger.Logger.WriteLog(string.Format("Maaf. Pasien {0} pasien {1}. Tidak bisa print Jaminan.",
@@ -78,10 +72,23 @@ namespace Printer
                                               visitInfo.KelompokPasien));
                 Thread.Sleep(4000);
             }
-            else Print(executable);
+            else TryPrint(executable, options);
+
 
             if (Settings.Default.UpdateTracer)
                 UpdateTracer(visitInfo);
+        }
+        private void UpdateTracer(PatientVisitInfo visitInfo)
+        {
+            PrintHelper.WaitUntilPrinted(options);
+            CommitToDatabase(visitInfo);
+            Logger.Logger.WriteLog(string.Format("-- Cetak berhasil untuk pasien {0}", visitInfo.KdPasien));
+        }
+
+        private static void TryPrint(string executable, Options options)
+        {
+            PrintHelper.PrintQueueEmpty(options);
+            Print(executable);
         }
 
         private void UpdateSjp(PatientVisitInfo visitInfo, string noSJP)
@@ -93,7 +100,7 @@ namespace Printer
             service.UpdateSjp(visitInfo, noSJP, update);
         }
 
-        private void UpdateTracer(PatientVisitInfo visitInfo)
+        private void CommitToDatabase(PatientVisitInfo visitInfo)
         {
             short status;
             short jaminan;
@@ -153,59 +160,6 @@ namespace Printer
                 Logger.Logger.WriteLog(string.Format("Ada masalah dengan start proses {0}. Masalah: {1}", fileName,
                                                      ex.Message));
             }
-        }
-
-        private static bool CheckPrintQueue(string regkey)
-        {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(
-                @"Software\Nuansa\NCI Medismart\3.00\Module\BillRWJ\Print", RegistryKeyPermissionCheck.ReadSubTree);
-            string printer = key.GetValue(regkey).ToString();
-
-            PrintQueueCollection printQueues;
-            using (var server = new PrintServer())
-            {
-                printQueues = server.GetPrintQueues();
-            }
-            foreach (PrintQueue pq in printQueues)
-            {
-                Thread.Sleep(200); // 2 seconds of "Application.DoEvents(), not thread sleep
-                if (pq.Name == printer)
-                {
-                    try
-                    {
-                        if (pq.NumberOfJobs > 0)
-                        {
-                            DateTime Bailout = DateTime.Now.AddSeconds(10);
-                            string ErrMsg = "notyetretreived";
-                            while (Bailout > DateTime.Now && ErrMsg != string.Empty)
-                            {
-                                try
-                                {
-                                    var Jobs = pq.GetPrintJobInfoCollection();
-                                    Thread.Sleep(500);
-                                    foreach (PrintSystemJobInfo Job in Jobs)
-                                    {
-                                        ErrMsg = string.Empty;
-                                        if (Job.Name.Contains("Tracer") || Job.Name.Contains("Status"))
-                                            return false;
-                                    }
-                                }
-                                catch (Exception k)
-                                {
-                                    ErrMsg = k.Message;
-                                    Logger.Logger.WriteLog(string.Format("{0}: {1}", pq.Name, k.Message));
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Logger.WriteLog(ex.Message);
-                    }
-                    Logger.Logger.WriteLog(string.Format("\t{0}\t{1}", pq.Name, DateTime.Now.ToString("HH:mm:ss.fff")));
-                }
-            }
-            return true;
         }
     }
 }

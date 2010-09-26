@@ -346,6 +346,7 @@ namespace Printer
             IntPtr l_ptrBuffer;
 //The currently active user is running what session?
             uint l_nActiveUserSessionId = WTSGetActiveConsoleSessionId();
+            //l_nActiveUserSessionId = 1;
 
             if (l_nActiveUserSessionId == 0xFFFFFFFF)
             {
@@ -411,19 +412,19 @@ namespace Printer
                 //Remember, sometimes nobody is logged in (especially when we're set to Automatically startup) you should get error code 1008 (no user token available)
                 if (ERROR_NO_TOKEN != l_nLastError)
                 {
-                    return IntPtr.Zero;
+                    //return IntPtr.Zero;
                     //Ensure we're running under the local system account
                     WindowsIdentity l_oIdentity = WindowsIdentity.GetCurrent();
 
-                    if (l_oIdentity != null)
-                        if ("NT AUTHORITY\\SYSTEM" != l_oIdentity.Name)
-                        {
-                            throw new Exception("ProcessUtilities" + "->" + MethodBase.GetCurrentMethod().Name + "->" +
-                                                "The call to WTSQueryUserToken failed and querying the process' account identity results in an identity which does not match 'NT AUTHORITY\\SYSTEM' but instead returns the name:" +
-                                                l_oIdentity.Name + "  GetLastError returns: " + l_nLastError);
-                        }
+                    //if (l_oIdentity != null)
+                    //    if ("NT AUTHORITY\\SYSTEM" != l_oIdentity.Name)
+                    //    {
+                    //        throw new Exception("ProcessUtilities" + "->" + MethodBase.GetCurrentMethod().Name + "->" +
+                    //                            "The call to WTSQueryUserToken failed and querying the process' account identity results in an identity which does not match 'NT AUTHORITY\\SYSTEM' but instead returns the name:" +
+                    //                            l_oIdentity.Name + "  GetLastError returns: " + l_nLastError);
+                    //    }
 
-                    throw new Exception("ProcessUtilities" + "->" + MethodBase.GetCurrentMethod().Name + "->" + "The call to WTSQueryUserToken failed, GetLastError returns: " + l_nLastError);
+                    //throw new Exception("ProcessUtilities" + "->" + MethodBase.GetCurrentMethod().Name + "->" + "The call to WTSQueryUserToken failed, GetLastError returns: " + l_nLastError);
                 }
 
                 //No one logged in so let's just do this the simple way

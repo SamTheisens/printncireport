@@ -56,35 +56,26 @@ namespace CommandLine
                 {
                     if (!option.IsArray)
                         return BooleanToParserState(option.SetValue(parts[1], options));
-                    else
-                    {
-                        EnsureOptionAttributeIsArrayCompatible(option);
+                    EnsureOptionAttributeIsArrayCompatible(option);
 
-                        IList<string> items = GetNextInputValues(argumentEnumerator);
-                        items.Insert(0, parts[1]);
-                        return BooleanToParserState(option.SetValue(items, options));
-                    }
+                    IList<string> items = GetNextInputValues(argumentEnumerator);
+                    items.Insert(0, parts[1]);
+                    return BooleanToParserState(option.SetValue(items, options));
                 }
+                if (!option.IsArray)
+                    return BooleanToParserState(option.SetValue(argumentEnumerator.Next, options), true);
                 else
                 {
-                    if (!option.IsArray)
-                        return BooleanToParserState(option.SetValue(argumentEnumerator.Next, options), true);
-                    else
-                    {
-                        EnsureOptionAttributeIsArrayCompatible(option);
+                    EnsureOptionAttributeIsArrayCompatible(option);
 
-                        IList<string> items = GetNextInputValues(argumentEnumerator);
-                        return BooleanToParserState(option.SetValue(items, options), true);
-                    }
+                    IList<string> items = GetNextInputValues(argumentEnumerator);
+                    return BooleanToParserState(option.SetValue(items, options), true);
                 }
             }
-            else
-            {
-                if (parts.Length == 2)
-                    return ParserState.Failure;
+            if (parts.Length == 2)
+                return ParserState.Failure;
 
-                return BooleanToParserState(option.SetValue(true, options));
-            }
+            return BooleanToParserState(option.SetValue(true, options));
         }
     }
 }

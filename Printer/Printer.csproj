@@ -54,6 +54,7 @@
     <Compile Include="NCIPrinter.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="PatientVisitInfo.cs" />
+    <Compile Include="PrintHelper.cs" />
     <Compile Include="ProcessUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
