@@ -25,7 +25,7 @@ namespace PrintNCIService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("15000")]
         public int PollingFrequencyInMillis {
             get {
                 return ((int)(this["PollingFrequencyInMillis"]));
@@ -63,7 +63,7 @@ namespace PrintNCIService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SERVER")]
         public string ServerHostName {
             get {
                 return ((string)(this["ServerHostName"]));
@@ -87,7 +87,7 @@ namespace PrintNCIService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool CetakStatus {
             get {
                 return ((bool)(this["CetakStatus"]));
@@ -123,7 +123,7 @@ namespace PrintNCIService.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("HP LaserJet P1006")]
+        [global::System.Configuration.DefaultSettingValueAttribute("EPSON LX-300+II ESC/P")]
         public string TracerPrinter {
             get {
                 return ((string)(this["TracerPrinter"]));

@@ -255,5 +255,17 @@ namespace PrintNCI.Properties {
                 this["DatabasePassword"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("APO")]
+        public string Modul {
+            get {
+                return ((string)(this["Modul"]));
+            }
+            set {
+                this["Modul"] = value;
+            }
+        }
     }
 }

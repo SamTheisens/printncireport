@@ -66,12 +66,5 @@ namespace WPFTaskbarNotifier.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        internal static System.Drawing.Bitmap PrintIconAlarm {
-            get {
-                object obj = ResourceManager.GetObject("PrintIconAlarm", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }

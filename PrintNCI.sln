@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTaskbarNotifier", "WPFTa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintNCIAgent", "PrintNCIAgent\PrintNCIAgent.csproj", "{1EF76AD2-806D-4610-9895-C5FE5FEEDD73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BukaTransaksi", "BukaTransaksi\BukaTransaksi.csproj", "{9E83C351-4B46-4418-99BF-9D0BDE0779A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,12 @@ Global
 		{1EF76AD2-806D-4610-9895-C5FE5FEEDD73}.DebugTests|Any CPU.Build.0 = Debug|Any CPU
 		{1EF76AD2-806D-4610-9895-C5FE5FEEDD73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EF76AD2-806D-4610-9895-C5FE5FEEDD73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E83C351-4B46-4418-99BF-9D0BDE0779A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E83C351-4B46-4418-99BF-9D0BDE0779A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E83C351-4B46-4418-99BF-9D0BDE0779A4}.DebugTests|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E83C351-4B46-4418-99BF-9D0BDE0779A4}.DebugTests|Any CPU.Build.0 = Debug|Any CPU
+		{9E83C351-4B46-4418-99BF-9D0BDE0779A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E83C351-4B46-4418-99BF-9D0BDE0779A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

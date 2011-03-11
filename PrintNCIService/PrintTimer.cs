@@ -10,6 +10,8 @@ namespace PrintNCIService
     class PrintTimer
     {
         private bool lastTracer;
+        private bool printingStatus;
+        private bool printingTracer;
         private readonly PrintService service;
         private ServiceHost serviceHost;
         public PrintTimer()
@@ -31,18 +33,37 @@ namespace PrintNCIService
         {
             if (lastTracer && Settings.Default.CetakStatus)
             {
+                lock (this)
+                {
+                    if (printingStatus) return;
+                    printingStatus = true;
+                }
                 PrintStatus();
-                lastTracer = false;
+                lock (this)
+                {
+                    printingStatus = false;
+                    lastTracer = false;
+                }
             }
             else if (Settings.Default.CetakTracer)
             {
+                lock (this)
+                {
+                    if (printingTracer) return;
+                    printingTracer = true;
+                }
                 PrintTracer();
-                lastTracer = true;
+                lock (this)
+                {
+                    printingTracer = false;
+                    lastTracer = true;
+                }
             }
         }
 
         private void PrintTracer()
         {
+
             try
             {
                 var reader =

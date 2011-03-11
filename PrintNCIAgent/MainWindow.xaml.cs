@@ -57,10 +57,14 @@ namespace PrintNCIAgent
             {
                 factory.Abort();
             }
+
+            if (factory.State != CommunicationState.Opened)
+                SetIconToOff();
+            else
+                SetIconToOn();
+
             if (factory.State != CommunicationState.Faulted)
-            {
                 factory.Close();
-            }
         }
 
         private void CheckQueue(IPrintService channel)
@@ -103,17 +107,24 @@ namespace PrintNCIAgent
 
         private void Stop_Click(object sender, RoutedEventArgs e)
         {
-            //controller.Stop();
-            
-            
-         //   MessageBox.Show(string.Format("Status Queue: {0}", channel.GetStatusQueue()));
+            controller.Stop();
+            SetIconToOff();
         }
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
-            //controller.Start();
-            
-            //MessageBox.Show(string.Format("Tracer Queue: {0}", channel.GetTracerQueue()));
+            controller.Start();
+            SetIconToOn();
+        }
+
+        private void SetIconToOn()
+        {
+            NotifyIcon.InternalIcon.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.PrintIcon.GetHicon());
+        }
+
+        private void SetIconToOff()
+        {
+            NotifyIcon.InternalIcon.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.PrintIconAlarm.GetHicon());
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
@@ -123,17 +134,15 @@ namespace PrintNCIAgent
 
         private void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void NotifyIcon_MouseClick(object sender, MouseButtonEventArgs e)
         {
-
+            notifier.Notify();
         }
 
         private void NotifyIcon_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
         }
     }
 }

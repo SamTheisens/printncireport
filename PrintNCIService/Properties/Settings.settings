@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="PollingFrequencyInMillis" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10000</Value>
+      <Value Profile="(Default)">15000</Value>
     </Setting>
     <Setting Name="TracerView" Type="System.String" Scope="User">
       <Value Profile="(Default)">tracer</Value>
@@ -12,13 +12,13 @@
       <Value Profile="(Default)">Provider=SQLOLEDB.1;Initial Catalog=RSKUPANG;Data Source=localhost;Locale Identifier=1033;Connect Timeout=15;Use Procedure for Prepare=1;Auto Translate=True;Packet Size=4096;</Value>
     </Setting>
     <Setting Name="ServerHostName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">localhost</Value>
+      <Value Profile="(Default)">SERVER</Value>
     </Setting>
     <Setting Name="DatabaseName" Type="System.String" Scope="User">
       <Value Profile="(Default)">RSKUPANG</Value>
     </Setting>
     <Setting Name="CetakStatus" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="CetakTracer" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -27,7 +27,7 @@
       <Value Profile="(Default)">HP LaserJet P1006</Value>
     </Setting>
     <Setting Name="TracerPrinter" Type="System.String" Scope="User">
-      <Value Profile="(Default)">HP LaserJet P1006</Value>
+      <Value Profile="(Default)">EPSON LX-300+II ESC/P</Value>
     </Setting>
   </Settings>
 </SettingsFile>

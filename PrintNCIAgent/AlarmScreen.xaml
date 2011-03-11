@@ -46,7 +46,7 @@
                         <Label.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Blue" Offset="0"/>
-                                <GradientStop Color="Red" Offset="1"/>
+                                <GradientStop Color="DarkBlue"  Offset="1"/>
                             </LinearGradientBrush>
                         </Label.Foreground>
                     </Label>
@@ -79,7 +79,7 @@
                             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5" MappingMode="RelativeToBoundingBox" SpreadMethod="Repeat">
                                 <GradientStop Color="White" Offset="0"/>
                                 <GradientStop Color="Blue" Offset="0.1"/>
-                                <GradientStop Color="Red" Offset="0.9"/>
+                                <GradientStop Color="AliceBlue"  Offset="0.9"/>
                                 <GradientStop Color="White" Offset="1"/>
                             </LinearGradientBrush>
                         </Path.Stroke>

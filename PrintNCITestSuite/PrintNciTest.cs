@@ -6,9 +6,6 @@ using PrintNCITestSuite.MockObjects;
 
 namespace PrintNCITestSuite
 {
-    /// <summary>
-    /// Summary description for UnitTest1
-    /// </summary>
     [TestFixture]
     public class PrintNciTest
     {
@@ -74,6 +71,17 @@ namespace PrintNCITestSuite
             Assert.AreEqual(DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
                             info.TglMasuk.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
 
+        }
+        [Test]
+        public void TestGetExecutable()
+        {
+            var resultSet = new StubResultSet("KD_KASIR", "PENDAFTARAN", "KD_CUSTOMER_REPORT", "NAMA_SP");
+            resultSet.AddRow("02", true, "0000000002", "RSUD_PRINT_BILL");
+            var reader = new StubDataReader(resultSet);
+            var service = new DatabaseService(reader);
+            var form = service.GetExecutable("0000000002", "02", true);
+            Assert.AreEqual("CRPEN-02-02.rpt", form.FileName);
+            Assert.AreEqual("RSUD_PRINT_BILL", form.Procedure);
         }
 
     }

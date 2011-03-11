@@ -7,7 +7,7 @@
         <Grid.RowDefinitions >
             <RowDefinition  Height="*"/>
         </Grid.RowDefinitions>
-        <WPFTaskbarNotifier:NotifyIcon x:Name="NotifyIcon" Text="Example Notifier" MouseClick="NotifyIcon_MouseClick" MouseDoubleClick="NotifyIcon_MouseDoubleClick" >
+        <WPFTaskbarNotifier:NotifyIcon x:Name="NotifyIcon" Text="Print NCI Monitor" MouseClick="NotifyIcon_MouseClick" MouseDoubleClick="NotifyIcon_MouseDoubleClick">
             <WPFTaskbarNotifier:NotifyIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Stop" Click="Stop_Click" />

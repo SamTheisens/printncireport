@@ -41,6 +41,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TempFileHelperTest.cs" />
     <Compile Include="MockObjects\NameIndexCollection.cs" />
     <Compile Include="MockObjects\StubDataReader.cs" />
     <Compile Include="MockObjects\StubDataTable.cs">
@@ -57,6 +58,11 @@
       <Project>{64F0902D-55FF-453A-9BF6-A8CC9609445F}</Project>
       <Name>Printer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Print_Master.ex_">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,14 +5,20 @@ namespace Printer
 {
     public sealed class Options
     {
+        [Option("h", "help", Required = false, HelpText = "Munjunjukan informasi ini")]
+        public bool Help;
+
         [Option("c", "configuration", Required = false, HelpText = "Mengubah konfigurasi program ini")]
         public bool Settings;
+
+        [Option("i", "kasir", Required = false, HelpText = "Kode Kasir")]
+        public string KdKasir;
 
         [Option("a", "status", Required = false, HelpText = "Cetak Kartu Status Pasien")]
         public bool Status;
 
-        [Option("b", "bill", Required = false, HelpText = "Cetak Bill/Jaminan")]
-        public bool Billing;
+        [Option("p", "pendaftaran", Required = false, HelpText = "Cetak dari modul pendaftaran (jaminan)")]
+        public bool Pendaftaran;
 
         [Option("n", "kartuberobat", Required = false, HelpText = "Cetak Kartu Berobat")]
         public bool KartuBerobat;
@@ -44,13 +50,20 @@ namespace Printer
         [Option("v", "skipverify", Required = false, HelpText = "Lompat verifikasi syarat2 sebelum print")]
         public bool SkipVerify;
 
+        [Option("d", "modul", Required = false, HelpText = "Modul")]
+        public int Modul;
+
+        [Option("q", "printqueue", Required = false, HelpText = "Cek printqueue")]
+        public bool PrintQueue;
+
+
         [HelpOption(HelpText = "Menimpalkan keterangan ini")]
         public string GetUsage()
         {
             var help = new HelpText("PrintNCI - Cetak laporan Crystal Reports dari command line")
                            {
                                AdditionalNewLineAfterOption = true,
-                               Copyright = new CopyrightInfo("Sam Theisens", 2009, 2010)
+                               Copyright = new CopyrightInfo("Sam Theisens", 2009, 2011)
                            };
             help.AddOptions(this);
             return help;

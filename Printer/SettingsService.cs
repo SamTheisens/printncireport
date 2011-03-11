@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Security.Permissions;
+using System.IO;
 using Microsoft.Win32;
 using Printer.Properties;
 
@@ -7,7 +7,16 @@ namespace Printer
 {
     public static class SettingsService
     {
-        public static string GetConnectionString(string connectionString)
+        public static string GetConnectionString()
+        {
+            return GetConnectionString(null, true);
+        }
+        public static string GetConnectionString(bool oledbString)
+        {
+            return GetConnectionString(null, oledbString);
+        }
+
+        public static string GetConnectionString(string connectionString, bool oledbString)
         {
             if (!string.IsNullOrEmpty(connectionString))
                 return connectionString;
@@ -20,64 +29,33 @@ namespace Printer
             for (int i = 0; i < 11; i++)
             {
                 var value = (string)key.GetValue("key" + i);
-                if (!(value.Contains("User ID") || value.Contains("Password")))
+                if (value.Contains("User ID") || value.Contains("Password"))
+                    continue;
+                if (oledbString || !(value.Contains("Provider") || value.Contains("Locale") || value.Contains("Use Procedure") || value.Contains("Auto Translate")))
                     connectionString = connectionString + value;
+                
             }
             connectionString += string.Format(";Password={0};User ID={1}", Settings.Default.DatabasePassword, Settings.Default.DatabaseUser);
             return connectionString;
         }
 
-        public static string GetExecutableUgd(Options options, string kelompokPasien)
+
+        public static string GetReportFolder()
         {
-            if (options.KartuBerobat)
-                return Settings.Default.ExecutablePrintKartuBerobat;
-
-            if (options.Status)
-                return Settings.Default.ExecutablePrintStatus;
-
-            switch (kelompokPasien)
-            {
-                case NCIPrinter.kelompokInHealth:
-                    return Settings.Default.ExecutablePrintInHealth;
-                case NCIPrinter.kelompokAskes:
-                    return Settings.Default.ExecutablePrintAskes;
-                case NCIPrinter.kelompokJamkesmas:
-                    return Settings.Default.ExecutablePrintJamkesmasRWJ;
-                case NCIPrinter.kelompokJamkesda:
-                    return Settings.Default.ExecutablePrintJamkesdaRWJ;
-                default:
-                    return "";
-            }
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                                Settings.Default.ProgramFolder + @"\Reports\");
         }
 
-        public static string GetExecutableTpp(Options options, string kelompokPasien)
+        public static string GetProgramFolder()
         {
-            if (options.Status)
-                return Settings.Default.ExecutablePrintStatus;
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
+                                              Settings.Default.ProgramFolder + @"\");
+        }
 
-            if (options.KartuBerobat)
-                return Settings.Default.ExecutablePrintKartuBerobat;
-
-            if (options.Tracer)
-                return Settings.Default.ExecutablePrintTracer;
-
-            if (options.KdBagian == 1)
-            {
-                return Settings.Default.ExecutablePrintJamkesmasRWI;
-            }
-            switch (kelompokPasien)
-            {
-                case NCIPrinter.kelompokInHealth:
-                    return "";
-                case NCIPrinter.kelompokAskes:
-                    return "";
-                case NCIPrinter.kelompokJamkesmas:
-                    return Settings.Default.ExecutablePrintJamkesmasRWJ;
-                case NCIPrinter.kelompokJamkesda:
-                    return Settings.Default.ExecutablePrintJamkesdaRWJ;
-                default:
-                    return "";
-            }
+        public static string CreateReportName(string kasir, bool pendaftaran, string kdCustomerReport)
+        {
+            string modul = pendaftaran ? "PEN" : "BIL";
+            return string.Format("CR{0}-{1}-{2}.rpt", modul, kasir, kdCustomerReport.Substring(8));
         }
     }
 }
