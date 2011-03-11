@@ -2,4 +2,7 @@
   <PropertyGroup>
     <ReferencePath>C:\Program Files\Business Objects\Common\2.8\managed\</ReferencePath>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <StartArguments>-c</StartArguments>
+  </PropertyGroup>
 </Project>

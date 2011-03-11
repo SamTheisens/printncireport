@@ -70,5 +70,8 @@
     <Setting Name="DatabasePassword" Type="System.String" Scope="User">
       <Value Profile="(Default)">pocopoco</Value>
     </Setting>
+    <Setting Name="Modul" Type="System.String" Scope="User">
+      <Value Profile="(Default)">APO</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -8,11 +8,6 @@ namespace Printer
 {
     public sealed class NCIPrinter
     {
-        public const string kelompokJamkesmas = "JAMKESMAS";
-        public const string kelompokJamkesda = "JAMKESDA";
-        public const string kelompokAskes = "ASKES NEGERI";
-        public const string kelompokInHealth = "IN HEALTH";
-
         private readonly Options options;
         private readonly string connectionString;
         public NCIPrinter(Options options)
@@ -27,45 +22,57 @@ namespace Printer
 
         public void Print()
         {
+            string kdKasir;
+            string noTransaksi;
+
             var visitInfo = new PatientVisitInfo();
+            options.SkipVerify = true;
 
+            var service = new DatabaseService(SettingsService.GetConnectionString(true));
 
-            var service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
-
-            if (options.Status || options.KartuBerobat || options.Tracer || !string.IsNullOrEmpty(options.KdPasien))
+            //if (options.Status || options.KartuBerobat || options.Tracer || !string.IsNullOrEmpty(options.KdPasien))
+            //{
+            //    if (!string.IsNullOrEmpty(options.KdUnit) && !string.IsNullOrEmpty(options.TglMasuk))
+            //        visitInfo = service.GetVisitInfo(options);
+            //    else
+            //        visitInfo = service.GetVisitInfo(string.IsNullOrEmpty(options.KdPasien)
+            //                                             ? TempFileHelper.ReadStatus(options)
+            //                                             : options.KdPasien);
+            //}
+            //else if (options.Billing || options.Kasir)
+            //{
+            if (options.Pendaftaran)
             {
-                if (!string.IsNullOrEmpty(options.KdUnit) && !string.IsNullOrEmpty(options.TglMasuk))
-                    visitInfo = service.GetVisitInfo(options);
-                else
-                    visitInfo = service.GetVisitInfo(string.IsNullOrEmpty(options.KdPasien)
-                                                         ? TempFileHelper.ReadStatus(options)
-                                                         : options.KdPasien);
+                visitInfo = service.GetVisitInfoKasir(options.KdKasir, TempFileHelper.ReadStatus(options));
             }
-            else if (options.Billing)
+            else
             {
-                string kdKasir;
-                string noTransaksi;
                 TempFileHelper.ReadBill(out noTransaksi, out kdKasir);
-                visitInfo = service.GetVisitInfo(kdKasir, noTransaksi);
-                options.KdBagian = visitInfo.KdBagian.Value;
+                if (string.IsNullOrEmpty(options.KdKasir))
+                    options.KdKasir = kdKasir;
+
+                visitInfo = service.GetVisitInfo(options.KdKasir, noTransaksi);
             }
+
+            options.KdBagian = visitInfo.KdBagian.Value;
 
             if (!options.SkipVerify && !GetMauPrint(visitInfo.TglMasuk, visitInfo.Baru))
                 return;
 
-            if (!string.IsNullOrEmpty(options.Sjp) && options.Billing)
+            if (!string.IsNullOrEmpty(options.Sjp) && options.Pendaftaran)
                 UpdateSjp(visitInfo, options.Sjp);
 
             Logger.Logger.WriteLog(string.Format("Sedang print pasien #{0}. Kelompok pasien: {1}.", visitInfo.KdPasien,
-                                          visitInfo.KelompokPasien)
-                                          );
-            TempFileHelper.WriteTempFileStatus(visitInfo.KdPasien, options.KdBagian);
+                                                 visitInfo.KelompokPasien));
 
-            string executable = (options.KdBagian == 3)
-                                    ? SettingsService.GetExecutableUgd(options, visitInfo.KelompokPasien)
-                                    : SettingsService.GetExecutableTpp(options, visitInfo.KelompokPasien);
+            service.IncreaseNota(visitInfo.KdKasir, visitInfo.NoTransaksi, visitInfo.KdKelompokPasien);
 
-            if (executable.Length == 0)
+            TempFileHelper.WriteTempFileBill(visitInfo.NoTransaksi, visitInfo.KdKasir);
+
+            // determine executable
+            var executable = service.GetExecutable(visitInfo.KdKelompokPasien, visitInfo.KdKasir, Settings.Default.Pendaftaran);
+
+            if (executable.FileName.Length == 0)
             {
                 Logger.Logger.WriteLog(string.Format("Maaf. Pasien {0} pasien {1}. Tidak bisa print Jaminan.",
                                               visitInfo.KdPasien,
@@ -78,6 +85,7 @@ namespace Printer
             if (Settings.Default.UpdateTracer)
                 UpdateTracer(visitInfo);
         }
+
         private void UpdateTracer(PatientVisitInfo visitInfo)
         {
             PrintHelper.WaitUntilPrinted(options);
@@ -85,18 +93,19 @@ namespace Printer
             Logger.Logger.WriteLog(string.Format("-- Cetak berhasil untuk pasien {0}", visitInfo.KdPasien));
         }
 
-        private static void TryPrint(string executable, Options options)
+        private static void TryPrint(Report report, Options options)
         {
-            PrintHelper.PrintQueueEmpty(options);
-            Print(executable);
+            if (options.PrintQueue)
+                PrintHelper.PrintQueueEmpty(options);
+            Print(report);
         }
 
-        private void UpdateSjp(PatientVisitInfo visitInfo, string noSJP)
+        private static void UpdateSjp(PatientVisitInfo visitInfo, string noSJP)
         {
-            var service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
+            var service = new DatabaseService(SettingsService.GetConnectionString(true));
             bool update = service.GetSjp(visitInfo);
 
-            service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
+            service = new DatabaseService(SettingsService.GetConnectionString(true));
             service.UpdateSjp(visitInfo, noSJP, update);
         }
 
@@ -106,14 +115,14 @@ namespace Printer
             short jaminan;
             short kartu_berobat;
             short tracer;
-            var service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
+            var service = new DatabaseService(SettingsService.GetConnectionString(true));
             bool hasPrintStatus = service.GetPrintStatus(visitInfo, out status, out jaminan, out kartu_berobat, out tracer);
             status = options.Status ? (short)(status + 1) : status;
-            jaminan = options.Billing ? (short)(jaminan + 1) : jaminan;
+            jaminan = options.Pendaftaran ? (short)(jaminan + 1) : jaminan;
             kartu_berobat = options.KartuBerobat ? (short)(kartu_berobat + 1) : kartu_berobat;
             tracer = options.Tracer ? (short)(tracer + 1) : tracer;
 
-            service = new DatabaseService(SettingsService.GetConnectionString(connectionString));
+            service = new DatabaseService(SettingsService.GetConnectionString(true));
             service.UpdatePrintStatus(visitInfo, status, jaminan, kartu_berobat, tracer, hasPrintStatus);
         }
 
@@ -139,13 +148,10 @@ namespace Printer
             return mauPrint;
         }
 
-
-        private static void Print(string executable)
+        public static void Print(Report report)
         {
-            string programPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
-                                              Settings.Default.ProgramFolder + @"\");
-
-            string fileName = Path.Combine(programPath, executable);
+            string fileName = Path.Combine(SettingsService.GetProgramFolder(), "Print_Report.exe");
+            TempFileHelper.ModifyExecutable(fileName, report.Procedure, report.FileName);
 
             try
             {

@@ -8,7 +8,7 @@ namespace PrintNCI
 {
     public class Program
     {
-
+        [STAThread]
         private static void Main(string[] args)
         {
             bool freeToRun;
@@ -30,7 +30,7 @@ namespace PrintNCI
                 return;
             }
 
-            if (!options.Status && !options.Billing && !options.Test && !options.KartuBerobat && !options.Tracer)
+            if (options.Help)
             {
                 Console.WriteLine(options.GetUsage());
                 return;
@@ -48,5 +48,5 @@ namespace PrintNCI
                 Console.ReadKey();
             }
         }
-   }
+    }
 }

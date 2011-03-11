@@ -22,29 +22,37 @@ namespace Printer
             // wait until queue entered
             for (int i = 0; !CheckPrintQueue(options.Tracer ? Settings.Default.TracerPrinter : Settings.Default.StatusPrinter); i++)
             {
-                Thread.Sleep(1000);
-                if (i > Settings.Default.InQueueTimeout)
-                    ThrowPrintException(options);
+                if (i % 10 == 0) Logger.Logger.WriteLog(string.Format("Check masuk print queue {0}: {1}", i,
+                                                     options.Tracer
+                                                         ? Settings.Default.TracerPrinter
+                                                         : Settings.Default.StatusPrinter));
+                Thread.Sleep(100);
+                if (i > Settings.Default.InQueueTimeout * 10)
+                    ThrowPrintException(options, "tunggu masuk antri");
             }
             // wait until out of queue
             for (int i = 0; CheckPrintQueue(options.Tracer ? Settings.Default.TracerPrinter : Settings.Default.StatusPrinter); i++)
             {
-                Thread.Sleep(1000);
-                if (i > Settings.Default.OutQueueTimeout)
-                    ThrowPrintException(options);
+                if (i % 10 == 0) Logger.Logger.WriteLog(string.Format("Check keluar print queue {0}: {1}", i,
+                                                     options.Tracer
+                                                         ? Settings.Default.TracerPrinter
+                                                         : Settings.Default.StatusPrinter));
+                Thread.Sleep(100);
+                if (i > Settings.Default.OutQueueTimeout * 10)
+                    ThrowPrintException(options, "tunggu keluar antri");
             }
         }
 
         public static void PrintQueueEmpty(Options options)
         {
             if (CheckPrintQueue(options.Tracer ? Settings.Default.TracerPrinter : Settings.Default.StatusPrinter))
-                ThrowPrintException(options);
+                ThrowPrintException(options, "cek antrian kosong");
         }
 
-        private static void ThrowPrintException(Options options)
+        private static void ThrowPrintException(Options options, string position)
         {
             throw new PrintException(options.Tracer ? "Tracer" : "Status",
-                                     string.Format("Printernya macet. Tadi coba cetak untuk pasien {0}", options.KdPasien));
+                                     string.Format("Di {1}, printernya macet. Tadi coba cetak untuk pasien {0}", options.KdPasien, position));
         }
 
 

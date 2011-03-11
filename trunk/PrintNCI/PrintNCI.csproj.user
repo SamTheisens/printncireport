@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <StartArguments>-z -k "0-16-38-75"</StartArguments>
+    <StartArguments>-c</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <ReferencePath>C:\Program Files\Business Objects\Common\2.8\managed\</ReferencePath>

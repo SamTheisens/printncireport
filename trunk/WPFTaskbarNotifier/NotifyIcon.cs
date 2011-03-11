@@ -66,6 +66,8 @@ namespace WPFTaskbarNotifier
 			InternalIcon.Dispose();
 		}
 
+
+
 		private void InitializeNotifyIcon()
 		{
             InternalIcon = new Forms.NotifyIcon { Text = Text, Icon = FromImageSource(Icon), Visible = FromVisibility(Visibility) };
