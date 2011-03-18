@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using Printer.Properties;
 
 namespace Printer
@@ -30,18 +31,11 @@ namespace Printer
 
             var service = new DatabaseService(SettingsService.GetConnectionString(true));
 
-            //if (options.Status || options.KartuBerobat || options.Tracer || !string.IsNullOrEmpty(options.KdPasien))
-            //{
-            //    if (!string.IsNullOrEmpty(options.KdUnit) && !string.IsNullOrEmpty(options.TglMasuk))
-            //        visitInfo = service.GetVisitInfo(options);
-            //    else
-            //        visitInfo = service.GetVisitInfo(string.IsNullOrEmpty(options.KdPasien)
-            //                                             ? TempFileHelper.ReadStatus(options)
-            //                                             : options.KdPasien);
-            //}
-            //else if (options.Billing || options.Kasir)
-            //{
-            if (options.Pendaftaran)
+            if (options.CommandLine)
+            {
+                visitInfo = service.GetVisitInfo(options);
+            }
+            else if (options.Pendaftaran)
             {
                 visitInfo = service.GetVisitInfoKasir(options.KdKasir, TempFileHelper.ReadStatus(options));
             }
@@ -151,6 +145,12 @@ namespace Printer
         public static void Print(Report report)
         {
             string fileName = Path.Combine(SettingsService.GetProgramFolder(), "Print_Report.exe");
+
+            const string printKey = @"Software\Nuansa\NCI Medismart\3.00\Module\RegRWJ\Print";
+            RegistryKey key = Registry.CurrentUser.OpenSubKey(printKey, RegistryKeyPermissionCheck.ReadWriteSubTree) ??
+                              Registry.CurrentUser.CreateSubKey(printKey);
+            key.SetValue("PrinterBill", report.Printer);
+
             TempFileHelper.ModifyExecutable(fileName, report.Procedure, report.FileName);
 
             try

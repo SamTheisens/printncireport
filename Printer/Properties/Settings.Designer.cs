@@ -13,61 +13,13 @@ namespace Printer.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "9.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
         public static Settings Default {
             get {
                 return defaultInstance;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Print_Jaminan_Askes_IGD_FromBill.exe")]
-        public string ExecutablePrintAskes {
-            get {
-                return ((string)(this["ExecutablePrintAskes"]));
-            }
-            set {
-                this["ExecutablePrintAskes"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Print_Jaminan_Jamkesmas_IGD_FromBill.exe")]
-        public string ExecutablePrintJamkesmasRWJ {
-            get {
-                return ((string)(this["ExecutablePrintJamkesmasRWJ"]));
-            }
-            set {
-                this["ExecutablePrintJamkesmasRWJ"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UntukUGD {
-            get {
-                return ((bool)(this["UntukUGD"]));
-            }
-            set {
-                this["UntukUGD"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Print_Jaminan_Jamkesmas_RWI.exe")]
-        public string ExecutablePrintJamkesmasRWI {
-            get {
-                return ((string)(this["ExecutablePrintJamkesmasRWI"]));
-            }
-            set {
-                this["ExecutablePrintJamkesmasRWI"] = value;
             }
         }
         
@@ -97,106 +49,6 @@ namespace Printer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NCICetakStatusRI.tmp")]
-        public string RITempFileName {
-            get {
-                return ((string)(this["RITempFileName"]));
-            }
-            set {
-                this["RITempFileName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Print_Jaminan_Jamkesda_IGD_FromBill.exe")]
-        public string ExecutablePrintJamkesdaRWJ {
-            get {
-                return ((string)(this["ExecutablePrintJamkesdaRWJ"]));
-            }
-            set {
-                this["ExecutablePrintJamkesdaRWJ"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NCICetakStatus.tmp")]
-        public string RJTempFileName {
-            get {
-                return ((string)(this["RJTempFileName"]));
-            }
-            set {
-                this["RJTempFileName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Print_Status_Pasien.exe")]
-        public string ExecutablePrintStatus {
-            get {
-                return ((string)(this["ExecutablePrintStatus"]));
-            }
-            set {
-                this["ExecutablePrintStatus"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Print_Jaminan_In_Health_IGD_FromBill.exe")]
-        public string ExecutablePrintInHealth {
-            get {
-                return ((string)(this["ExecutablePrintInHealth"]));
-            }
-            set {
-                this["ExecutablePrintInHealth"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
-  <string>ASKES</string>
-  <string>JAMKESMAS</string>
-  <string>IN HEALTH</string>
-</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection Kelompok {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Kelompok"]));
-            }
-            set {
-                this["Kelompok"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UpdateTracer {
-            get {
-                return ((bool)(this["UpdateTracer"]));
-            }
-            set {
-                this["UpdateTracer"] = value;
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=SERVER;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=ja" +
-            "mkesmas;Password=jamkesmas")]
-        public string RSKUPANGConnectionString {
-            get {
-                return ((string)(this["RSKUPANGConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("PrintNCI")]
         public string ProgramFolder {
             get {
@@ -209,31 +61,7 @@ namespace Printer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Print_Kartu_Berobat.exe")]
-        public string ExecutablePrintKartuBerobat {
-            get {
-                return ((string)(this["ExecutablePrintKartuBerobat"]));
-            }
-            set {
-                this["ExecutablePrintKartuBerobat"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Print_Tracer.exe")]
-        public string ExecutablePrintTracer {
-            get {
-                return ((string)(this["ExecutablePrintTracer"]));
-            }
-            set {
-                this["ExecutablePrintTracer"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("jamkesmas")]
         public string DatabaseUser {
             get {
                 return ((string)(this["DatabaseUser"]));
@@ -245,13 +73,120 @@ namespace Printer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("pocopoco")]
+        [global::System.Configuration.DefaultSettingValueAttribute("jamkesmas")]
         public string DatabasePassword {
             get {
                 return ((string)(this["DatabasePassword"]));
             }
             set {
                 this["DatabasePassword"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID" +
+            "=jamkesmas;Password=jamkesmas")]
+        public string RSKUPANGConnectionString {
+            get {
+                return ((string)(this["RSKUPANGConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UpdateTracer {
+            get {
+                return ((bool)(this["UpdateTracer"]));
+            }
+            set {
+                this["UpdateTracer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int InQueueTimeout {
+            get {
+                return ((int)(this["InQueueTimeout"]));
+            }
+            set {
+                this["InQueueTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int OutQueueTimeout {
+            get {
+                return ((int)(this["OutQueueTimeout"]));
+            }
+            set {
+                this["OutQueueTimeout"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("NCIPrintBill2.tmp")]
+        public string ReadBillTmpFileName {
+            get {
+                return ((string)(this["ReadBillTmpFileName"]));
+            }
+            set {
+                this["ReadBillTmpFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int Kasir {
+            get {
+                return ((int)(this["Kasir"]));
+            }
+            set {
+                this["Kasir"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Pendaftaran {
+            get {
+                return ((bool)(this["Pendaftaran"]));
+            }
+            set {
+                this["Pendaftaran"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Bullzip PDF Printer")]
+        public string TracerPrinter {
+            get {
+                return ((string)(this["TracerPrinter"]));
+            }
+            set {
+                this["TracerPrinter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Bullzip PDF Printer")]
+        public string StatusPrinter {
+            get {
+                return ((string)(this["StatusPrinter"]));
+            }
+            set {
+                this["StatusPrinter"] = value;
             }
         }
     }

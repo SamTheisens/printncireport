@@ -595,6 +595,8 @@ namespace Printer {
             
             private global::System.Data.DataColumn columnKD_CUSTOMER;
             
+            private global::System.Data.DataColumn columnPRINTER;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public ReportsTableDataTable() {
                 this.TableName = "ReportsTable";
@@ -668,6 +670,13 @@ namespace Printer {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn PRINTERColumn {
+                get {
+                    return this.columnPRINTER;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -696,7 +705,7 @@ namespace Printer {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public ReportsTableRow AddReportsTableRow(string CUSTOMER, string NAMA_SP, string KD_CUSTOMER_REPORT, string KD_KASIR, bool PENDAFTARAN, string KD_CUSTOMER) {
+            public ReportsTableRow AddReportsTableRow(string CUSTOMER, string NAMA_SP, string KD_CUSTOMER_REPORT, string KD_KASIR, bool PENDAFTARAN, string KD_CUSTOMER, string PRINTER) {
                 ReportsTableRow rowReportsTableRow = ((ReportsTableRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CUSTOMER,
@@ -704,7 +713,8 @@ namespace Printer {
                         KD_CUSTOMER_REPORT,
                         KD_KASIR,
                         PENDAFTARAN,
-                        KD_CUSTOMER};
+                        KD_CUSTOMER,
+                        PRINTER};
                 rowReportsTableRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowReportsTableRow);
                 return rowReportsTableRow;
@@ -730,6 +740,7 @@ namespace Printer {
                 this.columnKD_KASIR = base.Columns["KD_KASIR"];
                 this.columnPENDAFTARAN = base.Columns["PENDAFTARAN"];
                 this.columnKD_CUSTOMER = base.Columns["KD_CUSTOMER"];
+                this.columnPRINTER = base.Columns["PRINTER"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -746,12 +757,15 @@ namespace Printer {
                 base.Columns.Add(this.columnPENDAFTARAN);
                 this.columnKD_CUSTOMER = new global::System.Data.DataColumn("KD_CUSTOMER", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnKD_CUSTOMER);
+                this.columnPRINTER = new global::System.Data.DataColumn("PRINTER", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPRINTER);
                 this.columnCUSTOMER.MaxLength = 40;
                 this.columnNAMA_SP.MaxLength = 50;
                 this.columnKD_CUSTOMER_REPORT.MaxLength = 10;
                 this.columnKD_KASIR.MaxLength = 2;
                 this.columnKD_CUSTOMER.AllowDBNull = false;
                 this.columnKD_CUSTOMER.MaxLength = 10;
+                this.columnPRINTER.MaxLength = 100;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1490,6 +1504,21 @@ namespace Printer {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string PRINTER {
+                get {
+                    try {
+                        return ((string)(this[this.tableReportsTable.PRINTERColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PRINTER\' in table \'ReportsTable\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableReportsTable.PRINTERColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsCUSTOMERNull() {
                 return this.IsNull(this.tableReportsTable.CUSTOMERColumn);
             }
@@ -1537,6 +1566,16 @@ namespace Printer {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetPENDAFTARANNull() {
                 this[this.tableReportsTable.PENDAFTARANColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsPRINTERNull() {
+                return this.IsNull(this.tableReportsTable.PRINTERColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetPRINTERNull() {
+                this[this.tableReportsTable.PRINTERColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2046,6 +2085,7 @@ namespace Printer.RSKUPANGDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("KD_KASIR", "KD_KASIR");
             tableMapping.ColumnMappings.Add("PENDAFTARAN", "PENDAFTARAN");
             tableMapping.ColumnMappings.Add("KD_CUSTOMER", "KD_CUSTOMER");
+            tableMapping.ColumnMappings.Add("PRINTER", "PRINTER");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -2057,11 +2097,11 @@ namespace Printer.RSKUPANGDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[5];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[6];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT     CUSTOMER.KD_CUSTOMER, CUSTOMER.CUSTOMER, RSUD_REPORTS.KD_KASIR, RSUD_REPORTS.PENDAFTARAN, 
-                      RSUD_REPORTS.KD_CUSTOMER_REPORT, RSUD_REPORTS.NAMA_SP
+                      RSUD_REPORTS.KD_CUSTOMER_REPORT, RSUD_REPORTS.NAMA_SP, RSUD_REPORTS.PRINTER
 FROM         CUSTOMER LEFT OUTER JOIN
                       RSUD_REPORTS ON CUSTOMER.KD_CUSTOMER = RSUD_REPORTS.KD_CUSTOMER AND RSUD_REPORTS.KD_KASIR = @KdKasir AND 
                       RSUD_REPORTS.PENDAFTARAN = @Pendaftaran";
@@ -2071,14 +2111,15 @@ FROM         CUSTOMER LEFT OUTER JOIN
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
             this._commandCollection[1].CommandText = "INSERT INTO RSUD_REPORTS\r\n                      (KD_KASIR, PENDAFTARAN, KD_CUSTOM" +
-                "ER, KD_CUSTOMER_REPORT, NAMA_SP)\r\nVALUES     (@KdKasir,@Pendaftaran,@KdCustomer," +
-                "@KdCustomerReport,@NamaSP)";
+                "ER, KD_CUSTOMER_REPORT, NAMA_SP, PRINTER)\r\nVALUES     (@KdKasir,@Pendaftaran,@Kd" +
+                "Customer,@KdCustomerReport,@NamaSP,@Printer)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KdKasir", global::System.Data.SqlDbType.VarChar, 2, global::System.Data.ParameterDirection.Input, 0, 0, "KD_KASIR", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pendaftaran", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "PENDAFTARAN", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KdCustomer", global::System.Data.SqlDbType.VarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "KD_CUSTOMER", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KdCustomerReport", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "KD_CUSTOMER_REPORT", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NamaSP", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "NAMA_SP", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Printer", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, "PRINTER", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
             this._commandCollection[2].CommandText = "SELECT     KD_KASIR\r\nFROM         RSUD_REPORTS\r\nWHERE     (KD_CUSTOMER = @KdCusto" +
@@ -2099,13 +2140,22 @@ FROM         CUSTOMER LEFT OUTER JOIN
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pendaftaran", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "PENDAFTARAN", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "UPDATE    RSUD_REPORTS\r\nSET              NAMA_SP = @NamaSP\r\nWHERE     (KD_CUSTOME" +
-                "R = @KdCustomer) AND (KD_KASIR = @KdKasir) AND (PENDAFTARAN = @Pendaftaran)";
+            this._commandCollection[4].CommandText = "UPDATE    RSUD_REPORTS\r\nSET              PRINTER = @Printer\r\nWHERE     (KD_CUSTOM" +
+                "ER = @KdCustomer) AND (KD_KASIR = @KdKasir) AND (PENDAFTARAN = @Pendaftaran)";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NamaSP", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "NAMA_SP", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Printer", global::System.Data.SqlDbType.VarChar, 100, global::System.Data.ParameterDirection.Input, 0, 0, "PRINTER", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KdCustomer", global::System.Data.SqlDbType.VarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "KD_CUSTOMER", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KdKasir", global::System.Data.SqlDbType.VarChar, 2, global::System.Data.ParameterDirection.Input, 0, 0, "KD_KASIR", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pendaftaran", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "PENDAFTARAN", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[5].Connection = this.Connection;
+            this._commandCollection[5].CommandText = "UPDATE    RSUD_REPORTS\r\nSET              NAMA_SP = @NamaSP\r\nWHERE     (KD_CUSTOME" +
+                "R = @KdCustomer) AND (KD_KASIR = @KdKasir) AND (PENDAFTARAN = @Pendaftaran)";
+            this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@NamaSP", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "NAMA_SP", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KdCustomer", global::System.Data.SqlDbType.VarChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "KD_CUSTOMER", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@KdKasir", global::System.Data.SqlDbType.VarChar, 2, global::System.Data.ParameterDirection.Input, 0, 0, "KD_KASIR", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Pendaftaran", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "PENDAFTARAN", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2146,20 +2196,15 @@ FROM         CUSTOMER LEFT OUTER JOIN
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int InsertReport(string KdKasir, global::System.Nullable<bool> Pendaftaran, string KdCustomer, string KdCustomerReport, string NamaSP) {
+        public virtual int InsertReport(string KdKasir, bool Pendaftaran, string KdCustomer, string KdCustomerReport, string NamaSP, string Printer) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
             if ((KdKasir == null)) {
-                command.Parameters[0].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("KdKasir");
             }
             else {
                 command.Parameters[0].Value = ((string)(KdKasir));
             }
-            if ((Pendaftaran.HasValue == true)) {
-                command.Parameters[1].Value = ((bool)(Pendaftaran.Value));
-            }
-            else {
-                command.Parameters[1].Value = global::System.DBNull.Value;
-            }
+            command.Parameters[1].Value = ((bool)(Pendaftaran));
             if ((KdCustomer == null)) {
                 throw new global::System.ArgumentNullException("KdCustomer");
             }
@@ -2177,6 +2222,12 @@ FROM         CUSTOMER LEFT OUTER JOIN
             }
             else {
                 command.Parameters[4].Value = ((string)(NamaSP));
+            }
+            if ((Printer == null)) {
+                command.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[5].Value = ((string)(Printer));
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -2288,8 +2339,49 @@ FROM         CUSTOMER LEFT OUTER JOIN
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int UpdateStoredProcedure(string NamaSP, string KdCustomer, string KdKasir, global::System.Nullable<bool> Pendaftaran) {
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int UpdatePrinter(string Printer, string KdCustomer, string KdKasir, bool Pendaftaran) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
+            if ((Printer == null)) {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                command.Parameters[0].Value = ((string)(Printer));
+            }
+            if ((KdCustomer == null)) {
+                throw new global::System.ArgumentNullException("KdCustomer");
+            }
+            else {
+                command.Parameters[1].Value = ((string)(KdCustomer));
+            }
+            if ((KdKasir == null)) {
+                throw new global::System.ArgumentNullException("KdKasir");
+            }
+            else {
+                command.Parameters[2].Value = ((string)(KdKasir));
+            }
+            command.Parameters[3].Value = ((bool)(Pendaftaran));
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int UpdateStoredProcedure(string NamaSP, string KdCustomer, string KdKasir, global::System.Nullable<bool> Pendaftaran) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[5];
             if ((NamaSP == null)) {
                 command.Parameters[0].Value = global::System.DBNull.Value;
             }
