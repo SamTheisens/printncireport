@@ -18,6 +18,7 @@ namespace Printer
     {
         public string FileName;
         public string Procedure;
+        public string Printer;
     }
 
     public class DatabaseService
@@ -72,7 +73,7 @@ namespace Printer
 
         public Report GetExecutable(string kdKelompokPasien, string kdKasir, bool modulPendaftaran)
         {
-            reader = ExecuteQuery(string.Format("SELECT KD_KASIR, PENDAFTARAN, KD_CUSTOMER_REPORT, NAMA_SP FROM RSUD_REPORTS WHERE " +
+            reader = ExecuteQuery(string.Format("SELECT KD_KASIR, PENDAFTARAN, KD_CUSTOMER_REPORT, NAMA_SP, PRINTER FROM RSUD_REPORTS WHERE " +
                                                 "KD_KASIR = '{0}' AND KD_CUSTOMER = '{1}' AND PENDAFTARAN = {2}", kdKasir,
                                                 kdKelompokPasien, modulPendaftaran ? 1 : 0));
             if (!reader.Read())
@@ -82,10 +83,12 @@ namespace Printer
             var kdCustomer = (string)reader["KD_CUSTOMER_REPORT"];
             var namaStoredProcedure = (string)reader["NAMA_SP"];
             var pendaftaran = (bool) reader["PENDAFTARAN"];
+            var printer = (string) reader["PRINTER"];
             return new Report
                        {
                            Procedure = namaStoredProcedure,
-                           FileName = SettingsService.CreateReportName(kdKasir, pendaftaran, kdCustomer)
+                           FileName = SettingsService.CreateReportName(kdKasir, pendaftaran, kdCustomer),
+                           Printer = printer
                        };
         }
 
@@ -109,6 +112,8 @@ namespace Printer
 
         public PatientVisitInfo GetVisitInfo(Options options)
         {
+            if (!string.IsNullOrEmpty(options.Transaksi))
+                return GetVisitInfo(options.KdKasir, options.Transaksi);
             return FillVisitInfo(
                 ExecuteQuery(
                     string.Format(

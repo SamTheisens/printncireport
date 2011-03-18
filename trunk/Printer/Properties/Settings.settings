@@ -2,72 +2,52 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Printer.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ExecutablePrintAskes" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Print_Jaminan_Askes_IGD_FromBill.exe</Value>
-    </Setting>
-    <Setting Name="ExecutablePrintJamkesmasRWJ" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Print_Jaminan_Jamkesmas_IGD_FromBill.exe</Value>
-    </Setting>
-    <Setting Name="UntukUGD" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="ExecutablePrintJamkesmasRWI" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Print_Jaminan_Jamkesmas_RWI.exe</Value>
-    </Setting>
     <Setting Name="LogFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">PrintNCI.log</Value>
     </Setting>
     <Setting Name="Logging" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="RITempFileName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">NCICetakStatusRI.tmp</Value>
+    <Setting Name="ProgramFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PrintNCI</Value>
     </Setting>
-    <Setting Name="ExecutablePrintJamkesdaRWJ" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Print_Jaminan_Jamkesda_IGD_FromBill.exe</Value>
+    <Setting Name="DatabaseUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">jamkesmas</Value>
     </Setting>
-    <Setting Name="RJTempFileName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">NCICetakStatus.tmp</Value>
-    </Setting>
-    <Setting Name="ExecutablePrintStatus" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Print_Status_Pasien.exe</Value>
-    </Setting>
-    <Setting Name="ExecutablePrintInHealth" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Print_Jaminan_In_Health_IGD_FromBill.exe</Value>
-    </Setting>
-    <Setting Name="Kelompok" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;ASKES&lt;/string&gt;
-  &lt;string&gt;JAMKESMAS&lt;/string&gt;
-  &lt;string&gt;IN HEALTH&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
-    </Setting>
-    <Setting Name="UpdateTracer" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="DatabasePassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">jamkesmas</Value>
     </Setting>
     <Setting Name="RSKUPANGConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=SERVER;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=jamkesmas;Password=jamkesmas&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=jamkesmas;Password=jamkesmas&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=SERVER;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=jamkesmas;Password=jamkesmas</Value>
+      <Value Profile="(Default)">Data Source=localhost;Initial Catalog=RSKUPANG;Persist Security Info=True;User ID=jamkesmas;Password=jamkesmas</Value>
     </Setting>
-    <Setting Name="ProgramFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">PrintNCI</Value>
+    <Setting Name="UpdateTracer" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="ExecutablePrintKartuBerobat" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Print_Kartu_Berobat.exe</Value>
+    <Setting Name="InQueueTimeout" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
     </Setting>
-    <Setting Name="ExecutablePrintTracer" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Print_Tracer.exe</Value>
+    <Setting Name="OutQueueTimeout" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
     </Setting>
-    <Setting Name="DatabaseUser" Type="System.String" Scope="User">
-      <Value Profile="(Default)">sa</Value>
+    <Setting Name="ReadBillTmpFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NCIPrintBill2.tmp</Value>
     </Setting>
-    <Setting Name="DatabasePassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">pocopoco</Value>
+    <Setting Name="Kasir" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Pendaftaran" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TracerPrinter" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Bullzip PDF Printer</Value>
+    </Setting>
+    <Setting Name="StatusPrinter" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Bullzip PDF Printer</Value>
     </Setting>
   </Settings>
 </SettingsFile>

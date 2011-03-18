@@ -31,11 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TabPage tabKelompok;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.reportPresentTextBox = new System.Windows.Forms.TextBox();
             this.buttonLaporan = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.reportTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.KdCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cUSTOMERDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,12 +45,15 @@
             this.rSKUPANGDataSet = new Printer.RSKUPANGDataSet();
             this.NAMA_SP = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.proceduresBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.Printer = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.printerListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportsTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.kasirComboBox = new System.Windows.Forms.ComboBox();
             this.kasirTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rSKUPANGDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.textBoxKdUnit = new System.Windows.Forms.TextBox();
             this.billingRadioButton = new System.Windows.Forms.RadioButton();
             this.pendaftaranRadioButton = new System.Windows.Forms.RadioButton();
             this.reportsTableBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -63,14 +67,16 @@
             this.cUSTOMERTableAdapter = new Printer.RSKUPANGDataSetTableAdapters.CUSTOMERTableAdapter();
             this.ttxFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.kasirTableAdapter = new Printer.RSKUPANGDataSetTableAdapters.KasirTableAdapter();
-            this.textBoxKdUnit = new System.Windows.Forms.TextBox();
             tabKelompok = new System.Windows.Forms.TabPage();
             tabKelompok.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cUSTOMERBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.proceduresBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.printerListBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsTableBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -85,70 +91,82 @@
             // 
             // tabKelompok
             // 
+            tabKelompok.Controls.Add(this.groupBox4);
+            tabKelompok.Controls.Add(this.groupBox3);
             tabKelompok.Controls.Add(this.groupBox2);
             tabKelompok.Controls.Add(this.groupBox1);
             tabKelompok.Location = new System.Drawing.Point(4, 22);
             tabKelompok.Name = "tabKelompok";
             tabKelompok.Padding = new System.Windows.Forms.Padding(3);
-            tabKelompok.Size = new System.Drawing.Size(637, 303);
+            tabKelompok.Size = new System.Drawing.Size(615, 367);
             tabKelompok.TabIndex = 0;
             tabKelompok.Text = "Modul & Kelompok";
             tabKelompok.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // groupBox4
             // 
-            this.groupBox2.Controls.Add(this.reportPresentTextBox);
-            this.groupBox2.Controls.Add(this.buttonLaporan);
-            this.groupBox2.Controls.Add(this.reportTextBox);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.dataGridView1);
-            this.groupBox2.Location = new System.Drawing.Point(6, 67);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(625, 230);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Kelompok Pasien";
+            this.groupBox4.Controls.Add(this.reportPresentTextBox);
+            this.groupBox4.Controls.Add(this.buttonLaporan);
+            this.groupBox4.Location = new System.Drawing.Point(252, 288);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(355, 68);
+            this.groupBox4.TabIndex = 6;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "TTX";
             // 
             // reportPresentTextBox
             // 
-            this.reportPresentTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.reportPresentTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.reportPresentTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.reportPresentTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.reportPresentTextBox.ForeColor = System.Drawing.Color.Red;
-            this.reportPresentTextBox.Location = new System.Drawing.Point(446, 84);
+            this.reportPresentTextBox.Location = new System.Drawing.Point(6, 19);
             this.reportPresentTextBox.Multiline = true;
             this.reportPresentTextBox.Name = "reportPresentTextBox";
             this.reportPresentTextBox.ReadOnly = true;
-            this.reportPresentTextBox.Size = new System.Drawing.Size(173, 31);
+            this.reportPresentTextBox.Size = new System.Drawing.Size(250, 38);
             this.reportPresentTextBox.TabIndex = 4;
             // 
             // buttonLaporan
             // 
-            this.buttonLaporan.Location = new System.Drawing.Point(532, 118);
+            this.buttonLaporan.Location = new System.Drawing.Point(262, 19);
             this.buttonLaporan.Name = "buttonLaporan";
-            this.buttonLaporan.Size = new System.Drawing.Size(87, 25);
+            this.buttonLaporan.Size = new System.Drawing.Size(87, 38);
             this.buttonLaporan.TabIndex = 3;
             this.buttonLaporan.Text = "Bikin .ttx";
             this.buttonLaporan.UseVisualStyleBackColor = true;
             this.buttonLaporan.Click += new System.EventHandler(this.buttonLaporan_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.reportTextBox);
+            this.groupBox3.Location = new System.Drawing.Point(6, 288);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(240, 68);
+            this.groupBox3.TabIndex = 5;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Crystal Report";
+            // 
             // reportTextBox
             // 
-            this.reportTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.reportTextBox.Location = new System.Drawing.Point(446, 40);
+            this.reportTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.reportTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.reportTextBox.Location = new System.Drawing.Point(9, 19);
             this.reportTextBox.Multiline = true;
             this.reportTextBox.Name = "reportTextBox";
             this.reportTextBox.ReadOnly = true;
-            this.reportTextBox.Size = new System.Drawing.Size(173, 38);
+            this.reportTextBox.Size = new System.Drawing.Size(225, 38);
             this.reportTextBox.TabIndex = 2;
             // 
-            // label1
+            // groupBox2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(443, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Nama Crystal report";
+            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Location = new System.Drawing.Point(6, 67);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(601, 215);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Kelompok Pasien";
             // 
             // dataGridView1
             // 
@@ -161,12 +179,13 @@
             this.KdCustomer,
             this.cUSTOMERDataGridViewTextBoxColumn,
             this.KD_CUSTOMER_REPORT,
-            this.NAMA_SP});
+            this.NAMA_SP,
+            this.Printer});
             this.dataGridView1.DataSource = this.reportsTableBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(9, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(428, 205);
+            this.dataGridView1.Size = new System.Drawing.Size(583, 190);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing_1);
             this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
@@ -225,6 +244,20 @@
             this.proceduresBindingSource1.DataMember = "procedures";
             this.proceduresBindingSource1.DataSource = this.rSKUPANGDataSet;
             // 
+            // Printer
+            // 
+            this.Printer.DataPropertyName = "PRINTER";
+            this.Printer.DataSource = this.printerListBindingSource;
+            this.Printer.DisplayMember = "Value";
+            this.Printer.HeaderText = "Printer";
+            this.Printer.Name = "Printer";
+            this.Printer.ValueMember = "Value";
+            this.Printer.Width = 160;
+            // 
+            // printerListBindingSource
+            // 
+            this.printerListBindingSource.DataSource = typeof(Printer.PrinterList);
+            // 
             // reportsTableBindingSource
             // 
             this.reportsTableBindingSource.DataMember = "ReportsTable";
@@ -235,7 +268,7 @@
             this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(625, 55);
+            this.groupBox1.Size = new System.Drawing.Size(601, 55);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modul";
@@ -248,7 +281,7 @@
             this.flowLayoutPanel1.Controls.Add(this.pendaftaranRadioButton);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 19);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(613, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(586, 30);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // kasirComboBox
@@ -272,6 +305,14 @@
             // 
             this.rSKUPANGDataSetBindingSource.DataSource = this.rSKUPANGDataSet;
             this.rSKUPANGDataSetBindingSource.Position = 0;
+            // 
+            // textBoxKdUnit
+            // 
+            this.textBoxKdUnit.Enabled = false;
+            this.textBoxKdUnit.Location = new System.Drawing.Point(240, 3);
+            this.textBoxKdUnit.Name = "textBoxKdUnit";
+            this.textBoxKdUnit.Size = new System.Drawing.Size(30, 20);
+            this.textBoxKdUnit.TabIndex = 4;
             // 
             // billingRadioButton
             // 
@@ -314,7 +355,7 @@
             this.modulTabControl.Location = new System.Drawing.Point(12, 0);
             this.modulTabControl.Name = "modulTabControl";
             this.modulTabControl.SelectedIndex = 0;
-            this.modulTabControl.Size = new System.Drawing.Size(645, 329);
+            this.modulTabControl.Size = new System.Drawing.Size(623, 393);
             this.modulTabControl.TabIndex = 1;
             // 
             // tabSettings
@@ -323,7 +364,7 @@
             this.tabSettings.Location = new System.Drawing.Point(4, 22);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(637, 303);
+            this.tabSettings.Size = new System.Drawing.Size(615, 367);
             this.tabSettings.TabIndex = 1;
             this.tabSettings.Text = "Settings";
             this.tabSettings.UseVisualStyleBackColor = true;
@@ -332,7 +373,7 @@
             // 
             this.propertyGrid.Location = new System.Drawing.Point(6, 6);
             this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.Size = new System.Drawing.Size(625, 291);
+            this.propertyGrid.Size = new System.Drawing.Size(603, 355);
             this.propertyGrid.TabIndex = 0;
             // 
             // proceduresTableAdapter
@@ -356,32 +397,29 @@
             // 
             this.kasirTableAdapter.ClearBeforeFill = true;
             // 
-            // textBoxKdUnit
-            // 
-            this.textBoxKdUnit.Enabled = false;
-            this.textBoxKdUnit.Location = new System.Drawing.Point(240, 3);
-            this.textBoxKdUnit.Name = "textBoxKdUnit";
-            this.textBoxKdUnit.Size = new System.Drawing.Size(30, 20);
-            this.textBoxKdUnit.TabIndex = 4;
-            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 341);
+            this.ClientSize = new System.Drawing.Size(640, 397);
             this.Controls.Add(this.modulTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsWindow";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "PrintNCI Settings";
             this.Load += new System.EventHandler(this.SettingsWindow_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsWindow_FormClosing);
             tabKelompok.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cUSTOMERBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rSKUPANGDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.proceduresBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.printerListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsTableBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -418,7 +456,6 @@
         private System.Windows.Forms.BindingSource cUSTOMERBindingSource;
         private Printer.RSKUPANGDataSetTableAdapters.CUSTOMERTableAdapter cUSTOMERTableAdapter;
         private System.Windows.Forms.TextBox reportTextBox;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonLaporan;
         private System.Windows.Forms.FolderBrowserDialog ttxFolderBrowserDialog;
         private System.Windows.Forms.TextBox reportPresentTextBox;
@@ -427,10 +464,14 @@
         private System.Windows.Forms.ComboBox kasirComboBox;
         private System.Windows.Forms.BindingSource kasirTableBindingSource;
         private Printer.RSKUPANGDataSetTableAdapters.KasirTableAdapter kasirTableAdapter;
+        private System.Windows.Forms.TextBox textBoxKdUnit;
+        private System.Windows.Forms.BindingSource printerListBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn KdCustomer;
         private System.Windows.Forms.DataGridViewTextBoxColumn cUSTOMERDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn KD_CUSTOMER_REPORT;
         private System.Windows.Forms.DataGridViewComboBoxColumn NAMA_SP;
-        private System.Windows.Forms.TextBox textBoxKdUnit;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Printer;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
     }
 }

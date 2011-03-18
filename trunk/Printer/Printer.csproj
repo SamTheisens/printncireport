@@ -60,6 +60,7 @@
     <Compile Include="NCIPrinter.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="PatientVisitInfo.cs" />
+    <Compile Include="PrinterList.cs" />
     <Compile Include="PrintHelper.cs" />
     <Compile Include="ProcessUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +90,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\DataSources\Printer.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\PrinterList.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

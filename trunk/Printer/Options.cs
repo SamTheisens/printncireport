@@ -26,8 +26,8 @@ namespace Printer
         [Option("z", "tracer", Required = false, HelpText = "Cetak kertas tracer")]
         public bool Tracer;
 
-        [Option("t", "test", Required = false, HelpText = "Test")]
-        public bool Test;
+        [Option("t", "transaksi", Required = false, HelpText = "No. Transaksi")]
+        public string Transaksi;
 
         [Option("k", "kdpasien", Required = false, HelpText = "Nomor Rekam Medis pasien. Untuk mengesampingkan yang diisi di tempfile")]
         public string KdPasien;
@@ -55,6 +55,10 @@ namespace Printer
 
         [Option("q", "printqueue", Required = false, HelpText = "Cek printqueue")]
         public bool PrintQueue;
+
+        [Option("x", "commandline", Required = false, HelpText = "Cek printqueue")]
+        public bool CommandLine;
+
 
 
         [HelpOption(HelpText = "Menimpalkan keterangan ini")]
