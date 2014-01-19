@@ -9,16 +9,16 @@ namespace Printer
 {
     public sealed class NCIPrinter
     {
-        private readonly Options options;
-        private readonly string connectionString;
+        private readonly Options _options;
+        private readonly string _connectionString;
         public NCIPrinter(Options options)
         {
-            this.options = options;
+            _options = options;
         }
         public NCIPrinter(Options options, string connectionString)
             : this(options)
         {
-            this.connectionString = connectionString;
+            this._connectionString = connectionString;
         }
 
         public void Print()
@@ -27,34 +27,34 @@ namespace Printer
             string noTransaksi;
 
             var visitInfo = new PatientVisitInfo();
-            options.SkipVerify = true;
+            _options.SkipVerify = true;
 
             var service = new DatabaseService(SettingsService.GetConnectionString(true));
 
-            if (options.CommandLine)
+            if (_options.CommandLine)
             {
-                visitInfo = service.GetVisitInfo(options);
+                visitInfo = service.GetVisitInfo(_options);
             }
-            else if (options.Pendaftaran)
+            else if (_options.Pendaftaran)
             {
-                visitInfo = service.GetVisitInfoKasir(options.KdKasir, TempFileHelper.ReadStatus(options));
+                visitInfo = service.GetVisitInfoKasir(_options.KdKasir, TempFileHelper.ReadStatus(_options));
             }
             else
             {
                 TempFileHelper.ReadBill(out noTransaksi, out kdKasir);
-                if (string.IsNullOrEmpty(options.KdKasir))
-                    options.KdKasir = kdKasir;
+                if (string.IsNullOrEmpty(_options.KdKasir))
+                    _options.KdKasir = kdKasir;
 
-                visitInfo = service.GetVisitInfo(options.KdKasir, noTransaksi);
+                visitInfo = service.GetVisitInfo(_options.KdKasir, noTransaksi);
             }
 
-            options.KdBagian = visitInfo.KdBagian.Value;
+            _options.KdBagian = visitInfo.KdBagian.Value;
 
-            if (!options.SkipVerify && !GetMauPrint(visitInfo.TglMasuk, visitInfo.Baru))
+            if (!_options.SkipVerify && !GetMauPrint(visitInfo.TglMasuk, visitInfo.Baru))
                 return;
 
-            if (!string.IsNullOrEmpty(options.Sjp) && options.Pendaftaran)
-                UpdateSjp(visitInfo, options.Sjp);
+            if (!string.IsNullOrEmpty(_options.Sjp) && _options.Pendaftaran)
+                UpdateSjp(visitInfo, _options.Sjp);
 
             Logger.Logger.WriteLog(string.Format("Sedang print pasien #{0}. Kelompok pasien: {1}.", visitInfo.KdPasien,
                                                  visitInfo.KelompokPasien));
@@ -73,7 +73,7 @@ namespace Printer
                                               visitInfo.KelompokPasien));
                 Thread.Sleep(4000);
             }
-            else TryPrint(executable, options);
+            else TryPrint(executable, _options);
 
 
             if (Settings.Default.UpdateTracer)
@@ -82,7 +82,7 @@ namespace Printer
 
         private void UpdateTracer(PatientVisitInfo visitInfo)
         {
-            PrintHelper.WaitUntilPrinted(options);
+            PrintHelper.WaitUntilPrinted(_options);
             CommitToDatabase(visitInfo);
             Logger.Logger.WriteLog(string.Format("-- Cetak berhasil untuk pasien {0}", visitInfo.KdPasien));
         }
@@ -94,30 +94,30 @@ namespace Printer
             Print(report);
         }
 
-        private static void UpdateSjp(PatientVisitInfo visitInfo, string noSJP)
+        private static void UpdateSjp(PatientVisitInfo visitInfo, string noSjp)
         {
             var service = new DatabaseService(SettingsService.GetConnectionString(true));
             bool update = service.GetSjp(visitInfo);
 
             service = new DatabaseService(SettingsService.GetConnectionString(true));
-            service.UpdateSjp(visitInfo, noSJP, update);
+            service.UpdateSjp(visitInfo, noSjp, update);
         }
 
         private void CommitToDatabase(PatientVisitInfo visitInfo)
         {
             short status;
             short jaminan;
-            short kartu_berobat;
+            short kartuBerobat;
             short tracer;
             var service = new DatabaseService(SettingsService.GetConnectionString(true));
-            bool hasPrintStatus = service.GetPrintStatus(visitInfo, out status, out jaminan, out kartu_berobat, out tracer);
-            status = options.Status ? (short)(status + 1) : status;
-            jaminan = options.Pendaftaran ? (short)(jaminan + 1) : jaminan;
-            kartu_berobat = options.KartuBerobat ? (short)(kartu_berobat + 1) : kartu_berobat;
-            tracer = options.Tracer ? (short)(tracer + 1) : tracer;
+            bool hasPrintStatus = service.GetPrintStatus(visitInfo, out status, out jaminan, out kartuBerobat, out tracer);
+            status = _options.Status ? (short)(status + 1) : status;
+            jaminan = _options.Pendaftaran ? (short)(jaminan + 1) : jaminan;
+            kartuBerobat = _options.KartuBerobat ? (short)(kartuBerobat + 1) : kartuBerobat;
+            tracer = _options.Tracer ? (short)(tracer + 1) : tracer;
 
             service = new DatabaseService(SettingsService.GetConnectionString(true));
-            service.UpdatePrintStatus(visitInfo, status, jaminan, kartu_berobat, tracer, hasPrintStatus);
+            service.UpdatePrintStatus(visitInfo, status, jaminan, kartuBerobat, tracer, hasPrintStatus);
         }
 
         private bool GetMauPrint(DateTime tglMasuk, bool? baru)
@@ -132,7 +132,7 @@ namespace Printer
                             tglMasuk.ToShortDateString()), "Tanggal kunjungan salah?", MessageBoxButtons.OKCancel,
                         MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.OK;
             }
-            if (options.Status && !baru.Value)
+            if (_options.Status && !baru.Value)
             {
                 mauPrint =
                     MessageBox.Show("Pasien ini bukan pasien baru.\nMau print status?", "Pasien Lama",

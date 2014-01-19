@@ -98,18 +98,20 @@
             tabKelompok.Location = new System.Drawing.Point(4, 22);
             tabKelompok.Name = "tabKelompok";
             tabKelompok.Padding = new System.Windows.Forms.Padding(3);
-            tabKelompok.Size = new System.Drawing.Size(615, 367);
+            tabKelompok.Size = new System.Drawing.Size(738, 437);
             tabKelompok.TabIndex = 0;
             tabKelompok.Text = "Modul & Kelompok";
             tabKelompok.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.reportPresentTextBox);
             this.groupBox4.Controls.Add(this.buttonLaporan);
-            this.groupBox4.Location = new System.Drawing.Point(252, 288);
+            this.groupBox4.Location = new System.Drawing.Point(252, 358);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(355, 68);
+            this.groupBox4.Size = new System.Drawing.Size(478, 68);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "TTX";
@@ -124,12 +126,14 @@
             this.reportPresentTextBox.Multiline = true;
             this.reportPresentTextBox.Name = "reportPresentTextBox";
             this.reportPresentTextBox.ReadOnly = true;
-            this.reportPresentTextBox.Size = new System.Drawing.Size(250, 38);
+            this.reportPresentTextBox.Size = new System.Drawing.Size(373, 38);
             this.reportPresentTextBox.TabIndex = 4;
             // 
             // buttonLaporan
             // 
-            this.buttonLaporan.Location = new System.Drawing.Point(262, 19);
+            this.buttonLaporan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLaporan.Location = new System.Drawing.Point(385, 19);
             this.buttonLaporan.Name = "buttonLaporan";
             this.buttonLaporan.Size = new System.Drawing.Size(87, 38);
             this.buttonLaporan.TabIndex = 3;
@@ -139,8 +143,9 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox3.Controls.Add(this.reportTextBox);
-            this.groupBox3.Location = new System.Drawing.Point(6, 288);
+            this.groupBox3.Location = new System.Drawing.Point(6, 358);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(240, 68);
             this.groupBox3.TabIndex = 5;
@@ -160,10 +165,13 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Location = new System.Drawing.Point(6, 67);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(601, 215);
+            this.groupBox2.Size = new System.Drawing.Size(724, 285);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Kelompok Pasien";
@@ -173,6 +181,9 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -185,10 +196,12 @@
             this.dataGridView1.Location = new System.Drawing.Point(9, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(583, 190);
+            this.dataGridView1.Size = new System.Drawing.Size(706, 260);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing_1);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
+            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
+            this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing_1);
             // 
             // KdCustomer
             // 
@@ -203,6 +216,7 @@
             this.cUSTOMERDataGridViewTextBoxColumn.HeaderText = "Customer";
             this.cUSTOMERDataGridViewTextBoxColumn.Name = "cUSTOMERDataGridViewTextBoxColumn";
             this.cUSTOMERDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cUSTOMERDataGridViewTextBoxColumn.Width = 150;
             // 
             // KD_CUSTOMER_REPORT
             // 
@@ -215,7 +229,7 @@
             this.KD_CUSTOMER_REPORT.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.KD_CUSTOMER_REPORT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.KD_CUSTOMER_REPORT.ValueMember = "KD_CUSTOMER";
-            this.KD_CUSTOMER_REPORT.Width = 120;
+            this.KD_CUSTOMER_REPORT.Width = 150;
             // 
             // cUSTOMERBindingSource
             // 
@@ -237,7 +251,7 @@
             this.NAMA_SP.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.NAMA_SP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.NAMA_SP.ValueMember = "name";
-            this.NAMA_SP.Width = 200;
+            this.NAMA_SP.Width = 160;
             // 
             // proceduresBindingSource1
             // 
@@ -248,11 +262,9 @@
             // 
             this.Printer.DataPropertyName = "PRINTER";
             this.Printer.DataSource = this.printerListBindingSource;
-            this.Printer.DisplayMember = "Value";
             this.Printer.HeaderText = "Printer";
             this.Printer.Name = "Printer";
-            this.Printer.ValueMember = "Value";
-            this.Printer.Width = 160;
+            this.Printer.Width = 200;
             // 
             // printerListBindingSource
             // 
@@ -265,10 +277,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(601, 55);
+            this.groupBox1.Size = new System.Drawing.Size(724, 55);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modul";
@@ -279,9 +293,10 @@
             this.flowLayoutPanel1.Controls.Add(this.textBoxKdUnit);
             this.flowLayoutPanel1.Controls.Add(this.billingRadioButton);
             this.flowLayoutPanel1.Controls.Add(this.pendaftaranRadioButton);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 19);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(586, 30);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(718, 36);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // kasirComboBox
@@ -350,12 +365,15 @@
             // 
             // modulTabControl
             // 
+            this.modulTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.modulTabControl.Controls.Add(tabKelompok);
             this.modulTabControl.Controls.Add(this.tabSettings);
             this.modulTabControl.Location = new System.Drawing.Point(12, 0);
             this.modulTabControl.Name = "modulTabControl";
             this.modulTabControl.SelectedIndex = 0;
-            this.modulTabControl.Size = new System.Drawing.Size(623, 393);
+            this.modulTabControl.Size = new System.Drawing.Size(746, 463);
             this.modulTabControl.TabIndex = 1;
             // 
             // tabSettings
@@ -364,13 +382,16 @@
             this.tabSettings.Location = new System.Drawing.Point(4, 22);
             this.tabSettings.Name = "tabSettings";
             this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(615, 367);
+            this.tabSettings.Size = new System.Drawing.Size(738, 437);
             this.tabSettings.TabIndex = 1;
             this.tabSettings.Text = "Settings";
             this.tabSettings.UseVisualStyleBackColor = true;
             // 
             // propertyGrid
             // 
+            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGrid.Location = new System.Drawing.Point(6, 6);
             this.propertyGrid.Name = "propertyGrid";
             this.propertyGrid.Size = new System.Drawing.Size(603, 355);
@@ -401,14 +422,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 397);
+            this.ClientSize = new System.Drawing.Size(763, 467);
             this.Controls.Add(this.modulTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "PrintNCI Settings";
-            this.Load += new System.EventHandler(this.SettingsWindow_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsWindow_FormClosing);
+            this.Load += new System.EventHandler(this.SettingsWindow_Load);
             tabKelompok.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -466,12 +487,12 @@
         private Printer.RSKUPANGDataSetTableAdapters.KasirTableAdapter kasirTableAdapter;
         private System.Windows.Forms.TextBox textBoxKdUnit;
         private System.Windows.Forms.BindingSource printerListBindingSource;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridViewTextBoxColumn KdCustomer;
         private System.Windows.Forms.DataGridViewTextBoxColumn cUSTOMERDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn KD_CUSTOMER_REPORT;
         private System.Windows.Forms.DataGridViewComboBoxColumn NAMA_SP;
         private System.Windows.Forms.DataGridViewComboBoxColumn Printer;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox4;
     }
 }
