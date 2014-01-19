@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Printer.Properties;
@@ -12,10 +13,10 @@ namespace Printer
             InitializeComponent();
         }
 
-        private string reportName;
-        private bool loaded;
-        private string kasir;
-        private bool pendaftaran;
+        private string _reportName;
+        private bool _loaded;
+        private string _kasir;
+        private bool _pendaftaran;
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
@@ -33,28 +34,28 @@ namespace Printer
                 reportsTableAdapter.Connection.ConnectionString = SettingsService.GetConnectionString(false);
 
                 SetKasir();
-                pendaftaran = Settings.Default.Pendaftaran;
+                _pendaftaran = Settings.Default.Pendaftaran;
 
-                printerListBindingSource.DataSource = new PrinterList();
+                printerListBindingSource.DataSource = new BindingSource(new PrinterList(), null);
                 cUSTOMERTableAdapter.Fill(rSKUPANGDataSet.CUSTOMER);
                 kasirTableAdapter.Fill(rSKUPANGDataSet.KasirTable);
                 proceduresTableAdapter.Fill(rSKUPANGDataSet.procedures);
                 
-                kasirComboBox.SelectedValue = kasir;
-                billingRadioButton.Checked = !pendaftaran;
-                pendaftaranRadioButton.Checked = pendaftaran;
+                kasirComboBox.SelectedValue = _kasir;
+                billingRadioButton.Checked = !_pendaftaran;
+                pendaftaranRadioButton.Checked = _pendaftaran;
                 UpdateReportsTable();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            loaded = true;
+            _loaded = true;
         }
 
         private void SetKasir()
         {
-            kasir = string.Format("{0,2:D2}", Settings.Default.Kasir);
+            _kasir = string.Format("{0,2:D2}", Settings.Default.Kasir);
         }
 
         private void SettingsWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -75,52 +76,63 @@ namespace Printer
         void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox) sender;
-            if (combo == null || !(combo.SelectedValue is string))
+            if (!isInterestingEvent(combo))
                 return;
+
             string kdCustomerReport;
-            string namaSP;
+            string namaSp;
             string printer;
             var kdCustomer = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
             var kdKasir = kasirComboBox.SelectedValue.ToString();
 
-            FillVariables(combo, out namaSP, out printer, out kdCustomerReport);
+            FillVariables(combo, out namaSp, out printer, out kdCustomerReport);
 
-            if (reportsTableAdapter.NeedInsert(kdCustomer, kdKasir, pendaftaran) == null)
+            if (reportsTableAdapter.NeedInsert(kdCustomer, kdKasir, _pendaftaran) == null)
             {
-                reportsTableAdapter.InsertReport(kdKasir, pendaftaran, kdCustomer, kdCustomerReport, namaSP, printer);
+                reportsTableAdapter.InsertReport(kdKasir, _pendaftaran, kdCustomer, kdCustomerReport, namaSp, printer);
             }
             else
             {
                 if (string.IsNullOrEmpty(kdCustomerReport) && string.IsNullOrEmpty(printer))
-                    reportsTableAdapter.UpdateStoredProcedure(namaSP, kdCustomer, kdKasir, pendaftaran);
+                    reportsTableAdapter.UpdateStoredProcedure(namaSp, kdCustomer, kdKasir, _pendaftaran);
 
-                else if (string.IsNullOrEmpty(kdCustomerReport) && string.IsNullOrEmpty(namaSP))
-                    reportsTableAdapter.UpdatePrinter(printer, kdCustomer, kdKasir, pendaftaran);
+                else if (string.IsNullOrEmpty(kdCustomerReport) && string.IsNullOrEmpty(namaSp))
+                    reportsTableAdapter.UpdatePrinter(printer, kdCustomer, kdKasir, _pendaftaran);
 
                 else
-                    reportsTableAdapter.UpdateCustomerReport(kdCustomerReport, kdKasir, kdCustomer, pendaftaran);
+                    reportsTableAdapter.UpdateCustomerReport(kdCustomerReport, kdKasir, kdCustomer, _pendaftaran);
             }
         }
+        private Boolean isInterestingEvent(ComboBox combo)
+        {
+            if (combo == null)
+                return false;
+            if (combo.SelectedValue is string)
+                return true;
+            if (combo.SelectedValue is KeyValuePair<int, string>)
+                return true;
+            return false;
+        }
 
-        private static void FillVariables(ListControl combo, out string namaSP, out string printer, out string kdCustomerReport)
+        private static void FillVariables(ListControl combo, out string namaSp, out string printer, out string kdCustomerReport)
         {
             if (combo.ValueMember.Equals("KD_CUSTOMER"))
             {
                 kdCustomerReport = combo.SelectedValue.ToString();
-                namaSP = null;
+                namaSp = null;
                 printer = null;
             }
-            else if (combo.ValueMember.Equals("Value"))
+            else if (combo.SelectedValue is KeyValuePair<int, string>)
             {
                 kdCustomerReport = null;
-                namaSP = null;
-                printer = combo.SelectedValue.ToString();
+                namaSp = null;
+                printer = ((KeyValuePair<int, string>)combo.SelectedValue).Value;
             }
             else
             {
                 printer = null;
                 kdCustomerReport = null;
-                namaSP = combo.SelectedValue.ToString();
+                namaSp = combo.SelectedValue.ToString();
             }
         }
 
@@ -147,13 +159,13 @@ namespace Printer
             }
             else
             {
-                reportName = SettingsService.CreateReportName(string.Format("{0:D2}", Settings.Default.Kasir),
-                                                              pendaftaran, kdCustomerReport);
-                reportTextBox.Text = reportName;
+                _reportName = SettingsService.CreateReportName(string.Format("{0:D2}", Settings.Default.Kasir),
+                                                              _pendaftaran, kdCustomerReport);
+                reportTextBox.Text = _reportName;
             }
-            if (!File.Exists(SettingsService.GetReportFolder() + reportName))
+            if (!File.Exists(SettingsService.GetReportFolder() + _reportName))
             {
-                reportPresentTextBox.Text = reportName + " belum ada di Reports";
+                reportPresentTextBox.Text = _reportName + " belum ada di Reports";
             }
             else
             {
@@ -174,38 +186,38 @@ namespace Printer
             {
                 var file =
                     new StreamWriter(
-                        Path.Combine(ttxFolderBrowserDialog.SelectedPath, reportName.Replace(".rpt", ".ttx")), false);
+                        Path.Combine(ttxFolderBrowserDialog.SelectedPath, _reportName.Replace(".rpt", ".ttx")), false);
                 file.Write(service.ExtractTtx(dataset.GetSchemaTable()));
                 file.Flush();
                 file.Close();
             }
-            MessageBox.Show(string.Format("Berhasil membuat .ttx datasource untuk report {0}", reportName));
+            MessageBox.Show(string.Format("Berhasil membuat .ttx datasource untuk report {0}", _reportName));
         }
 
         private void billingRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            pendaftaran = !((RadioButton) sender).Checked;
+            _pendaftaran = !((RadioButton) sender).Checked;
             SetRadioButtons();
         }
 
         private void pendaftaranRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            pendaftaran = ((RadioButton)sender).Checked;
+            _pendaftaran = ((RadioButton)sender).Checked;
             SetRadioButtons();
         }
 
         private void SetRadioButtons()
         {
-            Settings.Default.Pendaftaran = pendaftaran;
-            pendaftaranRadioButton.Checked = pendaftaran;
-            billingRadioButton.Checked = !pendaftaran;
+            Settings.Default.Pendaftaran = _pendaftaran;
+            pendaftaranRadioButton.Checked = _pendaftaran;
+            billingRadioButton.Checked = !_pendaftaran;
             UpdateReportsTable();
         }
         private void UpdateReportsTable()
         {
             textBoxKdUnit.Text = kasirComboBox.SelectedValue.ToString();
-            kasir = kasirComboBox.SelectedValue.ToString();
-            reportsTableAdapter.Fill(rSKUPANGDataSet.ReportsTable, kasir, pendaftaran);            
+            _kasir = kasirComboBox.SelectedValue.ToString();
+            reportsTableAdapter.Fill(rSKUPANGDataSet.ReportsTable, _kasir, _pendaftaran);            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
