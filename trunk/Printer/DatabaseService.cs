@@ -114,13 +114,14 @@ namespace Printer
         {
             if (!string.IsNullOrEmpty(options.Transaksi))
                 return GetVisitInfo(options.KdKasir, options.Transaksi);
-            return FillVisitInfo(
-                ExecuteQuery(
-                    string.Format(
-                        "SELECT TOP 1 CUSTOMER, KUNJUNGAN.TGL_MASUK, KUNJUNGAN.BARU, KUNJUNGAN.URUT_MASUK, KUNJUNGAN.KD_UNIT FROM KUNJUNGAN " +
-                        "INNER JOIN dbo.CUSTOMER ON dbo.KUNJUNGAN.KD_CUSTOMER = dbo.CUSTOMER.KD_CUSTOMER " +
-                        "WHERE KD_PASIEN = '{0}' AND TGL_MASUK = '{1}' AND URUT_MASUK = {2} AND KD_UNIT = '{3}' ORDER BY TGL_MASUK DESC ",
-                        options.KdPasien, options.TglMasuk, options.UrutMasuk, options.KdUnit)));
+            return GetVisitInfoKasir("01", options.KdPasien);
+//            return FillVisitInfo(
+//                ExecuteQuery(
+//                    string.Format(
+//                        "SELECT TOP 1 CUSTOMER, KUNJUNGAN.TGL_MASUK, KUNJUNGAN.BARU, KUNJUNGAN.URUT_MASUK, KUNJUNGAN.KD_UNIT FROM KUNJUNGAN " +
+//                        "INNER JOIN dbo.CUSTOMER ON dbo.KUNJUNGAN.KD_CUSTOMER = dbo.CUSTOMER.KD_CUSTOMER " +
+//                        "WHERE KD_PASIEN = '{0}' AND TGL_MASUK = '{1}' AND URUT_MASUK = {2} AND KD_UNIT = '{3}' ORDER BY TGL_MASUK DESC ",
+//                        options.KdPasien, options.TglMasuk, options.UrutMasuk, options.KdUnit)));
         }
 
 
@@ -237,10 +238,10 @@ namespace Printer
         public string ExtractTtx(DataTable schemaTable)
         {
             List<Column> tableSchema = ParseTableSchema(schemaTable);
-            return printTtxString(tableSchema);
+            return PrintTtxString(tableSchema);
         }
 
-        private static string printTtxString(IEnumerable<Column> tableSchema)
+        private static string PrintTtxString(IEnumerable<Column> tableSchema)
         {
             string ttxFile = "";
             foreach (Column column in tableSchema.Where(c => c.IsHidden == false))

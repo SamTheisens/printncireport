@@ -38,14 +38,9 @@
             this.reportTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.KdCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cUSTOMERDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KD_CUSTOMER_REPORT = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.cUSTOMERBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rSKUPANGDataSet = new Printer.RSKUPANGDataSet();
-            this.NAMA_SP = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.proceduresBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.Printer = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.printerListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportsTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -67,6 +62,11 @@
             this.cUSTOMERTableAdapter = new Printer.RSKUPANGDataSetTableAdapters.CUSTOMERTableAdapter();
             this.ttxFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.kasirTableAdapter = new Printer.RSKUPANGDataSetTableAdapters.KasirTableAdapter();
+            this.KdCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cUSTOMERDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KD_CUSTOMER_REPORT = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.NAMA_SP = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Printer = new System.Windows.Forms.DataGridViewComboBoxColumn();
             tabKelompok = new System.Windows.Forms.TabPage();
             tabKelompok.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -203,34 +203,6 @@
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing_1);
             // 
-            // KdCustomer
-            // 
-            this.KdCustomer.DataPropertyName = "KD_CUSTOMER";
-            this.KdCustomer.HeaderText = "Kd Customer";
-            this.KdCustomer.Name = "KdCustomer";
-            this.KdCustomer.Visible = false;
-            // 
-            // cUSTOMERDataGridViewTextBoxColumn
-            // 
-            this.cUSTOMERDataGridViewTextBoxColumn.DataPropertyName = "CUSTOMER";
-            this.cUSTOMERDataGridViewTextBoxColumn.HeaderText = "Customer";
-            this.cUSTOMERDataGridViewTextBoxColumn.Name = "cUSTOMERDataGridViewTextBoxColumn";
-            this.cUSTOMERDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cUSTOMERDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // KD_CUSTOMER_REPORT
-            // 
-            this.KD_CUSTOMER_REPORT.DataPropertyName = "KD_CUSTOMER_REPORT";
-            this.KD_CUSTOMER_REPORT.DataSource = this.cUSTOMERBindingSource;
-            this.KD_CUSTOMER_REPORT.DisplayMember = "CUSTOMER";
-            this.KD_CUSTOMER_REPORT.DropDownWidth = 200;
-            this.KD_CUSTOMER_REPORT.HeaderText = "Report";
-            this.KD_CUSTOMER_REPORT.Name = "KD_CUSTOMER_REPORT";
-            this.KD_CUSTOMER_REPORT.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.KD_CUSTOMER_REPORT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.KD_CUSTOMER_REPORT.ValueMember = "KD_CUSTOMER";
-            this.KD_CUSTOMER_REPORT.Width = 150;
-            // 
             // cUSTOMERBindingSource
             // 
             this.cUSTOMERBindingSource.DataMember = "CUSTOMER";
@@ -241,30 +213,10 @@
             this.rSKUPANGDataSet.DataSetName = "RSKUPANGDataSet";
             this.rSKUPANGDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // NAMA_SP
-            // 
-            this.NAMA_SP.DataPropertyName = "NAMA_SP";
-            this.NAMA_SP.DataSource = this.proceduresBindingSource1;
-            this.NAMA_SP.DisplayMember = "name";
-            this.NAMA_SP.HeaderText = "Nama Stored Procedure";
-            this.NAMA_SP.Name = "NAMA_SP";
-            this.NAMA_SP.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.NAMA_SP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.NAMA_SP.ValueMember = "name";
-            this.NAMA_SP.Width = 160;
-            // 
             // proceduresBindingSource1
             // 
             this.proceduresBindingSource1.DataMember = "procedures";
             this.proceduresBindingSource1.DataSource = this.rSKUPANGDataSet;
-            // 
-            // Printer
-            // 
-            this.Printer.DataPropertyName = "PRINTER";
-            this.Printer.DataSource = this.printerListBindingSource;
-            this.Printer.HeaderText = "Printer";
-            this.Printer.Name = "Printer";
-            this.Printer.Width = 200;
             // 
             // printerListBindingSource
             // 
@@ -417,6 +369,54 @@
             // kasirTableAdapter
             // 
             this.kasirTableAdapter.ClearBeforeFill = true;
+            // 
+            // KdCustomer
+            // 
+            this.KdCustomer.DataPropertyName = "KD_CUSTOMER";
+            this.KdCustomer.HeaderText = "Kd Customer";
+            this.KdCustomer.Name = "KdCustomer";
+            this.KdCustomer.Visible = false;
+            // 
+            // cUSTOMERDataGridViewTextBoxColumn
+            // 
+            this.cUSTOMERDataGridViewTextBoxColumn.DataPropertyName = "CUSTOMER";
+            this.cUSTOMERDataGridViewTextBoxColumn.HeaderText = "Customer";
+            this.cUSTOMERDataGridViewTextBoxColumn.Name = "cUSTOMERDataGridViewTextBoxColumn";
+            this.cUSTOMERDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cUSTOMERDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // KD_CUSTOMER_REPORT
+            // 
+            this.KD_CUSTOMER_REPORT.DataPropertyName = "KD_CUSTOMER_REPORT";
+            this.KD_CUSTOMER_REPORT.DataSource = this.cUSTOMERBindingSource;
+            this.KD_CUSTOMER_REPORT.DisplayMember = "CUSTOMER";
+            this.KD_CUSTOMER_REPORT.DropDownWidth = 200;
+            this.KD_CUSTOMER_REPORT.HeaderText = "Report";
+            this.KD_CUSTOMER_REPORT.Name = "KD_CUSTOMER_REPORT";
+            this.KD_CUSTOMER_REPORT.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.KD_CUSTOMER_REPORT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.KD_CUSTOMER_REPORT.ValueMember = "KD_CUSTOMER";
+            this.KD_CUSTOMER_REPORT.Width = 150;
+            // 
+            // NAMA_SP
+            // 
+            this.NAMA_SP.DataPropertyName = "NAMA_SP";
+            this.NAMA_SP.DataSource = this.proceduresBindingSource1;
+            this.NAMA_SP.DisplayMember = "name";
+            this.NAMA_SP.HeaderText = "Nama Stored Procedure";
+            this.NAMA_SP.Name = "NAMA_SP";
+            this.NAMA_SP.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.NAMA_SP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.NAMA_SP.ValueMember = "name";
+            this.NAMA_SP.Width = 160;
+            // 
+            // Printer
+            // 
+            this.Printer.DataPropertyName = "PRINTER";
+            this.Printer.DataSource = this.printerListBindingSource;
+            this.Printer.HeaderText = "Printer";
+            this.Printer.Name = "Printer";
+            this.Printer.Width = 200;
             // 
             // SettingsWindow
             // 
