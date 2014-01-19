@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintNCI", "PrintNCI\PrintNCI.csproj", "{4D5B0F19-34D2-4F17-85BE-F926CEF1A1E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrintNCITestSuite", "PrintNCITestSuite\PrintNCITestSuite.csproj", "{2DA9DF72-3148-4BF6-8F84-624FCBB09EA3}"

@@ -7,7 +7,7 @@ namespace Printer
 {
     public static class TempFileHelper
     {
-        private const string tempFileName = "NCICetakStatus.tmp";
+        private const string TempFileName = "NCICetakStatus.tmp";
 
         public static void ReadBill(out string noTransaksi, out string kdKasir)
         {
@@ -33,7 +33,7 @@ namespace Printer
 
         public static void WriteTempFileStatus(string kdPasien, byte bagian)
         {
-            string filePath = Path.Combine(GetUserTempPath(),tempFileName);
+            string filePath = Path.Combine(GetUserTempPath(),TempFileName);
             var writer = new StreamWriter(filePath);
             Logger.Logger.WriteLog(string.Format("Writing tempfile: {0}", filePath));
             writer.Write(kdPasien);
@@ -48,7 +48,7 @@ namespace Printer
 
         public static void WriteTempFileBill(string noTransaksi, string kdKasir)
         {
-            string filePath = Path.Combine(GetUserTempPath(), tempFileName);
+            string filePath = Path.Combine(GetUserTempPath(), TempFileName);
             var writer = new StreamWriter(filePath);
             Logger.Logger.WriteLog(string.Format("Writing tempfile: {0}", filePath));
             writer.Write(noTransaksi + '-' + kdKasir);
@@ -63,18 +63,18 @@ namespace Printer
 
         public static string ReadStatus(Options options)
         {
-            string line = GetLine(tempFileName);
+            string line = GetLine(TempFileName);
             var strArray = line.Split('#');
             return strArray[0];
         }
         private static string GetUserTempPath()
         {
-            IntPtr l_ptrEnvironment;
-            ProcessUtilities.SECURITY_ATTRIBUTES l_oSecurityAttributes;
-            ProcessUtilities.STARTUPINFO l_oStartupInfo;
+            IntPtr lPtrEnvironment;
+            ProcessUtilities.SECURITY_ATTRIBUTES lOSecurityAttributes;
+            ProcessUtilities.STARTUPINFO lOStartupInfo;
 
-            ProcessUtilities.LoadUserProfile(out l_oSecurityAttributes, out l_ptrEnvironment, out l_oStartupInfo);
-            if (l_ptrEnvironment == IntPtr.Zero)
+            ProcessUtilities.LoadUserProfile(out lOSecurityAttributes, out lPtrEnvironment, out lOStartupInfo);
+            if (lPtrEnvironment == IntPtr.Zero)
             {
                 return Path.GetTempPath();
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Printing;
 using System.Threading;
 using System.Windows.Forms;
@@ -73,11 +74,10 @@ namespace Printer
                         return false;
                     if (pq.Name == printer)
                     {
-                        var Jobs = pq.GetPrintJobInfoCollection();
-                        foreach (PrintSystemJobInfo job in Jobs)
+                        var jobs = pq.GetPrintJobInfoCollection();
+                        if (jobs.Any(job => job.Name.Contains("Tracer") || job.Name.Contains("Status")))
                         {
-                            if (job.Name.Contains("Tracer") || job.Name.Contains("Status"))
-                                return true;
+                            return true;
                         }
                     }
                 }

@@ -23,19 +23,19 @@ namespace Printer
 
     public class DatabaseService
     {
-        private IDataReader reader;
-        private OleDbCommand dbCommand;
-        private OleDbConnection dbConnection;
-        private readonly string connectionString;
+        private IDataReader _reader;
+        private OleDbCommand _dbCommand;
+        private OleDbConnection _dbConnection;
+        private readonly string _connectionString;
 
         public DatabaseService(String connectionString)
         {
-            this.connectionString = connectionString;
+            _connectionString = connectionString;
         }
 
         public DatabaseService(IDataReader reader)
         {
-            this.reader = reader;
+            _reader = reader;
         }
         public PatientVisitInfo GetVisitInfo(string kdKasir, string noTransaksi)
         {
@@ -73,17 +73,17 @@ namespace Printer
 
         public Report GetExecutable(string kdKelompokPasien, string kdKasir, bool modulPendaftaran)
         {
-            reader = ExecuteQuery(string.Format("SELECT KD_KASIR, PENDAFTARAN, KD_CUSTOMER_REPORT, NAMA_SP, PRINTER FROM RSUD_REPORTS WHERE " +
+            _reader = ExecuteQuery(string.Format("SELECT KD_KASIR, PENDAFTARAN, KD_CUSTOMER_REPORT, NAMA_SP, PRINTER FROM RSUD_REPORTS WHERE " +
                                                 "KD_KASIR = '{0}' AND KD_CUSTOMER = '{1}' AND PENDAFTARAN = {2}", kdKasir,
                                                 kdKelompokPasien, modulPendaftaran ? 1 : 0));
-            if (!reader.Read())
+            if (!_reader.Read())
                 throw new Exception(string.Format("Report belum disetting untuk kdKasir {0} dan kode customer {1}",
                                                   kdKasir, kdKelompokPasien));
             
-            var kdCustomer = (string)reader["KD_CUSTOMER_REPORT"];
-            var namaStoredProcedure = (string)reader["NAMA_SP"];
-            var pendaftaran = (bool) reader["PENDAFTARAN"];
-            var printer = (string) reader["PRINTER"];
+            var kdCustomer = (string)_reader["KD_CUSTOMER_REPORT"];
+            var namaStoredProcedure = (string)_reader["NAMA_SP"];
+            var pendaftaran = (bool) _reader["PENDAFTARAN"];
+            var printer = (string) _reader["PRINTER"];
             return new Report
                        {
                            Procedure = namaStoredProcedure,
@@ -92,20 +92,20 @@ namespace Printer
                        };
         }
 
-        public bool GetPrintStatus(PatientVisitInfo visitInfo, out short status, out short jaminan, out short kartu_berobat, out short tracer)
+        public bool GetPrintStatus(PatientVisitInfo visitInfo, out short status, out short jaminan, out short kartuBerobat, out short tracer)
         {
             status = 0;
             jaminan = 0;
-            kartu_berobat = 0;
+            kartuBerobat = 0;
             tracer = 0;
-            reader =
+            _reader =
                 ExecuteQuery("SELECT TOP 1 STATUS, JAMINAN, KARTU_BEROBAT, TRACER FROM RSUD_CETAKAN" + GetWhereClause(visitInfo));
-            if (!reader.Read())
+            if (!_reader.Read())
                 return false;
-            status = (short) reader["STATUS"];
-            jaminan = (short) reader["JAMINAN"];
-            kartu_berobat = (short) reader["KARTU_BEROBAT"];
-            tracer = (short) reader["TRACER"];
+            status = (short) _reader["STATUS"];
+            jaminan = (short) _reader["JAMINAN"];
+            kartuBerobat = (short) _reader["KARTU_BEROBAT"];
+            tracer = (short) _reader["TRACER"];
             return true;
         }
 
@@ -134,8 +134,8 @@ namespace Printer
 
         public bool GetSjp(PatientVisitInfo visitInfo)
         {
-            reader = ExecuteQuery("SELECT TOP 1 * FROM SJP_KUNJUNGAN " + GetWhereClause(visitInfo));
-            return reader.Read();
+            _reader = ExecuteQuery("SELECT TOP 1 * FROM SJP_KUNJUNGAN " + GetWhereClause(visitInfo));
+            return _reader.Read();
         }
 
         public void UpdateSjp(PatientVisitInfo visitInfo, string noSjp, bool update)
@@ -152,7 +152,7 @@ namespace Printer
             ExecuteQuery(commandText);
         }
 
-        public void UpdatePrintStatus(PatientVisitInfo visitInfo, int status, int jaminan, int kartu_berobat, short tracer, bool hasPrintStatus)
+        public void UpdatePrintStatus(PatientVisitInfo visitInfo, int status, int jaminan, int kartuBerobat, short tracer, bool hasPrintStatus)
         {
             string commandText;
             if (hasPrintStatus)
@@ -160,7 +160,7 @@ namespace Printer
                 commandText =
                     string.Format(
                         "UPDATE RSUD_CETAKAN SET STATUS = {0}, JAMINAN = {1} , KARTU_BEROBAT = {2}, TRACER = {3} {4}",
-                        status, jaminan, kartu_berobat, tracer, GetWhereClause(visitInfo));
+                        status, jaminan, kartuBerobat, tracer, GetWhereClause(visitInfo));
 
             }
             else
@@ -168,7 +168,7 @@ namespace Printer
                 commandText = string.Format("INSERT INTO RSUD_CETAKAN VALUES('{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7})",
                                             visitInfo.KdPasien, visitInfo.KdUnit,
                                             visitInfo.TglMasuk.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-                                            visitInfo.UrutMasuk, status, jaminan, kartu_berobat, tracer);
+                                            visitInfo.UrutMasuk, status, jaminan, kartuBerobat, tracer);
             }
             ExecuteQuery(commandText);
         }
@@ -185,15 +185,15 @@ namespace Printer
 
         public IDataReader ExecuteQuery(string commandText)
         {
-            if (reader != null)
-                return reader;
+            if (_reader != null)
+                return _reader;
 
-            dbConnection = new OleDbConnection(connectionString);
-            dbCommand = new OleDbCommand {Connection = dbConnection, CommandText = commandText};
-            dbConnection.Open();
+            _dbConnection = new OleDbConnection(_connectionString);
+            _dbCommand = new OleDbCommand {Connection = _dbConnection, CommandText = commandText};
+            _dbConnection.Open();
             
             Logger.Logger.WriteLog(commandText);
-            return dbCommand.ExecuteReader(CommandBehavior.KeyInfo);
+            return _dbCommand.ExecuteReader(CommandBehavior.KeyInfo);
         }
 
         public static PatientVisitInfo FillVisitInfo(IDataReader reader)
@@ -231,13 +231,9 @@ namespace Printer
         }
         private static bool Contains(DataTable table, string columnName)
         {
-            foreach (DataRow row in table.Rows)
-            {
-                if (row[0].ToString() == columnName)
-                    return true;
-            }
-            return false;
+            return table.Rows.Cast<DataRow>().Any(row => row[0].ToString() == columnName);
         }
+
         public string ExtractTtx(DataTable schemaTable)
         {
             List<Column> tableSchema = ParseTableSchema(schemaTable);
