@@ -59,9 +59,14 @@ namespace Printer
             Logger.Logger.WriteLog(string.Format("Sedang print pasien #{0}. Kelompok pasien: {1}.", visitInfo.KdPasien,
                                                  visitInfo.KelompokPasien));
 
-            service.IncreaseNota(visitInfo.KdKasir, visitInfo.NoTransaksi, visitInfo.KdKelompokPasien);
-
-            TempFileHelper.WriteTempFileBill(visitInfo.NoTransaksi, visitInfo.KdKasir);
+            if (Settings.Default.Pendaftaran)
+            {
+                TempFileHelper.WriteTempFileStatus(_options.KdPasien);
+            } else
+            {
+                service.IncreaseNota(visitInfo.KdKasir, visitInfo.NoTransaksi, visitInfo.KdKelompokPasien);
+                TempFileHelper.WriteTempFileBill(visitInfo.NoTransaksi, visitInfo.KdKasir);
+            }
 
             // determine executable
             var executable = service.GetExecutable(visitInfo.KdKelompokPasien, visitInfo.KdKasir, Settings.Default.Pendaftaran);

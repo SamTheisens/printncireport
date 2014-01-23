@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <StartArguments>-c</StartArguments>
+    <StartArguments>-x -p -k "0-21-51-23" -r 2 -j 123</StartArguments>
   </PropertyGroup>
   <PropertyGroup>
     <ReferencePath>C:\Program Files\Business Objects\Common\2.8\managed\</ReferencePath>
