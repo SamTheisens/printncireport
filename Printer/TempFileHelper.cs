@@ -31,11 +31,11 @@ namespace Printer
             return line;
         }
 
-        public static void WriteTempFileStatus(string kdPasien, byte bagian)
+        public static void WriteTempFileStatus(string kdPasien)
         {
             string filePath = Path.Combine(GetUserTempPath(),TempFileName);
             var writer = new StreamWriter(filePath);
-            Logger.Logger.WriteLog(string.Format("Writing tempfile: {0}", filePath));
+            Logger.Logger.WriteLog(string.Format("Sedang menulis '{0}' dalam tempfile: {1}", kdPasien, filePath));
             writer.Write(kdPasien);
             writer.Write('\r');
             writer.Write('\n');
@@ -50,8 +50,9 @@ namespace Printer
         {
             string filePath = Path.Combine(GetUserTempPath(), TempFileName);
             var writer = new StreamWriter(filePath);
-            Logger.Logger.WriteLog(string.Format("Writing tempfile: {0}", filePath));
-            writer.Write(noTransaksi + '-' + kdKasir);
+            var transaksiKasirKombi = noTransaksi + '-' + kdKasir;
+            Logger.Logger.WriteLog(string.Format("Sedang menulis '{0}' dalam tempfile: {1}", transaksiKasirKombi, filePath));
+            writer.Write(transaksiKasirKombi);
             writer.Write('\r');
             writer.Write('\n');
             writer.Write('\f');
