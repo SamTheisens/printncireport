@@ -159,7 +159,7 @@ namespace Printer
             }
             else
             {
-                _reportName = SettingsService.CreateReportName(string.Format("{0:D2}", Settings.Default.Kasir),
+                _reportName = SettingsService.CreateReportName(string.Format("{0:D2}", _kasir),
                                                               _pendaftaran, kdCustomerReport);
                 reportTextBox.Text = _reportName;
             }
