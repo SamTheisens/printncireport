@@ -258,6 +258,9 @@ namespace Printer
                     case "System.Int32" :
                         ttxFile += "Long\t1";
                         break;
+                    case "System.Byte":
+                        ttxFile += "Long\t1";
+                        break;
                     case "System.Int64":
                         ttxFile += "Long\t1";
                         break;
