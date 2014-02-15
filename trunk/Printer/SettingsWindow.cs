@@ -100,7 +100,7 @@ namespace Printer
                     reportsTableAdapter.UpdatePrinter(printer, kdCustomer, kdKasir, _pendaftaran);
 
                 else
-                    reportsTableAdapter.UpdateCustomerReport(kdCustomerReport, kdKasir, kdCustomer, _pendaftaran);
+                    reportsTableAdapter.UpdateCustomerReport(kdCustomerReport,  kdCustomer, kdKasir, _pendaftaran);
             }
         }
         private Boolean isInterestingEvent(ComboBox combo)
