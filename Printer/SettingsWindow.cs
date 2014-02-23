@@ -165,7 +165,7 @@ namespace Printer
             }
             if (!File.Exists(SettingsService.GetReportFolder() + _reportName))
             {
-                reportPresentTextBox.Text = _reportName + " belum ada di Reports";
+                reportPresentTextBox.Text = _reportName + " belum ada di Reports: " + SettingsService.GetReportFolder();
             }
             else
             {

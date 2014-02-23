@@ -253,13 +253,13 @@ namespace Printer
                         ttxFile += "String\t" + column.ColumnSize;
                         break;
                     case "System.DateTime" :
-                        ttxFile += "Dates";
+                        ttxFile += "Date\t1";
                         break;
                     case "System.Int32" :
                         ttxFile += "Long\t1";
                         break;
                     case "System.Byte":
-                        ttxFile += "Long\t1";
+                        ttxFile += "Byte\t1";
                         break;
                     case "System.Int64":
                         ttxFile += "Long\t1";
