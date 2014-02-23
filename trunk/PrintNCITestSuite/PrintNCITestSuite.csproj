@@ -88,6 +88,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="CRBIL-01-04.rpt" />
     <None Include="Print_Master.ex_">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
