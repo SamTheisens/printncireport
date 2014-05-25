@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TabPage tabKelompok;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.reportPreviewButton = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.reportPresentTextBox = new System.Windows.Forms.TextBox();
             this.buttonLaporan = new System.Windows.Forms.Button();
@@ -38,9 +40,14 @@
             this.reportTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.KdCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cUSTOMERDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KD_CUSTOMER_REPORT = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.cUSTOMERBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.rSKUPANGDataSet = new Printer.RSKUPANGDataSet();
+            this.NAMA_SP = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.proceduresBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.Printer = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.printerListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportsTableBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -62,13 +69,9 @@
             this.cUSTOMERTableAdapter = new Printer.RSKUPANGDataSetTableAdapters.CUSTOMERTableAdapter();
             this.ttxFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.kasirTableAdapter = new Printer.RSKUPANGDataSetTableAdapters.KasirTableAdapter();
-            this.KdCustomer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cUSTOMERDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.KD_CUSTOMER_REPORT = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.NAMA_SP = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Printer = new System.Windows.Forms.DataGridViewComboBoxColumn();
             tabKelompok = new System.Windows.Forms.TabPage();
             tabKelompok.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -91,6 +94,7 @@
             // 
             // tabKelompok
             // 
+            tabKelompok.Controls.Add(this.groupBox5);
             tabKelompok.Controls.Add(this.groupBox4);
             tabKelompok.Controls.Add(this.groupBox3);
             tabKelompok.Controls.Add(this.groupBox2);
@@ -103,6 +107,26 @@
             tabKelompok.Text = "Modul & Kelompok";
             tabKelompok.UseVisualStyleBackColor = true;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.reportPreviewButton);
+            this.groupBox5.Location = new System.Drawing.Point(613, 358);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(107, 67);
+            this.groupBox5.TabIndex = 7;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Crystal Report";
+            // 
+            // reportPreviewButton
+            // 
+            this.reportPreviewButton.Location = new System.Drawing.Point(7, 20);
+            this.reportPreviewButton.Name = "reportPreviewButton";
+            this.reportPreviewButton.Size = new System.Drawing.Size(94, 37);
+            this.reportPreviewButton.TabIndex = 0;
+            this.reportPreviewButton.Text = "Preview";
+            this.reportPreviewButton.UseVisualStyleBackColor = true;
+            this.reportPreviewButton.Click += new System.EventHandler(this.reportPreviewButton_Click);
+            // 
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -111,7 +135,7 @@
             this.groupBox4.Controls.Add(this.buttonLaporan);
             this.groupBox4.Location = new System.Drawing.Point(252, 358);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(478, 68);
+            this.groupBox4.Size = new System.Drawing.Size(355, 68);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "TTX";
@@ -126,16 +150,16 @@
             this.reportPresentTextBox.Multiline = true;
             this.reportPresentTextBox.Name = "reportPresentTextBox";
             this.reportPresentTextBox.ReadOnly = true;
-            this.reportPresentTextBox.Size = new System.Drawing.Size(373, 38);
+            this.reportPresentTextBox.Size = new System.Drawing.Size(261, 38);
             this.reportPresentTextBox.TabIndex = 4;
             // 
             // buttonLaporan
             // 
             this.buttonLaporan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLaporan.Location = new System.Drawing.Point(385, 19);
+            this.buttonLaporan.Location = new System.Drawing.Point(273, 19);
             this.buttonLaporan.Name = "buttonLaporan";
-            this.buttonLaporan.Size = new System.Drawing.Size(87, 38);
+            this.buttonLaporan.Size = new System.Drawing.Size(76, 38);
             this.buttonLaporan.TabIndex = 3;
             this.buttonLaporan.Text = "Bikin .ttx";
             this.buttonLaporan.UseVisualStyleBackColor = true;
@@ -203,6 +227,34 @@
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
             this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing_1);
             // 
+            // KdCustomer
+            // 
+            this.KdCustomer.DataPropertyName = "KD_CUSTOMER";
+            this.KdCustomer.HeaderText = "Kd Customer";
+            this.KdCustomer.Name = "KdCustomer";
+            this.KdCustomer.Visible = false;
+            // 
+            // cUSTOMERDataGridViewTextBoxColumn
+            // 
+            this.cUSTOMERDataGridViewTextBoxColumn.DataPropertyName = "CUSTOMER";
+            this.cUSTOMERDataGridViewTextBoxColumn.HeaderText = "Customer";
+            this.cUSTOMERDataGridViewTextBoxColumn.Name = "cUSTOMERDataGridViewTextBoxColumn";
+            this.cUSTOMERDataGridViewTextBoxColumn.ReadOnly = true;
+            this.cUSTOMERDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // KD_CUSTOMER_REPORT
+            // 
+            this.KD_CUSTOMER_REPORT.DataPropertyName = "KD_CUSTOMER_REPORT";
+            this.KD_CUSTOMER_REPORT.DataSource = this.cUSTOMERBindingSource;
+            this.KD_CUSTOMER_REPORT.DisplayMember = "CUSTOMER";
+            this.KD_CUSTOMER_REPORT.DropDownWidth = 200;
+            this.KD_CUSTOMER_REPORT.HeaderText = "Report";
+            this.KD_CUSTOMER_REPORT.Name = "KD_CUSTOMER_REPORT";
+            this.KD_CUSTOMER_REPORT.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.KD_CUSTOMER_REPORT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.KD_CUSTOMER_REPORT.ValueMember = "KD_CUSTOMER";
+            this.KD_CUSTOMER_REPORT.Width = 150;
+            // 
             // cUSTOMERBindingSource
             // 
             this.cUSTOMERBindingSource.DataMember = "CUSTOMER";
@@ -213,10 +265,30 @@
             this.rSKUPANGDataSet.DataSetName = "RSKUPANGDataSet";
             this.rSKUPANGDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
+            // NAMA_SP
+            // 
+            this.NAMA_SP.DataPropertyName = "NAMA_SP";
+            this.NAMA_SP.DataSource = this.proceduresBindingSource1;
+            this.NAMA_SP.DisplayMember = "name";
+            this.NAMA_SP.HeaderText = "Nama Stored Procedure";
+            this.NAMA_SP.Name = "NAMA_SP";
+            this.NAMA_SP.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.NAMA_SP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.NAMA_SP.ValueMember = "name";
+            this.NAMA_SP.Width = 160;
+            // 
             // proceduresBindingSource1
             // 
             this.proceduresBindingSource1.DataMember = "procedures";
             this.proceduresBindingSource1.DataSource = this.rSKUPANGDataSet;
+            // 
+            // Printer
+            // 
+            this.Printer.DataPropertyName = "PRINTER";
+            this.Printer.DataSource = this.printerListBindingSource;
+            this.Printer.HeaderText = "Printer";
+            this.Printer.Name = "Printer";
+            this.Printer.Width = 200;
             // 
             // printerListBindingSource
             // 
@@ -370,54 +442,6 @@
             // 
             this.kasirTableAdapter.ClearBeforeFill = true;
             // 
-            // KdCustomer
-            // 
-            this.KdCustomer.DataPropertyName = "KD_CUSTOMER";
-            this.KdCustomer.HeaderText = "Kd Customer";
-            this.KdCustomer.Name = "KdCustomer";
-            this.KdCustomer.Visible = false;
-            // 
-            // cUSTOMERDataGridViewTextBoxColumn
-            // 
-            this.cUSTOMERDataGridViewTextBoxColumn.DataPropertyName = "CUSTOMER";
-            this.cUSTOMERDataGridViewTextBoxColumn.HeaderText = "Customer";
-            this.cUSTOMERDataGridViewTextBoxColumn.Name = "cUSTOMERDataGridViewTextBoxColumn";
-            this.cUSTOMERDataGridViewTextBoxColumn.ReadOnly = true;
-            this.cUSTOMERDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // KD_CUSTOMER_REPORT
-            // 
-            this.KD_CUSTOMER_REPORT.DataPropertyName = "KD_CUSTOMER_REPORT";
-            this.KD_CUSTOMER_REPORT.DataSource = this.cUSTOMERBindingSource;
-            this.KD_CUSTOMER_REPORT.DisplayMember = "CUSTOMER";
-            this.KD_CUSTOMER_REPORT.DropDownWidth = 200;
-            this.KD_CUSTOMER_REPORT.HeaderText = "Report";
-            this.KD_CUSTOMER_REPORT.Name = "KD_CUSTOMER_REPORT";
-            this.KD_CUSTOMER_REPORT.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.KD_CUSTOMER_REPORT.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.KD_CUSTOMER_REPORT.ValueMember = "KD_CUSTOMER";
-            this.KD_CUSTOMER_REPORT.Width = 150;
-            // 
-            // NAMA_SP
-            // 
-            this.NAMA_SP.DataPropertyName = "NAMA_SP";
-            this.NAMA_SP.DataSource = this.proceduresBindingSource1;
-            this.NAMA_SP.DisplayMember = "name";
-            this.NAMA_SP.HeaderText = "Nama Stored Procedure";
-            this.NAMA_SP.Name = "NAMA_SP";
-            this.NAMA_SP.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.NAMA_SP.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.NAMA_SP.ValueMember = "name";
-            this.NAMA_SP.Width = 160;
-            // 
-            // Printer
-            // 
-            this.Printer.DataPropertyName = "PRINTER";
-            this.Printer.DataSource = this.printerListBindingSource;
-            this.Printer.HeaderText = "Printer";
-            this.Printer.Name = "Printer";
-            this.Printer.Width = 200;
-            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -431,6 +455,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsWindow_FormClosing);
             this.Load += new System.EventHandler(this.SettingsWindow_Load);
             tabKelompok.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -494,5 +519,7 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn KD_CUSTOMER_REPORT;
         private System.Windows.Forms.DataGridViewComboBoxColumn NAMA_SP;
         private System.Windows.Forms.DataGridViewComboBoxColumn Printer;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button reportPreviewButton;
     }
 }

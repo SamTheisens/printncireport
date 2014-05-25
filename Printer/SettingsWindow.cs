@@ -17,6 +17,17 @@ namespace Printer
         private bool _loaded;
         private string _kasir;
         private bool _pendaftaran;
+        
+
+        public String CurrentStoredProcedure
+        {
+            get { return dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[3].Value.ToString(); }
+        }
+
+        public String CurrentReportFile
+        {
+            get { return SettingsService.GetReportFolder() + _reportName; }
+        }
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
@@ -163,21 +174,23 @@ namespace Printer
                                                               _pendaftaran, kdCustomerReport);
                 reportTextBox.Text = _reportName;
             }
-            if (!File.Exists(SettingsService.GetReportFolder() + _reportName))
+            if (!File.Exists(CurrentReportFile))
             {
                 reportPresentTextBox.Text = _reportName + " belum ada di Reports: " + SettingsService.GetReportFolder();
+                reportPreviewButton.Enabled = false;
             }
             else
             {
                 reportPresentTextBox.Text = "";
+                reportPreviewButton.Enabled = true;
             }
         }
 
         private void buttonLaporan_Click(object sender, EventArgs e)
         {
             var service = new DatabaseService(SettingsService.GetConnectionString());
-            var dataset = service.ExecuteQuery(string.Format("EXEC {0} ''",
-                                               dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[3].Value));
+            
+            var dataset = service.ExecuteQuery(string.Format("EXEC {0} ''", CurrentStoredProcedure));
 
             ttxFolderBrowserDialog.SelectedPath = SettingsService.GetReportFolder();
 
@@ -228,6 +241,12 @@ namespace Printer
         private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
+        }
+
+        private void reportPreviewButton_Click(object sender, EventArgs e)
+        {
+            var form = new PrintPreviewForm(CurrentStoredProcedure, CurrentReportFile);
+            form.ShowDialog();
         }
 
     }
