@@ -62,7 +62,7 @@
             this.previewButton.TabIndex = 2;
             this.previewButton.Text = "Preview";
             this.previewButton.UseVisualStyleBackColor = true;
-            this.previewButton.Click += new System.EventHandler(this.previewButton_Click);
+            this.previewButton.Click += new System.EventHandler(this.PreviewButtonClick);
             // 
             // label1
             // 
@@ -116,6 +116,7 @@
             this.crystalReportViewer1.Name = "crystalReportViewer1";
             this.crystalReportViewer1.Size = new System.Drawing.Size(828, 418);
             this.crystalReportViewer1.TabIndex = 0;
+            this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
             // 
             // panel2
             // 
@@ -136,7 +137,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PrintPreviewForm";
             this.Text = "PrintPreviewForm";
-            this.Load += new System.EventHandler(this.PrintPreviewForm_Load);
+            this.Load += new System.EventHandler(this.PrintPreviewFormLoad);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
