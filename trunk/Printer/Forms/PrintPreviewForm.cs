@@ -19,8 +19,8 @@ namespace Printer.Forms
         {
             _report = report;
             _reportService = new ReportService();
-
             InitializeComponent();
+            printerLabel.Text = report.Printer;
         }
 
         private void PrintPreviewFormLoad(object sender, EventArgs e)
@@ -57,9 +57,5 @@ namespace Printer.Forms
         {
             _report.Parameter = spParameter.Text;
         }
-
-        
-
-
     }
 }

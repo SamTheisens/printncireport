@@ -3,6 +3,7 @@ using System.Threading;
 using CommandLine;
 using CommandLine.Parser;
 using Printer;
+using Printer.Forms;
 
 namespace PrintNCI
 {

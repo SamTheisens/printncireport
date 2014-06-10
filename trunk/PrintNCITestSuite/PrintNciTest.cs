@@ -3,6 +3,7 @@ using System.Globalization;
 using NUnit.Framework;
 using Printer;
 using PrintNCITestSuite.MockObjects;
+using Printer.Services;
 
 namespace PrintNCITestSuite
 {
