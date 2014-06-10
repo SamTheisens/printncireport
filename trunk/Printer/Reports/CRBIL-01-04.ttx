@@ -1,0 +1,20 @@
+NO_TRANSAKSI	String	7
+KD_PASIEN	String	12
+NAMA	String	50
+TGL_TRANSAKSI	Date
+ALAMAT	String	50
+NO_ASURANSI	String	20
+CUSTOMER	String	40
+KD_USER	Long	1
+URUT	Long	1
+BARU	Boolean	1
+KD_CUSTOMER	String	10
+KD_PRODUK	Long	1
+KD_KASIR	String	2
+dtTgl	Dates
+TAG	Boolean	1
+Nama_Dokter	String	50
+NAMA_UNIT	String	25
+QTY	Long	1
+DESKRIPSI	String	100
+Jumlah	Number	1.00

@@ -49,5 +49,8 @@
     <Setting Name="StatusPrinter" Type="System.String" Scope="User">
       <Value Profile="(Default)">Bullzip PDF Printer</Value>
     </Setting>
+    <Setting Name="PrintLangsung" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
