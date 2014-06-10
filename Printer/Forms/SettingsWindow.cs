@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Printer.Properties;
+using Printer.Services;
 
-namespace Printer
+namespace Printer.Forms
 {
     public partial class SettingsWindow : Form
     {
@@ -17,19 +18,36 @@ namespace Printer
         private bool _loaded;
         private string _kasir;
         private bool _pendaftaran;
-        
+        private string _kdCustomer;
+
 
         public String CurrentStoredProcedure
         {
             get { return dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[3].Value.ToString(); }
         }
 
+        public String CurrentKdCustomer
+        {
+            get { return dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();  }
+        }
+
+        public String CurrentReport
+        {
+            get { return dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[2].Value.ToString();  }
+        }
+
+        public String CurrentPrinter
+        {
+            get { return dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[4].Value.ToString(); }
+        }
+
+
         public String CurrentReportFile
         {
             get { return SettingsService.GetReportFolder() + _reportName; }
         }
 
-        private void SettingsWindow_Load(object sender, EventArgs e)
+        private void SettingsWindowLoad(object sender, EventArgs e)
         {
             
             propertyGrid.SelectedObject = Settings.Default;
@@ -69,22 +87,22 @@ namespace Printer
             _kasir = string.Format("{0,2:D2}", Settings.Default.Kasir);
         }
 
-        private void SettingsWindow_FormClosing(object sender, FormClosingEventArgs e)
+        private void SettingsWindowFormClosing(object sender, FormClosingEventArgs e)
         {
             Settings.Default.Save();
         }
 
-        private void dataGridView1_EditingControlShowing_1(object sender, DataGridViewEditingControlShowingEventArgs e)
+        private void DataGridView1EditingControlShowing1(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             var comboBox = e.Control as ComboBox;
             if (comboBox != null)
             {
-                comboBox.SelectedIndexChanged -= comboBox_SelectedIndexChanged;
-                comboBox.SelectedIndexChanged += comboBox_SelectedIndexChanged;
+                comboBox.SelectedIndexChanged -= ComboBoxSelectedIndexChanged;
+                comboBox.SelectedIndexChanged += ComboBoxSelectedIndexChanged;
             }
         }
 
-        void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        void ComboBoxSelectedIndexChanged(object sender, EventArgs e)
         {
             var combo = (ComboBox) sender;
             if (!isInterestingEvent(combo))
@@ -93,25 +111,25 @@ namespace Printer
             string kdCustomerReport;
             string namaSp;
             string printer;
-            var kdCustomer = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[0].Value.ToString();
+            
             var kdKasir = kasirComboBox.SelectedValue.ToString();
 
             FillVariables(combo, out namaSp, out printer, out kdCustomerReport);
 
-            if (reportsTableAdapter.NeedInsert(kdCustomer, kdKasir, _pendaftaran) == null)
+            if (reportsTableAdapter.NeedInsert(CurrentKdCustomer, kdKasir, _pendaftaran) == null)
             {
-                reportsTableAdapter.InsertReport(kdKasir, _pendaftaran, kdCustomer, kdCustomerReport, namaSp, printer);
+                reportsTableAdapter.InsertReport(kdKasir, _pendaftaran, _kdCustomer, kdCustomerReport, namaSp, printer);
             }
             else
             {
                 if (string.IsNullOrEmpty(kdCustomerReport) && string.IsNullOrEmpty(printer))
-                    reportsTableAdapter.UpdateStoredProcedure(namaSp, kdCustomer, kdKasir, _pendaftaran);
+                    reportsTableAdapter.UpdateStoredProcedure(namaSp, _kdCustomer, kdKasir, _pendaftaran);
 
                 else if (string.IsNullOrEmpty(kdCustomerReport) && string.IsNullOrEmpty(namaSp))
-                    reportsTableAdapter.UpdatePrinter(printer, kdCustomer, kdKasir, _pendaftaran);
+                    reportsTableAdapter.UpdatePrinter(printer, _kdCustomer, kdKasir, _pendaftaran);
 
                 else
-                    reportsTableAdapter.UpdateCustomerReport(kdCustomerReport,  kdCustomer, kdKasir, _pendaftaran);
+                    reportsTableAdapter.UpdateCustomerReport(kdCustomerReport,  _kdCustomer, kdKasir, _pendaftaran);
             }
         }
         private Boolean isInterestingEvent(ComboBox combo)
@@ -147,7 +165,7 @@ namespace Printer
             }
         }
 
-        private void kasirComboBox_SelectedValueChanged(object sender, EventArgs e)
+        private void KasirComboBoxSelectedValueChanged(object sender, EventArgs e)
         {
             var selectedItem = (ComboBox)sender;
             if (selectedItem.SelectedValue == null)
@@ -157,21 +175,20 @@ namespace Printer
             UpdateReportsTable();
         }
 
-        private void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
+        private void DataGridView1CurrentCellChanged(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentCell == null)
                 return;
-            var rowIndex = dataGridView1.CurrentCell.RowIndex;
-            string kdCustomerReport = dataGridView1.Rows[rowIndex].Cells[2].Value.ToString();
-            if (string.IsNullOrEmpty(kdCustomerReport))
+            
+            if (string.IsNullOrEmpty(CurrentReport))
             {
                 reportTextBox.Text = string.Format("Laporan dan Stored Procedure untuk {0} belum dipilih.",
-                                                   dataGridView1.Rows[rowIndex].Cells[0].Value);
+                                                   CurrentKdCustomer);
             }
             else
             {
                 _reportName = SettingsService.CreateReportName(string.Format("{0:D2}", _kasir),
-                                                              _pendaftaran, kdCustomerReport);
+                                                              _pendaftaran, CurrentReport);
                 reportTextBox.Text = _reportName;
             }
             if (!File.Exists(CurrentReportFile))
@@ -186,7 +203,7 @@ namespace Printer
             }
         }
 
-        private void buttonLaporan_Click(object sender, EventArgs e)
+        private void ButtonLaporanClick(object sender, EventArgs e)
         {
             var service = new DatabaseService(SettingsService.GetConnectionString());
             
@@ -207,13 +224,13 @@ namespace Printer
             MessageBox.Show(string.Format("Berhasil membuat .ttx datasource untuk report {0}", _reportName));
         }
 
-        private void billingRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void BillingRadioButtonCheckedChanged(object sender, EventArgs e)
         {
             _pendaftaran = !((RadioButton) sender).Checked;
             SetRadioButtons();
         }
 
-        private void pendaftaranRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void PendaftaranRadioButtonCheckedChanged(object sender, EventArgs e)
         {
             _pendaftaran = ((RadioButton)sender).Checked;
             SetRadioButtons();
@@ -233,19 +250,21 @@ namespace Printer
             reportsTableAdapter.Fill(rSKUPANGDataSet.ReportsTable, _kasir, _pendaftaran);            
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void dataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        private void DataGridView1DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
 
         }
 
-        private void reportPreviewButton_Click(object sender, EventArgs e)
+        private void ReportPreviewButtonClick(object sender, EventArgs e)
         {
-            var form = new PrintPreviewForm(CurrentStoredProcedure, CurrentReportFile);
+            var report = new Report { Procedure = CurrentStoredProcedure, FileName = CurrentReportFile, Printer = CurrentPrinter };
+
+            var form = new PrintPreviewForm(report);
             form.ShowDialog();
         }
 

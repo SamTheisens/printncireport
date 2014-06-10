@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Printer.Properties;
+using Printer.Services;
 
 namespace Printer
 {
@@ -19,7 +20,7 @@ namespace Printer
             Logger.Logger.WriteLog("Kasir: " + kdKasir + " Transaksi: " + noTransaksi);
         }
 
-        public static string GetLine(string tempFile)
+        private static string GetLine(string tempFile)
         {
             var filepath = Path.Combine(GetUserTempPath(), tempFile);
             if (!File.Exists(filepath))
@@ -62,7 +63,7 @@ namespace Printer
             writer.Close();
         }
 
-        public static string ReadStatus(Options options)
+        public static string ReadPatientId()
         {
             string line = GetLine(TempFileName);
             var strArray = line.Split('#');

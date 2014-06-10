@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
-using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 
-namespace Printer
+namespace Printer.Services
 {
     public struct Column
     {
@@ -20,6 +19,7 @@ namespace Printer
         public string FileName;
         public string Procedure;
         public string Printer;
+        public string Parameter;
     }
 
     public class DatabaseService

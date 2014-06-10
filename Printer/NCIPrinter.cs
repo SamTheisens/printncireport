@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using Printer.Properties;
+using Printer.Services;
 
 namespace Printer
 {
@@ -18,14 +20,11 @@ namespace Printer
         public NCIPrinter(Options options, string connectionString)
             : this(options)
         {
-            this._connectionString = connectionString;
+            _connectionString = connectionString;
         }
 
         public void Print()
         {
-            string kdKasir;
-            string noTransaksi;
-
             var visitInfo = new PatientVisitInfo();
             _options.SkipVerify = true;
 
@@ -37,10 +36,12 @@ namespace Printer
             }
             else if (_options.Pendaftaran)
             {
-                visitInfo = service.GetVisitInfoKasir(_options.KdKasir, TempFileHelper.ReadStatus(_options));
+                visitInfo = service.GetVisitInfoKasir(_options.KdKasir, TempFileHelper.ReadPatientId());
             }
             else
             {
+                string kdKasir;
+                string noTransaksi;
                 TempFileHelper.ReadBill(out noTransaksi, out kdKasir);
                 if (string.IsNullOrEmpty(_options.KdKasir))
                     _options.KdKasir = kdKasir;
@@ -78,7 +79,7 @@ namespace Printer
                                               visitInfo.KelompokPasien));
                 Thread.Sleep(4000);
             }
-            else TryPrint(executable, _options);
+            else TryPrint(executable, _options, visitInfo);
 
 
             if (Settings.Default.UpdateTracer)
@@ -92,11 +93,18 @@ namespace Printer
             Logger.Logger.WriteLog(string.Format("-- Cetak berhasil untuk pasien {0}", visitInfo.KdPasien));
         }
 
-        private static void TryPrint(Report report, Options options)
+        private static void TryPrint(Report report, Options options, PatientVisitInfo visitInfo)
         {
             if (options.PrintQueue)
                 PrintHelper.PrintQueueEmpty(options);
-            Print(report);
+            if (Settings.Default.PrintLangsung)
+            {
+                Print(report, visitInfo);
+            }
+            else
+            {
+                Print(report);
+            }
         }
 
         private static void UpdateSjp(PatientVisitInfo visitInfo, string noSjp)
@@ -147,6 +155,15 @@ namespace Printer
             return mauPrint;
         }
 
+        public static void Print(Report report, PatientVisitInfo visitInfo)
+        {
+            var reportService = new ReportService();
+            report.Parameter = Settings.Default.Pendaftaran ? visitInfo.KdPasien : String.Format(CultureInfo.InvariantCulture, "{0}-{1}", visitInfo.NoTransaksi, visitInfo.KdKasir);
+            reportService.CreateReport(report);
+            
+        }
+
+        
         public static void Print(Report report)
         {
             string fileName = Path.Combine(SettingsService.GetProgramFolder(), "Print_Report.exe");

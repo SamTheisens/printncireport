@@ -3,7 +3,7 @@ using System.IO;
 using Microsoft.Win32;
 using Printer.Properties;
 
-namespace Printer
+namespace Printer.Services
 {
     public static class SettingsService
     {

@@ -1,4 +1,4 @@
-﻿namespace Printer
+﻿namespace Printer.Forms
 {
     partial class PrintPreviewForm
     {
@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrintPreviewForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.printButton = new System.Windows.Forms.Button();
             this.previewButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.spParameter = new System.Windows.Forms.TextBox();
@@ -45,6 +46,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.printButton);
             this.panel1.Controls.Add(this.previewButton);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.spParameter);
@@ -53,6 +55,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(834, 38);
             this.panel1.TabIndex = 0;
+            // 
+            // printButton
+            // 
+            this.printButton.Location = new System.Drawing.Point(337, 5);
+            this.printButton.Name = "printButton";
+            this.printButton.Size = new System.Drawing.Size(75, 23);
+            this.printButton.TabIndex = 3;
+            this.printButton.Text = "Print";
+            this.printButton.UseVisualStyleBackColor = true;
+            this.printButton.Click += new System.EventHandler(this.PrintButtonClick);
             // 
             // previewButton
             // 
@@ -80,6 +92,7 @@
             this.spParameter.Size = new System.Drawing.Size(100, 20);
             this.spParameter.TabIndex = 0;
             this.spParameter.Text = "0015520-06";
+            this.spParameter.TextChanged += new System.EventHandler(this.SpParameterTextChanged);
             // 
             // groupBox1
             // 
@@ -117,6 +130,7 @@
             this.crystalReportViewer1.Size = new System.Drawing.Size(828, 418);
             this.crystalReportViewer1.TabIndex = 0;
             this.crystalReportViewer1.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None;
+            this.crystalReportViewer1.ToolPanelWidth = 0;
             // 
             // panel2
             // 
@@ -157,5 +171,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Panel panel2;
         private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
+        private System.Windows.Forms.Button printButton;
     }
 }

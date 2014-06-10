@@ -1,4 +1,4 @@
-﻿namespace Printer
+﻿namespace Printer.Forms
 {
     partial class SettingsWindow
     {
@@ -125,7 +125,7 @@
             this.reportPreviewButton.TabIndex = 0;
             this.reportPreviewButton.Text = "Preview";
             this.reportPreviewButton.UseVisualStyleBackColor = true;
-            this.reportPreviewButton.Click += new System.EventHandler(this.reportPreviewButton_Click);
+            this.reportPreviewButton.Click += new System.EventHandler(this.ReportPreviewButtonClick);
             // 
             // groupBox4
             // 
@@ -163,7 +163,7 @@
             this.buttonLaporan.TabIndex = 3;
             this.buttonLaporan.Text = "Bikin .ttx";
             this.buttonLaporan.UseVisualStyleBackColor = true;
-            this.buttonLaporan.Click += new System.EventHandler(this.buttonLaporan_Click);
+            this.buttonLaporan.Click += new System.EventHandler(this.ButtonLaporanClick);
             // 
             // groupBox3
             // 
@@ -222,10 +222,10 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(706, 260);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
-            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
-            this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridView1_EditingControlShowing_1);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1CellContentClick);
+            this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.DataGridView1CurrentCellChanged);
+            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataGridView1DataError);
+            this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridView1EditingControlShowing1);
             // 
             // KdCustomer
             // 
@@ -333,7 +333,7 @@
             this.kasirComboBox.Size = new System.Drawing.Size(231, 21);
             this.kasirComboBox.TabIndex = 3;
             this.kasirComboBox.ValueMember = "KD_KASIR";
-            this.kasirComboBox.SelectedIndexChanged += new System.EventHandler(this.kasirComboBox_SelectedValueChanged);
+            this.kasirComboBox.SelectedIndexChanged += new System.EventHandler(this.KasirComboBoxSelectedValueChanged);
             // 
             // kasirTableBindingSource
             // 
@@ -363,7 +363,7 @@
             this.billingRadioButton.TabStop = true;
             this.billingRadioButton.Text = "Billing";
             this.billingRadioButton.UseVisualStyleBackColor = true;
-            this.billingRadioButton.CheckedChanged += new System.EventHandler(this.billingRadioButton_CheckedChanged);
+            this.billingRadioButton.CheckedChanged += new System.EventHandler(this.BillingRadioButtonCheckedChanged);
             // 
             // pendaftaranRadioButton
             // 
@@ -375,7 +375,7 @@
             this.pendaftaranRadioButton.TabStop = true;
             this.pendaftaranRadioButton.Text = "Pendaftaran";
             this.pendaftaranRadioButton.UseVisualStyleBackColor = true;
-            this.pendaftaranRadioButton.CheckedChanged += new System.EventHandler(this.pendaftaranRadioButton_CheckedChanged);
+            this.pendaftaranRadioButton.CheckedChanged += new System.EventHandler(this.PendaftaranRadioButtonCheckedChanged);
             // 
             // reportsTableBindingSource1
             // 
@@ -452,8 +452,8 @@
             this.Name = "SettingsWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "PrintNCI Settings";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsWindow_FormClosing);
-            this.Load += new System.EventHandler(this.SettingsWindow_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsWindowFormClosing);
+            this.Load += new System.EventHandler(this.SettingsWindowLoad);
             tabKelompok.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
