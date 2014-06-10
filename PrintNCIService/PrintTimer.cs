@@ -4,6 +4,7 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using Printer;
 using PrintNCIService.Properties;
+using Printer.Services;
 
 namespace PrintNCIService
 {
