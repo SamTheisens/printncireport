@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Printer.Properties;
@@ -184,7 +185,7 @@ namespace Printer.Forms
             }
             else
             {
-                _reportName = SettingsService.CreateReportName(string.Format("{0:D2}", _kasir),
+                _reportName = SettingsService.CreateReportName(string.Format(CultureInfo.InvariantCulture, "{0:D2}", _kasir),
                                                               _pendaftaran, CurrentReport);
                 reportTextBox.Text = _reportName;
             }

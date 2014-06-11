@@ -72,7 +72,7 @@ namespace Printer
         public DataTable GetSchemaTable()
         {
 
-            DataTable schema = new DataTable("Schema");
+            var schema = new DataTable("Schema");
             schema.Columns.Add("ColumnName");
             schema.Columns.Add("ColumnOrdinal", typeof(int));
             schema.Columns.Add("ColumnSize", typeof(int));

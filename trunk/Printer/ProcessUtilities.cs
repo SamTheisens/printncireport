@@ -226,7 +226,7 @@ namespace Printer
         */
         static public int SimpleProcessStart(string in_strTarget, string in_strArguments)
         {
-            Process l_oProcess = new Process();
+            var l_oProcess = new Process();
             Debug.Assert(l_oProcess != null);
 
             l_oProcess.StartInfo.FileName = in_strTarget;
