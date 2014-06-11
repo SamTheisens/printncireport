@@ -80,7 +80,7 @@ namespace PrintNCITestSuite
             resultSet.AddRow("02", true, "0000000002", "RSUD_PRINT_BILL");
             var reader = new StubDataReader(resultSet);
             var service = new DatabaseService(reader);
-            var form = service.GetExecutable("0000000002", "02", true);
+            var form = service.GetReportInformation("0000000002", "02", true);
             Assert.AreEqual("CRPEN-02-02.rpt", form.FileName);
             Assert.AreEqual("RSUD_PRINT_BILL", form.Procedure);
         }
