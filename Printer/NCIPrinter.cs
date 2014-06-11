@@ -25,7 +25,7 @@ namespace Printer
 
         public void Print()
         {
-            var visitInfo = new PatientVisitInfo();
+            PatientVisitInfo visitInfo;
             _options.SkipVerify = true;
 
             var service = new DatabaseService(SettingsService.GetConnectionString(true));
