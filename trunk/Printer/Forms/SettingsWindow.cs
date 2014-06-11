@@ -15,10 +15,8 @@ namespace Printer.Forms
         }
 
         private string _reportName;
-        private bool _loaded;
         private string _kasir;
         private bool _pendaftaran;
-        private string _kdCustomer;
 
 
         public String CurrentStoredProcedure
@@ -79,7 +77,6 @@ namespace Printer.Forms
             {
                 MessageBox.Show(ex.Message);
             }
-            _loaded = true;
         }
 
         private void SetKasir()
@@ -118,18 +115,18 @@ namespace Printer.Forms
 
             if (reportsTableAdapter.NeedInsert(CurrentKdCustomer, kdKasir, _pendaftaran) == null)
             {
-                reportsTableAdapter.InsertReport(kdKasir, _pendaftaran, _kdCustomer, kdCustomerReport, namaSp, printer);
+                reportsTableAdapter.InsertReport(kdKasir, _pendaftaran, CurrentKdCustomer, kdCustomerReport, CurrentStoredProcedure, CurrentPrinter);
             }
             else
             {
                 if (string.IsNullOrEmpty(kdCustomerReport) && string.IsNullOrEmpty(printer))
-                    reportsTableAdapter.UpdateStoredProcedure(namaSp, _kdCustomer, kdKasir, _pendaftaran);
+                    reportsTableAdapter.UpdateStoredProcedure(namaSp, CurrentKdCustomer, kdKasir, _pendaftaran);
 
                 else if (string.IsNullOrEmpty(kdCustomerReport) && string.IsNullOrEmpty(namaSp))
-                    reportsTableAdapter.UpdatePrinter(printer, _kdCustomer, kdKasir, _pendaftaran);
+                    reportsTableAdapter.UpdatePrinter(printer, CurrentKdCustomer, kdKasir, _pendaftaran);
 
                 else
-                    reportsTableAdapter.UpdateCustomerReport(kdCustomerReport,  _kdCustomer, kdKasir, _pendaftaran);
+                    reportsTableAdapter.UpdateCustomerReport(kdCustomerReport, CurrentKdCustomer, kdKasir, _pendaftaran);
             }
         }
         private Boolean isInterestingEvent(ComboBox combo)

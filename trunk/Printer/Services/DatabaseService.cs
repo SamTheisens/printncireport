@@ -238,7 +238,7 @@ namespace Printer.Services
 
         public string ExtractTtx(DataTable schemaTable)
         {
-            List<Column> tableSchema = ParseTableSchema(schemaTable);
+            IEnumerable<Column> tableSchema = ParseTableSchema(schemaTable);
             return PrintTtxString(tableSchema);
         }
 
@@ -282,7 +282,7 @@ namespace Printer.Services
             return ttxFile;
         }
 
-        private static List<Column> ParseTableSchema(DataTable schemaTable)
+        private static IEnumerable<Column> ParseTableSchema(DataTable schemaTable)
         {
             var tableSchema = new List<Column>();
             foreach (DataRow myField in schemaTable.Rows)

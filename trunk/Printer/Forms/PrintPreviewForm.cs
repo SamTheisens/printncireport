@@ -18,6 +18,7 @@ namespace Printer.Forms
         public PrintPreviewForm(Report report)
         {
             _report = report;
+            _report.Parameter = spParameter.Text;
             _reportService = new ReportService();
             InitializeComponent();
             printerLabel.Text = report.Printer;
