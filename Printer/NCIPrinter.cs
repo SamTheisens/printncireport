@@ -158,9 +158,10 @@ namespace Printer
         public static void Print(Report report, PatientVisitInfo visitInfo)
         {
             var reportService = new ReportService();
+            report.FileName = Path.Combine(SettingsService.GetReportFolder(), report.FileName);
             report.Parameter = Settings.Default.Pendaftaran ? visitInfo.KdPasien : String.Format(CultureInfo.InvariantCulture, "{0}-{1}", visitInfo.NoTransaksi, visitInfo.KdKasir);
-            reportService.CreateReport(report);
-            
+            Logger.Logger.WriteLog(String.Format("Cetak langsung report: {0}, procedure: {1} '{2}'", report.FileName, report.Procedure, report.Parameter));
+            reportService.PrintReport(report);
         }
 
         
