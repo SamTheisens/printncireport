@@ -72,7 +72,7 @@ namespace Printer.Services
                               kdKasir, noTransaksi));
         }
 
-        public Report GetExecutable(string kdKelompokPasien, string kdKasir, bool modulPendaftaran)
+        public Report GetReportInformation(string kdKelompokPasien, string kdKasir, bool modulPendaftaran)
         {
             _reader = ExecuteQuery(string.Format("SELECT KD_KASIR, PENDAFTARAN, KD_CUSTOMER_REPORT, NAMA_SP, PRINTER FROM RSUD_REPORTS WHERE " +
                                                 "KD_KASIR = '{0}' AND KD_CUSTOMER = '{1}' AND PENDAFTARAN = {2}", kdKasir,

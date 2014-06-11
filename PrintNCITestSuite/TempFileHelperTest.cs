@@ -18,7 +18,7 @@ namespace PrintNCITestSuite
             resultSet.AddRow("0000000002", "RSUD_JAMINAN_RJ");
             var reader = new StubDataReader(resultSet);
             var service = new DatabaseService(reader);
-            var report = service.GetExecutable("0000000002", "01", true);
+            var report = service.GetReportInformation("0000000002", "01", true);
             Assert.AreEqual(report.FileName, "PEN-02");
             Assert.AreEqual(report.Procedure, "RSUD_JAMINAN_RJ");
 

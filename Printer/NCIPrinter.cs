@@ -60,30 +60,38 @@ namespace Printer
             Logger.Logger.WriteLog(string.Format("Sedang print pasien #{0}. Kelompok pasien: {1}.", visitInfo.KdPasien,
                                                  visitInfo.KelompokPasien));
 
-            if (Settings.Default.Pendaftaran)
+            if (!Settings.Default.PrintLangsung)
             {
-                TempFileHelper.WriteTempFileStatus(_options.KdPasien);
-            } else
-            {
-                service.IncreaseNota(visitInfo.KdKasir, visitInfo.NoTransaksi, visitInfo.KdKelompokPasien);
-                TempFileHelper.WriteTempFileBill(visitInfo.NoTransaksi, visitInfo.KdKasir);
+                WriteTempFile(visitInfo, service);
             }
 
-            // determine executable
-            var executable = service.GetExecutable(visitInfo.KdKelompokPasien, visitInfo.KdKasir, Settings.Default.Pendaftaran);
+            var report = service.GetReportInformation(visitInfo.KdKelompokPasien, visitInfo.KdKasir, Settings.Default.Pendaftaran);
 
-            if (executable.FileName.Length == 0)
+            if (report.FileName.Length == 0)
             {
-                Logger.Logger.WriteLog(string.Format("Maaf. Pasien {0} pasien {1}. Tidak bisa print Jaminan.",
+                Logger.Logger.WriteLog(string.Format("Maaf. Pasien {0}, kelompok {1}. Tidak bisa print Jaminan.",
                                               visitInfo.KdPasien,
                                               visitInfo.KelompokPasien));
                 Thread.Sleep(4000);
             }
-            else TryPrint(executable, _options, visitInfo);
+            else TryPrint(report, _options, visitInfo);
 
 
             if (Settings.Default.UpdateTracer)
                 UpdateTracer(visitInfo);
+        }
+
+        private void WriteTempFile(PatientVisitInfo visitInfo, DatabaseService service)
+        {
+            if (Settings.Default.Pendaftaran)
+            {
+                TempFileHelper.WriteTempFileStatus(_options.KdPasien);
+            }
+            else
+            {
+                service.IncreaseNota(visitInfo.KdKasir, visitInfo.NoTransaksi, visitInfo.KdKelompokPasien);
+                TempFileHelper.WriteTempFileBill(visitInfo.NoTransaksi, visitInfo.KdKasir);
+            }
         }
 
         private void UpdateTracer(PatientVisitInfo visitInfo)
