@@ -17,16 +17,15 @@ namespace Printer.Forms
 
         public PrintPreviewForm(Report report)
         {
+            InitializeComponent();
             _report = report;
             _report.Parameter = spParameter.Text;
             _reportService = new ReportService();
-            InitializeComponent();
             printerLabel.Text = report.Printer;
         }
 
         private void PrintPreviewFormLoad(object sender, EventArgs e)
         {
-
         }
 
         private void PreviewButtonClick(object sender, EventArgs e)
@@ -45,8 +44,7 @@ namespace Printer.Forms
         {
             try
             {
-
-             _reportService.PrintReport(_report);
+                _reportService.PrintReport(_report);
             }
             catch (Exception ex)
             {
