@@ -14,6 +14,10 @@ namespace Printer
         public byte? KdBagian;
         public string KdKasir;
         public string NoTransaksi;
+        public string tglkeluar;
+        public string transfer;
+        public string kduser;
         public string Nama;
+        public string kamar;
     }
 }

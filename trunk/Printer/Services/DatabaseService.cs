@@ -48,6 +48,20 @@ namespace Printer.Services
             "dbo.KUNJUNGAN.KD_UNIT = dbo.UNIT.KD_UNIT INNER JOIN PASIEN P ON P.KD_PASIEN = KUNJUNGAN.KD_PASIEN WHERE KD_KASIR = '" +
                 kdKasir + "' AND NO_TRANSAKSI = '" + noTransaksi + "'"));
         }
+
+        public PatientVisitInfo GetVisitInfoRwi(string kdKasir, string noTransaksi, string tglkeluar, string transfer, string kduser, string kamar)
+        {
+            return FillVisitInfo(ExecuteQuery("SELECT KUNJUNGAN.KD_PASIEN, KUNJUNGAN.TGL_MASUK, KUNJUNGAN.KD_UNIT, KUNJUNGAN.URUT_MASUK, KUNJUNGAN.BARU, CUSTOMER.KD_CUSTOMER, " +
+            "CUSTOMER.CUSTOMER, UNIT.KD_BAGIAN, TRANSAKSI.NO_TRANSAKSI, TRANSAKSI.KD_KASIR, P.NAMA, " +
+            "'" + tglkeluar + "' as TGL_KELUAR, '" + transfer + "' as TRANSFER, '" + kduser + "' AS KDUSER, '" + kamar + "'KD_UNIT_KAMAR " +
+            "FROM TRANSAKSI INNER JOIN KUNJUNGAN ON TRANSAKSI.KD_PASIEN = KUNJUNGAN.KD_PASIEN AND TRANSAKSI.KD_UNIT = KUNJUNGAN.KD_UNIT AND  " +
+            "TRANSAKSI.TGL_TRANSAKSI = KUNJUNGAN.TGL_MASUK AND TRANSAKSI.URUT_MASUK = KUNJUNGAN.URUT_MASUK INNER JOIN " +
+            "CUSTOMER ON KUNJUNGAN.KD_CUSTOMER = CUSTOMER.KD_CUSTOMER INNER JOIN " +
+            "UNIT ON KUNJUNGAN.KD_UNIT = UNIT.KD_UNIT INNER JOIN " +
+            "PASIEN AS P ON P.KD_PASIEN = KUNJUNGAN.KD_PASIEN " +
+            "WHERE TRANSAKSI.KD_KASIR = '" + kdKasir + "' AND TRANSAKSI.NO_TRANSAKSI = '" + noTransaksi + "'"));
+        }
+
         public void IncreaseNota(string kdKasir, string noTransaksi, string kdCustomer)
         {
             ExecuteQuery(string.Format("INSERT INTO NOTA_BILL SELECT '{0}', '{1}', MAX(NO_NOTA) + 1, 0, 0, 'TO', GETDATE(), '{2}' " +
@@ -57,11 +71,11 @@ namespace Printer.Services
         public PatientVisitInfo GetVisitInfoKasir(string kdKasir, string kdPasien)
         {
             return FillVisitInfo(ExecuteQuery("SELECT KUNJUNGAN.KD_PASIEN, KUNJUNGAN.TGL_MASUK, KUNJUNGAN.KD_UNIT, " +
-"KUNJUNGAN.URUT_MASUK, KUNJUNGAN.BARU, CUSTOMER.KD_CUSTOMER, CUSTOMER.CUSTOMER, UNIT.KD_BAGIAN, TRANSAKSI.NO_TRANSAKSI, TRANSAKSI.KD_KASIR FROM  dbo.TRANSAKSI INNER JOIN dbo.KUNJUNGAN ON " +
-"dbo.TRANSAKSI.KD_PASIEN = dbo.KUNJUNGAN.KD_PASIEN AND dbo.TRANSAKSI.KD_UNIT = dbo.KUNJUNGAN.KD_UNIT AND " +
-"dbo.TRANSAKSI.TGL_TRANSAKSI = dbo.KUNJUNGAN.TGL_MASUK AND dbo.TRANSAKSI.URUT_MASUK = dbo.KUNJUNGAN.URUT_MASUK " +
-"INNER JOIN dbo.CUSTOMER ON dbo.KUNJUNGAN.KD_CUSTOMER = dbo.CUSTOMER.KD_CUSTOMER INNER JOIN dbo.UNIT ON " +
-"dbo.KUNJUNGAN.KD_UNIT = dbo.UNIT.KD_UNIT WHERE KD_KASIR = '" + kdKasir + "' AND TRANSAKSI.KD_PASIEN = '" + kdPasien + "' ORDER BY KUNJUNGAN.TGL_MASUK DESC"));
+            "KUNJUNGAN.URUT_MASUK, KUNJUNGAN.BARU, CUSTOMER.KD_CUSTOMER, CUSTOMER.CUSTOMER, UNIT.KD_BAGIAN, TRANSAKSI.NO_TRANSAKSI, TRANSAKSI.KD_KASIR FROM  dbo.TRANSAKSI INNER JOIN dbo.KUNJUNGAN ON " +
+            "dbo.TRANSAKSI.KD_PASIEN = dbo.KUNJUNGAN.KD_PASIEN AND dbo.TRANSAKSI.KD_UNIT = dbo.KUNJUNGAN.KD_UNIT AND " +
+            "dbo.TRANSAKSI.TGL_TRANSAKSI = dbo.KUNJUNGAN.TGL_MASUK AND dbo.TRANSAKSI.URUT_MASUK = dbo.KUNJUNGAN.URUT_MASUK " +
+            "INNER JOIN dbo.CUSTOMER ON dbo.KUNJUNGAN.KD_CUSTOMER = dbo.CUSTOMER.KD_CUSTOMER INNER JOIN dbo.UNIT ON " +
+            "dbo.KUNJUNGAN.KD_UNIT = dbo.UNIT.KD_UNIT WHERE KD_KASIR = '" + kdKasir + "' AND TRANSAKSI.KD_PASIEN = '" + kdPasien + "' ORDER BY KUNJUNGAN.TGL_MASUK DESC"));
         }
 
 
@@ -214,7 +228,11 @@ namespace Printer.Services
                 KdUnit = TryGetValue(reader, "KD_UNIT", out value) ? value.ToString() : null,
                 NoTransaksi = TryGetValue(reader, "NO_TRANSAKSI", out value) ? value.ToString() : null,
                 KdKasir = TryGetValue(reader, "KD_KASIR", out value) ? value.ToString() : null,
-                Nama = TryGetValue(reader, "NAMA", out value) ? value.ToString() : null
+                Nama = TryGetValue(reader, "NAMA", out value) ? value.ToString() : null,
+                tglkeluar = TryGetValue(reader, "TGL_KELUAR", out value) ? value.ToString() : null,
+                transfer = TryGetValue(reader, "TRANSFER", out value) ? value.ToString() : null,
+                kduser = TryGetValue(reader, "KDUSER", out value) ? value.ToString() : null,
+                kamar = TryGetValue(reader, "KD_UNIT_KAMAR", out value) ? value.ToString() : null
             };
             return info;
         }
