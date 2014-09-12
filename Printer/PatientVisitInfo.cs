@@ -19,5 +19,6 @@ namespace Printer
         public string kduser;
         public string Nama;
         public string kamar;
+        public string kwitansi;
     }
 }

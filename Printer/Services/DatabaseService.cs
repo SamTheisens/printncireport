@@ -49,11 +49,11 @@ namespace Printer.Services
                 kdKasir + "' AND NO_TRANSAKSI = '" + noTransaksi + "'"));
         }
 
-        public PatientVisitInfo GetVisitInfoRwi(string kdKasir, string noTransaksi, string tglkeluar, string transfer, string kduser, string kamar)
+        public PatientVisitInfo GetVisitInfoRwi(string kdKasir, string noTransaksi, string tglkeluar, string transfer, string kduser, string kwitansi, string kamar)
         {
             return FillVisitInfo(ExecuteQuery("SELECT KUNJUNGAN.KD_PASIEN, KUNJUNGAN.TGL_MASUK, KUNJUNGAN.KD_UNIT, KUNJUNGAN.URUT_MASUK, KUNJUNGAN.BARU, CUSTOMER.KD_CUSTOMER, " +
             "CUSTOMER.CUSTOMER, UNIT.KD_BAGIAN, TRANSAKSI.NO_TRANSAKSI, TRANSAKSI.KD_KASIR, P.NAMA, " +
-            "'" + tglkeluar + "' as TGL_KELUAR, '" + transfer + "' as TRANSFER, '" + kduser + "' AS KDUSER, '" + kamar + "'KD_UNIT_KAMAR " +
+            "'" + tglkeluar + "' as TGL_KELUAR, '" + transfer + "' as TRANSFER, '" + kduser + "' AS KDUSER, '" + kwitansi + "' as KWITANSI,'" + kamar + "'KD_UNIT_KAMAR " +
             "FROM TRANSAKSI INNER JOIN KUNJUNGAN ON TRANSAKSI.KD_PASIEN = KUNJUNGAN.KD_PASIEN AND TRANSAKSI.KD_UNIT = KUNJUNGAN.KD_UNIT AND  " +
             "TRANSAKSI.TGL_TRANSAKSI = KUNJUNGAN.TGL_MASUK AND TRANSAKSI.URUT_MASUK = KUNJUNGAN.URUT_MASUK INNER JOIN " +
             "CUSTOMER ON KUNJUNGAN.KD_CUSTOMER = CUSTOMER.KD_CUSTOMER INNER JOIN " +
@@ -232,6 +232,7 @@ namespace Printer.Services
                 tglkeluar = TryGetValue(reader, "TGL_KELUAR", out value) ? value.ToString() : null,
                 transfer = TryGetValue(reader, "TRANSFER", out value) ? value.ToString() : null,
                 kduser = TryGetValue(reader, "KDUSER", out value) ? value.ToString() : null,
+                kwitansi = TryGetValue(reader, "KWITANSI", out value) ? value.ToString() : null,
                 kamar = TryGetValue(reader, "KD_UNIT_KAMAR", out value) ? value.ToString() : null
             };
             return info;

@@ -20,18 +20,19 @@ namespace Printer
             Logger.Logger.WriteLog("Kasir: " + kdKasir + " Transaksi: " + noTransaksi);
         }
 
-        public static void ReadBillrwi(out string noTransaksi, out string kdKasir, out string tglkeluar, out string transfer, out string kduser, out string kamar)
+        public static void ReadBillrwi(out string noTransaksi, out string kdKasir, out string tglkeluar, out string transfer, out string kduser,out string kwitansi, out string kamar)
         {
             string line = GetLine(Settings.Default.ReadBillTmpFileName);
             var strArray = line.Split('#');
-            noTransaksi = strArray[0];
-            kdKasir = strArray[1];
+            noTransaksi = strArray[0].Length < strArray[1].Length ? strArray[1] : strArray[0];
+            kdKasir = strArray[0].Length < strArray[1].Length ? strArray[0] : strArray[1];
             tglkeluar = strArray[2];
             transfer = strArray[3];
             kduser = strArray[4];
-            kamar = strArray[5];
+            kwitansi = strArray[5];
+            kamar = strArray[6];
 
-            Logger.Logger.WriteLog("Kasir: " + kdKasir + " Transaksi: " + noTransaksi + " tgl_keluar : " + tglkeluar + " Transfer? : " + transfer + " User : " + kduser + " kd_kamar : " + kamar);
+            Logger.Logger.WriteLog("Kasir: " + kdKasir + " Transaksi: " + noTransaksi + " tgl_keluar : " + tglkeluar + " Transfer? : " + transfer + " User : " + kduser + " kd_kamar : " + kamar + " kwitansi : " + kwitansi);
         }
 
         private static string GetLine(string tempFile)
@@ -77,11 +78,11 @@ namespace Printer
             writer.Close();
         }
 
-        public static void WriteTempFileBillrwi(string noTransaksi, string kdKasir, string kamar, string tglkeluar, string transfer, string kduser)
+        public static void WriteTempFileBillrwi(string noTransaksi, string kdKasir, string kamar, string tglkeluar, string transfer, string kduser, string kwitansi)
         {
             string filePath = Path.Combine(GetUserTempPath(), TempFileName);
             var writer = new StreamWriter(filePath);
-            var transaksiKasirKombi = noTransaksi + '-' + kdKasir + '-' + tglkeluar + '-' + transfer + '-' + kduser + '-' + kamar;
+            var transaksiKasirKombi = noTransaksi + '-' + kdKasir + '-' + tglkeluar + '-' + transfer + '-' + kduser + '-' + kwitansi + '-' +kamar;
             Logger.Logger.WriteLog(string.Format("Sedang menulis '{0}' dalam tempfile: {1}", transaksiKasirKombi, filePath));
             writer.Write(transaksiKasirKombi);
             writer.Write('\r');
