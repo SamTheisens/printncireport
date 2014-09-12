@@ -46,14 +46,15 @@ namespace Printer
                 string tglkeluar;
                 string transfer;
                 string kduser;
+                string kwitansi;
                 TempFileHelper.ReadBill(out noTransaksi, out kdKasir);
                 if (kdKasir == "02")
                 {
-                    TempFileHelper.ReadBillrwi(out noTransaksi, out kdKasir, out tglkeluar, out transfer, out kduser, out kamar);
+                    TempFileHelper.ReadBillrwi(out noTransaksi, out kdKasir, out tglkeluar, out transfer, out kduser, out kamar, out kwitansi);
                     if (string.IsNullOrEmpty(_options.KdKasir))
                         _options.KdKasir = kdKasir;
 
-                    visitInfo = service.GetVisitInfoRwi(_options.KdKasir, noTransaksi, tglkeluar, transfer, kduser, kamar);
+                    visitInfo = service.GetVisitInfoRwi(_options.KdKasir, noTransaksi, tglkeluar, transfer, kduser, kamar, kwitansi);
 
                 }
                 else
@@ -108,7 +109,7 @@ namespace Printer
                 service.IncreaseNota(visitInfo.KdKasir, visitInfo.NoTransaksi, visitInfo.KdKelompokPasien);
                 if (visitInfo.KdKasir == "02")
                 {
-                    TempFileHelper.WriteTempFileBillrwi(visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.tglkeluar, visitInfo.transfer, visitInfo.kduser, visitInfo.kamar);
+                    TempFileHelper.WriteTempFileBillrwi(visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.tglkeluar, visitInfo.transfer, visitInfo.kduser, visitInfo.kwitansi, visitInfo.kamar);
                 }
                 else 
                 TempFileHelper.WriteTempFileBill(visitInfo.NoTransaksi, visitInfo.KdKasir);
@@ -188,7 +189,7 @@ namespace Printer
         {
             var reportService = new ReportService();
             report.FileName = Path.Combine(SettingsService.GetReportFolder(), report.FileName);
-            report.Parameter = Settings.Default.Pendaftaran ? visitInfo.KdPasien : String.Format(CultureInfo.InvariantCulture, "{0}-{1}-{2}-{3}-{4}-{5}", visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.tglkeluar, visitInfo.transfer, visitInfo.kduser, visitInfo.kamar);
+            report.Parameter = Settings.Default.Pendaftaran ? visitInfo.KdPasien : String.Format(CultureInfo.InvariantCulture, "{0}-{1}-{2}-{3}-{4}-{5}-{6}", visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.tglkeluar, visitInfo.transfer, visitInfo.kduser, visitInfo.kwitansi, visitInfo.kamar);
             Logger.Logger.WriteLog(String.Format("Cetak langsung report: {0}, procedure: {1} '{2}'", report.FileName, report.Procedure, report.Parameter));
             reportService.PrintReport(report);
         }
