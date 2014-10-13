@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrintPreviewForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.printerLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.printButton = new System.Windows.Forms.Button();
             this.previewButton = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.printerLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -60,10 +60,20 @@
             this.panel1.Size = new System.Drawing.Size(834, 38);
             this.panel1.TabIndex = 0;
             // 
+            // printerLabel
+            // 
+            this.printerLabel.AutoSize = true;
+            this.printerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printerLabel.Location = new System.Drawing.Point(646, 11);
+            this.printerLabel.Name = "printerLabel";
+            this.printerLabel.Size = new System.Drawing.Size(44, 13);
+            this.printerLabel.TabIndex = 5;
+            this.printerLabel.Text = "Printer";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(418, 11);
+            this.label2.Location = new System.Drawing.Point(597, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 4;
@@ -71,7 +81,7 @@
             // 
             // printButton
             // 
-            this.printButton.Location = new System.Drawing.Point(337, 5);
+            this.printButton.Location = new System.Drawing.Point(516, 6);
             this.printButton.Name = "printButton";
             this.printButton.Size = new System.Drawing.Size(75, 23);
             this.printButton.TabIndex = 3;
@@ -81,7 +91,7 @@
             // 
             // previewButton
             // 
-            this.previewButton.Location = new System.Drawing.Point(255, 6);
+            this.previewButton.Location = new System.Drawing.Point(434, 7);
             this.previewButton.Name = "previewButton";
             this.previewButton.Size = new System.Drawing.Size(75, 23);
             this.previewButton.TabIndex = 2;
@@ -102,7 +112,7 @@
             // 
             this.spParameter.Location = new System.Drawing.Point(149, 8);
             this.spParameter.Name = "spParameter";
-            this.spParameter.Size = new System.Drawing.Size(100, 20);
+            this.spParameter.Size = new System.Drawing.Size(279, 20);
             this.spParameter.TabIndex = 0;
             this.spParameter.Text = "0015520-06";
             this.spParameter.TextChanged += new System.EventHandler(this.SpParameterTextChanged);
@@ -154,16 +164,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(855, 515);
             this.panel2.TabIndex = 3;
-            // 
-            // printerLabel
-            // 
-            this.printerLabel.AutoSize = true;
-            this.printerLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.printerLabel.Location = new System.Drawing.Point(467, 10);
-            this.printerLabel.Name = "printerLabel";
-            this.printerLabel.Size = new System.Drawing.Size(44, 13);
-            this.printerLabel.TabIndex = 5;
-            this.printerLabel.Text = "Printer";
             // 
             // PrintPreviewForm
             // 

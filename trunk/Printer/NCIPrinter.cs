@@ -189,7 +189,7 @@ namespace Printer
         {
             var reportService = new ReportService();
             report.FileName = Path.Combine(SettingsService.GetReportFolder(), report.FileName);
-            report.Parameter = Settings.Default.Pendaftaran ? visitInfo.KdPasien : String.Format(CultureInfo.InvariantCulture, "{0}-{1}-{2}-{3}-{4}-{5}-{6}", visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.tglkeluar, visitInfo.transfer, visitInfo.kduser, visitInfo.kwitansi, visitInfo.kamar);
+            report.Parameter = Settings.Default.Pendaftaran ? visitInfo.KdPasien : String.Format(CultureInfo.InvariantCulture, "{0}#{1}#{2}#{3}#{4}#{5}#{6}", visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.tglkeluar, visitInfo.transfer, visitInfo.kduser, visitInfo.kwitansi, visitInfo.kamar);
             Logger.Logger.WriteLog(String.Format("Cetak langsung report: {0}, procedure: {1} '{2}'", report.FileName, report.Procedure, report.Parameter));
             reportService.PrintReport(report);
         }
