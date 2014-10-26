@@ -229,11 +229,11 @@ namespace Printer.Services
                 NoTransaksi = TryGetValue(reader, "NO_TRANSAKSI", out value) ? value.ToString() : null,
                 KdKasir = TryGetValue(reader, "KD_KASIR", out value) ? value.ToString() : null,
                 Nama = TryGetValue(reader, "NAMA", out value) ? value.ToString() : null,
-                tglkeluar = TryGetValue(reader, "TGL_KELUAR", out value) ? value.ToString() : null,
-                transfer = TryGetValue(reader, "TRANSFER", out value) ? value.ToString() : null,
-                kduser = TryGetValue(reader, "KDUSER", out value) ? value.ToString() : null,
-                kwitansi = TryGetValue(reader, "KWITANSI", out value) ? value.ToString() : null,
-                kamar = TryGetValue(reader, "KD_UNIT_KAMAR", out value) ? value.ToString() : null
+                Tglkeluar = TryGetValue(reader, "TGL_KELUAR", out value) ? value.ToString() : null,
+                Transfer = TryGetValue(reader, "TRANSFER", out value) ? value.ToString() : null,
+                Kduser = TryGetValue(reader, "KDUSER", out value) ? value.ToString() : null,
+                Kwitansi = TryGetValue(reader, "KWITANSI", out value) ? value.ToString() : null,
+                Kamar = TryGetValue(reader, "KD_UNIT_KAMAR", out value) ? value.ToString() : null
             };
             return info;
         }

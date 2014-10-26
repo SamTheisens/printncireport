@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -66,6 +67,7 @@ namespace Printer
                 }
             }
 
+            Debug.Assert(visitInfo.KdBagian != null, "visitInfo.KdBagian != null");
             _options.KdBagian = visitInfo.KdBagian.Value;
 
             if (!_options.SkipVerify && !GetMauPrint(visitInfo.TglMasuk, visitInfo.Baru))
@@ -109,7 +111,7 @@ namespace Printer
                 service.IncreaseNota(visitInfo.KdKasir, visitInfo.NoTransaksi, visitInfo.KdKelompokPasien);
                 if (visitInfo.KdKasir == "02")
                 {
-                    TempFileHelper.WriteTempFileBillrwi(visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.tglkeluar, visitInfo.transfer, visitInfo.kduser, visitInfo.kwitansi, visitInfo.kamar);
+                    TempFileHelper.WriteTempFileBillrwi(visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.Tglkeluar, visitInfo.Transfer, visitInfo.Kduser, visitInfo.Kwitansi, visitInfo.Kamar);
                 }
                 else 
                 TempFileHelper.WriteTempFileBill(visitInfo.NoTransaksi, visitInfo.KdKasir);
@@ -189,7 +191,7 @@ namespace Printer
         {
             var reportService = new ReportService();
             report.FileName = Path.Combine(SettingsService.GetReportFolder(), report.FileName);
-            report.Parameter = Settings.Default.Pendaftaran ? visitInfo.KdPasien : String.Format(CultureInfo.InvariantCulture, "{0}#{1}#{2}#{3}#{4}#{5}#{6}", visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.tglkeluar, visitInfo.transfer, visitInfo.kduser, visitInfo.kwitansi, visitInfo.kamar);
+            report.Parameter = Settings.Default.Pendaftaran ? visitInfo.KdPasien : String.Format(CultureInfo.InvariantCulture, "{0}#{1}#{2}#{3}#{4}#{5}#{6}", visitInfo.NoTransaksi, visitInfo.KdKasir, visitInfo.Tglkeluar, visitInfo.Transfer, visitInfo.Kduser, visitInfo.Kwitansi, visitInfo.Kamar);
             Logger.Logger.WriteLog(String.Format("Cetak langsung report: {0}, procedure: {1} '{2}'", report.FileName, report.Procedure, report.Parameter));
             reportService.PrintReport(report);
         }
