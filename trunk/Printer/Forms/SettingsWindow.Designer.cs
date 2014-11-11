@@ -418,7 +418,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGrid.Location = new System.Drawing.Point(6, 6);
             this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.Size = new System.Drawing.Size(603, 355);
+            this.propertyGrid.Size = new System.Drawing.Size(726, 425);
             this.propertyGrid.TabIndex = 0;
             // 
             // proceduresTableAdapter
