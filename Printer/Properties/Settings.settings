@@ -52,5 +52,11 @@
     <Setting Name="PrintLangsung" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="LocalPrinterOption" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LocalPrinter" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Bullzip PDF Printer</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

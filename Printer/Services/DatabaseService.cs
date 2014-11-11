@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Globalization;
 using System.Linq;
+using Printer.Properties;
 
 namespace Printer.Services
 {
@@ -98,7 +99,16 @@ namespace Printer.Services
             var kdCustomer = (string)_reader["KD_CUSTOMER_REPORT"];
             var namaStoredProcedure = (string)_reader["NAMA_SP"];
             var pendaftaran = (bool) _reader["PENDAFTARAN"];
-            var printer = (string) _reader["PRINTER"];
+            string printer;
+            if (Settings.Default.LocalPrinterOption)
+            {
+                printer = (Settings.Default.LocalPrinter);
+            }
+            else
+            {
+                printer = (string)_reader["PRINTER"];
+            }
+            
             return new Report
                        {
                            Procedure = namaStoredProcedure,

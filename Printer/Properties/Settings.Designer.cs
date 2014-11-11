@@ -201,5 +201,29 @@ namespace Printer.Properties {
                 this["PrintLangsung"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LocalPrinterOption {
+            get {
+                return ((bool)(this["LocalPrinterOption"]));
+            }
+            set {
+                this["LocalPrinterOption"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Bullzip PDF Printer")]
+        public string LocalPrinter {
+            get {
+                return ((string)(this["LocalPrinter"]));
+            }
+            set {
+                this["LocalPrinter"] = value;
+            }
+        }
     }
 }
