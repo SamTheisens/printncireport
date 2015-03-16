@@ -1,0 +1,1 @@
+Executable that can interface between Medismart software and Crystal reports. Thus enabling the possibility to print Jaminan for different types of insurance.
