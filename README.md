@@ -3,3 +3,7 @@
 Executable that can interface between Medismart software and Crystal reports. Thus enabling the possibility to print Jaminan for different types of insurance.
 
 Automatically exported from code.google.com/p/printncireport
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/SamTheisens/printncireport/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
